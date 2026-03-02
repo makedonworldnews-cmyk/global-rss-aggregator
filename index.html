@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Глобални Вести - Санде | ~2950 RSS Извори</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .filter-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        #categoryFilter {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .news-container {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .news-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        }
+        
+        .news-item h3 {
+            margin: 0 0 15px;
+            font-size: 1.3em;
+        }
+        
+        .news-item h3 a {
+            text-decoration: none;
+            color: #2c3e50;
+            transition: color 0.3s;
+        }
+        
+        .news-item h3 a:hover {
+            color: #667eea;
+        }
+        
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        
+        .source {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+            font-size: 1.2em;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            background: #ffebee;
+            border-radius: 15px;
+            color: #c62828;
+            border: 2px solid #ef5350;
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+            color: #7f8c8d;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Глобални Вести</h1>
+            <p class="subtitle">Автоматски агрегатор со ~2950 RSS извори од целиот свет</p>
+            <div class="stats">
+                <div class="stat">📰 ~2950 Извори</div>
+                <div class="stat">🌐 195 Држави</div>
+                <div class="stat">🔄 Ажурирање на 6ч</div>
+                <div class="stat">💯 Бесплатно</div>
+            </div>
+        </header>
+        
+        <div class="filter-container">
+            <select id="categoryFilter" onchange="renderNews()">
+                <option value="all">📢 Сите Категории</option>
+            </select>
+        </div>
+        
+        <div id="news-container" class="news-container">
+            <div class="loading">⏳ Вчитување вести... Молиме почекајте.</div>
+        </div>
+        
+        <footer>
+            <p>🤝 Креирано од <strong>Санде</strong> | <a href="https://github.com/makedonworldnews-cmyk/global-rss-aggregator" target="_blank">GitHub Репозиториум</a></p>
+            <p>📊 Податоците се ажурираат автоматски на секои 6 часа преку GitHub Actions</p>
+        </footer>
+    </div>
+    
+    <script>
+        let allNews = [];
+        let categories = new Set();
+        
+        // Вчитување на вести од data/feeds.json
+        fetch('data/feeds.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP грешка: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                allNews = data;
+                
+                // Собирање на сите категории
+                allNews.forEach(item => {
+                    if (item.category) {
+                        categories.add(item.category);
+                    }
+                });
+                
+                // Пополнување на филтерот
+                const filter = document.getElementById('categoryFilter');
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    filter.appendChild(option);
+                });
+                
+                renderNews();
+            })
+            .catch(error => {
+                console.error('Грешка при вчитување:', error);
+                document.getElementById('news-container').innerHTML = `
+                    <div class="error">
+                        <h2>❌ Грешка при вчитување на вести</h2>
+                        <p><strong>Причина:</strong> ${error.message}</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong></p>
+                        <ul style="text-align: left; display: inline-block; margin-top: 10px;">
+                            <li>1. Провери дали <code>data/feeds.json</code> постои во репозиториумот</li>
+                            <li>2. Оди во <strong>Actions</strong> табот и пушти го workflow-от рачно</li>
+                            <li>3. Почекај 5 минути за да заврши ажурирањето</li>
+                            <li>4. Освежи ја страницата (F5)</li>
+                        </ul>
+                        <p style="margin-top: 15px;">🔗 <a href="https://github.com/makedonworldnews-cmyk/global-rss-aggregator/actions" target="_blank" style="color: #c62828;">Отвори GitHub Actions</a></p>
+                    </div>
+                `;
+            });
+        
+        // Функција за прикажување на вести
+        function renderNews() {
+            const container = document.getElementById('news-container');
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            
+            // Филтрирање
+            const filteredNews = selectedCategory === 'all' 
+                ? allNews 
+                : allNews.filter(item => item.category === selectedCategory);
+            
+            // Проверка за празни резултати
+            if (!filteredNews || filteredNews.length === 0) {
+                container.innerHTML = `
+                    <div class="empty">
+                        <h2>📭 Нема пронајдени вести</h2>
+                        <p>Обиди се да ја освежиш страницата или избери друга категорија.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Прикажи ги првите 100 вести (за перформанси)
+            const displayNews = filteredNews.slice(0, 100);
+            
+            container.innerHTML = displayNews.map(item => {
+                const date = new Date(item.pubDate).toLocaleString('mk-MK', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                return `
+                    <div class="news-item">
+                        <h3>
+                            <a href="${item.link || '#'}" target="_blank" rel="noopener noreferrer">
+                                ${item.title || 'Без наслов'}
+                            </a>
+                        </h3>
+                        <div class="meta">
+                            <span class="badge">${item.category || 'Општо'}</span>
+                            <span class="source">📢 ${item.source || 'Непознат извор'}</span>
+                            <span>🕐 ${date}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
