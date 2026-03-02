@@ -1,29 +1,19 @@
-name: RSS Aggregator
-on:
-  schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
-permissions:
-  contents: write
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with: { node-version: '18' }
-      - name: Install
-        run: npm install
-      - name: Fetch RSS
-        run: npm run fetch
-      - name: Commit
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/feeds.json
-          if ! git diff --staged --quiet; then
-            git commit -m "auto: update news [skip ci]"
-            git push
-          fi
+- name: Commit и Push промени
+  run: |
+    git config --global user.name 'github-actions[bot]'
+    git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    
+    # Додај ги промените
+    git add data/feeds.json
+    
+    # Провери дали има промени за commit
+    if ! git diff --staged --quiet; then
+      # Повлечи ги најновите промени од remote и ребасирај
+      git pull --rebase origin main || true
+      
+      # Обиди се да commit-неш и push-неш
+      git commit -m "auto: ажурирање на вести [skip ci]" || echo "Веќе комитирано"
+      git push origin main || echo "Push неуспешен, но нема критична грешка"
+    else
+      echo "Нема нови промени за зачувување."
+    fi
