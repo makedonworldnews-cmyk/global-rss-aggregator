@@ -1,19 +1,51 @@
-- name: Commit и Push промени
-  run: |
-    git config --global user.name 'github-actions[bot]'
-    git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+name: RSS Aggregator
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Секои 6 часа
+  workflow_dispatch:       # Рачно пуштање
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     
-    # Додај ги промените
-    git add data/feeds.json
-    
-    # Провери дали има промени за commit
-    if ! git diff --staged --quiet; then
-      # Повлечи ги најновите промени од remote и ребасирај
-      git pull --rebase origin main || true
-      
-      # Обиди се да commit-неш и push-неш
-      git commit -m "auto: ажурирање на вести [skip ci]" || echo "Веќе комитирано"
-      git push origin main || echo "Push неуспешен, но нема критична грешка"
-    else
-      echo "Нема нови промени за зачувување."
-    fi
+    steps:
+      - name: Checkout код
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Важно за git pull --rebase
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Инсталирај зависимости
+        run: npm install
+
+      - name: Изврши ја скриптата за RSS
+        run: npm run fetch
+
+      - name: Конфигурирај Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Commit и Push промени
+        run: |
+          git add data/feeds.json
+          
+          # Провери дали има промени за commit
+          if ! git diff --staged --quiet; then
+            # Повлечи ги најновите промени од remote
+            git pull --rebase origin main || true
+            
+            # Обиди се да commit-неш и push-неш
+            git commit -m "auto: ажурирање на вести [skip ci]" || echo "Веќе комитирано"
+            git push origin main || echo "Push неуспешен, но нема критична грешка"
+          else
+            echo "✅ Нема нови промени за зачувување."
+          fi
