@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <title>Глобални Вести - Санде</title>
+    <style>
+        body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f4f4f4; }
+        .news { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .badge { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h1>🌍 Глобални Вести (2800+ Извори)</h1>
+    <div id="news"></div>
+    <script>
+        fetch('./data/feeds.json')
+            .then(r => r.json())
+            .then(data => {
+                const div = document.getElementById('news');
+                data.slice(0, 50).forEach(i => {
+                    div.innerHTML += `<div class="news">
+                        <h3><a href="${i.link}" target="_blank">${i.title}</a></h3>
+                        <div><span class="badge">${i.category}</span> <b>${i.source}</b> • ${new Date(i.pubDate).toLocaleString()}</div>
+                    </div>`;
+                });
+            });
+    </script>
+</body>
+</html>
