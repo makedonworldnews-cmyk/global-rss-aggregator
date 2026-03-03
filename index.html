@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐉 Глобални Вести - Санде</title>
-    
-    <!-- 🌐 Google Translate -->
     <meta name="google" content="notranslate">
     
     <style>
@@ -113,12 +111,11 @@
             border-color: #4a4a6a !important;
         }
         
-        /* Hide Google banner */
         .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
         .skiptranslate { display: none; }
         
-        /* Main Layout - 3 Columns */
+        /* Main Layout */
         .main-layout {
             display: grid;
             grid-template-columns: 280px 1fr 280px;
@@ -127,9 +124,7 @@
         }
         
         @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
+            .main-layout { grid-template-columns: 1fr; }
         }
         
         /* Sidebar */
@@ -152,10 +147,7 @@
             padding-bottom: 10px;
         }
         
-        .platform-list {
-            display: grid;
-            gap: 6px;
-        }
+        .platform-list { display: grid; gap: 6px; }
         
         .platform-item {
             display: flex;
@@ -163,14 +155,9 @@
             gap: 8px;
             padding: 8px 12px;
             border-radius: 8px;
-            cursor: pointer;
             background: rgba(102, 126, 234, 0.05);
             text-decoration: none;
             color: var(--text-primary);
-        }
-        
-        .platform-item:hover {
-            background: rgba(102, 126, 234, 0.15);
         }
         
         .platform-icon { font-size: 1.2em; }
@@ -212,10 +199,9 @@
             cursor: pointer;
             font-weight: 600;
             font-size: 0.85em;
-            transition: background 0.2s;
         }
         
-        .filter-btn:hover, .filter-btn.active {
+        .filter-btn.active {
             background: var(--badge-bg);
             color: white;
         }
@@ -229,12 +215,7 @@
             outline: none;
         }
         
-        .search-input:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-        }
-        
-        /* News - БЕЗ ТРЕПЕРЕЊЕ */
+        /* News - БЕЗ ТРЕПЕРЕЊЕ - БЕЗ transform, БЕЗ transition */
         .news-container { display: grid; gap: 18px; }
         
         .news-item {
@@ -242,12 +223,12 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             overflow: hidden;
-            /* ОТСТРАНЕТО: transform, transition за да нема треперење */
+            /* НИКАКВИ transform или transition - стабилно! */
         }
         
-        /* Само сенка на hover, без движење */
+        /* Само промена на сенка на hover - БЕЗ движење */
         .news-item:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
         }
         
         .news-image {
@@ -331,7 +312,7 @@
             z-index: 10;
         }
         
-        /* Payment Section - НАЈДОЛУ */
+        /* Payment Section */
         .payment-section {
             background: var(--bg-card);
             padding: 25px;
@@ -395,7 +376,6 @@
             z-index: 1000;
         }
         
-        /* Loading */
         .loading {
             text-align: center;
             padding: 40px;
@@ -405,7 +385,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header>
             <h1>🐉 Глобални Вести</h1>
             <p>Автоматски агрегатор со ~2950 RSS извори</p>
@@ -414,83 +393,31 @@
                 <div class="stat">🌐 195 Држави</div>
                 <div class="stat">🔄 Ажурирање на 6ч</div>
             </div>
-            
-            <!-- 🌐 Google Translate -->
             <div id="google_translate_element"></div>
         </header>
         
-        <!-- Main Layout -->
         <div class="main-layout">
-            <!-- Left Sidebar - Социјални + Месинџери -->
+            <!-- Left Sidebar -->
             <aside class="sidebar">
                 <h3>📱 Социјални + Месинџери</h3>
                 <div class="platform-list">
-                    <a class="platform-item" href="https://facebook.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">📘</span>
-                        <span class="platform-name">Facebook</span>
-                        <span class="platform-count">3.0B</span>
-                    </a>
-                    <a class="platform-item" href="https://instagram.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">📷</span>
-                        <span class="platform-name">Instagram</span>
-                        <span class="platform-count">2.0B</span>
-                    </a>
-                    <a class="platform-item" href="https://twitter.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🐦</span>
-                        <span class="platform-name">X/Twitter</span>
-                        <span class="platform-count">550M</span>
-                    </a>
-                    <a class="platform-item" href="https://tiktok.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🎵</span>
-                        <span class="platform-name">TikTok</span>
-                        <span class="platform-count">1.5B</span>
-                    </a>
-                    <a class="platform-item" href="https://youtube.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">▶️</span>
-                        <span class="platform-name">YouTube</span>
-                        <span class="platform-count">2.5B</span>
-                    </a>
-                    <a class="platform-item" href="https://linkedin.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">💼</span>
-                        <span class="platform-name">LinkedIn</span>
-                        <span class="platform-count">900M</span>
-                    </a>
-                    <a class="platform-item" href="https://telegram.org" target="_blank" rel="noopener">
-                        <span class="platform-icon">✈️</span>
-                        <span class="platform-name">Telegram</span>
-                        <span class="platform-count">800M</span>
-                    </a>
-                    <a class="platform-item" href="https://whatsapp.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">💬</span>
-                        <span class="platform-name">WhatsApp</span>
-                        <span class="platform-count">2.7B</span>
-                    </a>
-                    <a class="platform-item" href="https://messenger.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">💭</span>
-                        <span class="platform-name">Messenger</span>
-                        <span class="platform-count">1.0B</span>
-                    </a>
-                    <a class="platform-item" href="https://viber.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">📞</span>
-                        <span class="platform-name">Viber</span>
-                        <span class="platform-count">800M</span>
-                    </a>
-                    <a class="platform-item" href="https://discord.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🎮</span>
-                        <span class="platform-name">Discord</span>
-                        <span class="platform-count">150M</span>
-                    </a>
-                    <a class="platform-item" href="https://signal.org" target="_blank" rel="noopener">
-                        <span class="platform-icon">🔐</span>
-                        <span class="platform-name">Signal</span>
-                        <span class="platform-count">40M</span>
-                    </a>
+                    <a class="platform-item" href="https://facebook.com" target="_blank" rel="noopener"><span class="platform-icon">📘</span><span class="platform-name">Facebook</span><span class="platform-count">3.0B</span></a>
+                    <a class="platform-item" href="https://instagram.com" target="_blank" rel="noopener"><span class="platform-icon">📷</span><span class="platform-name">Instagram</span><span class="platform-count">2.0B</span></a>
+                    <a class="platform-item" href="https://twitter.com" target="_blank" rel="noopener"><span class="platform-icon">🐦</span><span class="platform-name">X/Twitter</span><span class="platform-count">550M</span></a>
+                    <a class="platform-item" href="https://tiktok.com" target="_blank" rel="noopener"><span class="platform-icon">🎵</span><span class="platform-name">TikTok</span><span class="platform-count">1.5B</span></a>
+                    <a class="platform-item" href="https://youtube.com" target="_blank" rel="noopener"><span class="platform-icon">▶️</span><span class="platform-name">YouTube</span><span class="platform-count">2.5B</span></a>
+                    <a class="platform-item" href="https://linkedin.com" target="_blank" rel="noopener"><span class="platform-icon">💼</span><span class="platform-name">LinkedIn</span><span class="platform-count">900M</span></a>
+                    <a class="platform-item" href="https://telegram.org" target="_blank" rel="noopener"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></a>
+                    <a class="platform-item" href="https://whatsapp.com" target="_blank" rel="noopener"><span class="platform-icon">💬</span><span class="platform-name">WhatsApp</span><span class="platform-count">2.7B</span></a>
+                    <a class="platform-item" href="https://messenger.com" target="_blank" rel="noopener"><span class="platform-icon">💭</span><span class="platform-name">Messenger</span><span class="platform-count">1.0B</span></a>
+                    <a class="platform-item" href="https://viber.com" target="_blank" rel="noopener"><span class="platform-icon">📞</span><span class="platform-name">Viber</span><span class="platform-count">800M</span></a>
+                    <a class="platform-item" href="https://discord.com" target="_blank" rel="noopener"><span class="platform-icon">🎮</span><span class="platform-name">Discord</span><span class="platform-count">150M</span></a>
+                    <a class="platform-item" href="https://signal.org" target="_blank" rel="noopener"><span class="platform-icon">🔐</span><span class="platform-name">Signal</span><span class="platform-count">40M</span></a>
                 </div>
             </aside>
             
             <!-- Center Content -->
             <main class="center-content">
-                <!-- Filters -->
                 <div class="filters-container">
                     <h3>🐉 Филтер по Регион</h3>
                     <div class="filter-buttons" id="regionFilters">
@@ -502,7 +429,6 @@
                         <button class="filter-btn" onclick="filterByRegion('Африка')">🐉 Африка</button>
                         <button class="filter-btn" onclick="filterByRegion('Америка')">🐉 Америка</button>
                     </div>
-                    
                     <h3 style="margin-top: 15px;">📂 Филтер по Рубрика</h3>
                     <div class="filter-buttons" id="categoryFilters">
                         <button class="filter-btn active" onclick="filterByCategory('all')">📰 СИТЕ</button>
@@ -513,65 +439,30 @@
                         <button class="filter-btn" onclick="filterByCategory('ЗДРАВЈЕ')">🏥 ЗДРАВЈЕ</button>
                         <button class="filter-btn" onclick="filterByCategory('ЗАБАВА')">🎭 ЗАБАВА</button>
                     </div>
-                    
                     <input type="search" id="searchInput" class="search-input" placeholder="🔎 Пребарај вести..." oninput="renderNews()">
                 </div>
-                
-                <!-- News Container -->
                 <div id="news-container" class="news-container">
                     <div class="loading">⏳ Вчитување вести...</div>
                 </div>
             </main>
             
-            <!-- Right Sidebar - AI Платформи -->
+            <!-- Right Sidebar -->
             <aside class="sidebar">
                 <h3>🤖 AI Платформи</h3>
                 <div class="platform-list">
-                    <a class="platform-item" href="https://chat.openai.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🤖</span>
-                        <span class="platform-name">ChatGPT</span>
-                        <span class="platform-count">OpenAI</span>
-                    </a>
-                    <a class="platform-item" href="https://claude.ai" target="_blank" rel="noopener">
-                        <span class="platform-icon">🧠</span>
-                        <span class="platform-name">Claude</span>
-                        <span class="platform-count">Anthropic</span>
-                    </a>
-                    <a class="platform-item" href="https://gemini.google.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">💎</span>
-                        <span class="platform-name">Gemini</span>
-                        <span class="platform-count">Google</span>
-                    </a>
-                    <a class="platform-item" href="https://copilot.microsoft.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🦾</span>
-                        <span class="platform-name">Copilot</span>
-                        <span class="platform-count">Microsoft</span>
-                    </a>
-                    <a class="platform-item" href="https://midjourney.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">🎨</span>
-                        <span class="platform-name">Midjourney</span>
-                        <span class="platform-count">AI Art</span>
-                    </a>
-                    <a class="platform-item" href="https://perplexity.ai" target="_blank" rel="noopener">
-                        <span class="platform-icon">🔍</span>
-                        <span class="platform-name">Perplexity</span>
-                        <span class="platform-count">AI Search</span>
-                    </a>
-                    <a class="platform-item" href="https://grok.x.ai" target="_blank" rel="noopener">
-                        <span class="platform-icon">⚡</span>
-                        <span class="platform-name">Grok</span>
-                        <span class="platform-count">xAI</span>
-                    </a>
-                    <a class="platform-item" href="https://grammarly.com" target="_blank" rel="noopener">
-                        <span class="platform-icon">✓</span>
-                        <span class="platform-name">Grammarly</span>
-                        <span class="platform-count">Writing</span>
-                    </a>
+                    <a class="platform-item" href="https://chat.openai.com" target="_blank" rel="noopener"><span class="platform-icon">🤖</span><span class="platform-name">ChatGPT</span><span class="platform-count">OpenAI</span></a>
+                    <a class="platform-item" href="https://claude.ai" target="_blank" rel="noopener"><span class="platform-icon">🧠</span><span class="platform-name">Claude</span><span class="platform-count">Anthropic</span></a>
+                    <a class="platform-item" href="https://gemini.google.com" target="_blank" rel="noopener"><span class="platform-icon">💎</span><span class="platform-name">Gemini</span><span class="platform-count">Google</span></a>
+                    <a class="platform-item" href="https://copilot.microsoft.com" target="_blank" rel="noopener"><span class="platform-icon">🦾</span><span class="platform-name">Copilot</span><span class="platform-count">Microsoft</span></a>
+                    <a class="platform-item" href="https://midjourney.com" target="_blank" rel="noopener"><span class="platform-icon">🎨</span><span class="platform-name">Midjourney</span><span class="platform-count">AI Art</span></a>
+                    <a class="platform-item" href="https://perplexity.ai" target="_blank" rel="noopener"><span class="platform-icon">🔍</span><span class="platform-name">Perplexity</span><span class="platform-count">AI Search</span></a>
+                    <a class="platform-item" href="https://grok.x.ai" target="_blank" rel="noopener"><span class="platform-icon">⚡</span><span class="platform-name">Grok</span><span class="platform-count">xAI</span></a>
+                    <a class="platform-item" href="https://grammarly.com" target="_blank" rel="noopener"><span class="platform-icon">✓</span><span class="platform-name">Grammarly</span><span class="platform-count">Writing</span></a>
                 </div>
             </aside>
         </div>
         
-        <!-- Payment Section - НАЈДОЛУ -->
+        <!-- Payment Section -->
         <section class="payment-section">
             <h3>💳 Поддржете нè преку:</h3>
             <div class="payment-methods">
@@ -580,12 +471,9 @@
                 <button class="payment-btn visa" onclick="openPayment('visa')">💳 Visa</button>
                 <button class="payment-btn mastercard" onclick="openPayment('mastercard')">💳 Mastercard</button>
             </div>
-            <p style="text-align: center; color: var(--text-secondary); font-size: 0.85em;">
-                📧 makedonworldnews@gmail.com
-            </p>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.85em;">📧 makedonworldnews@gmail.com</p>
         </section>
         
-        <!-- Footer -->
         <footer>
             <p>🕐 Последно ажурирано: <span id="last-updated">...</span></p>
             <p>📧 <a href="mailto:makedonworldnews@gmail.com">makedonworldnews@gmail.com</a></p>
@@ -607,10 +495,9 @@
         </div>
     </div>
     
-    <!-- Theme Toggle -->
     <button id="theme-toggle" onclick="toggleTheme()">🌓 Тема</button>
     
-    <!-- 🌐 Google Translate Script -->
+    <!-- Google Translate -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -635,9 +522,7 @@
         
         function initTheme() {
             const saved = localStorage.getItem('theme');
-            if (saved === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
+            if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
         }
         
         function toggleTheme() {
@@ -656,8 +541,7 @@
                 updateLastUpdated();
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('news-container').innerHTML = 
-                    '<div class="loading">❌ Грешка при вчитување. Провери дали data/feeds.json постои.</div>';
+                document.getElementById('news-container').innerHTML = '<div class="loading">❌ Грешка при вчитување. Провери дали data/feeds.json постои.</div>';
             }
         }
         
@@ -665,9 +549,7 @@
             currentRegion = region;
             document.querySelectorAll('#regionFilters .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.textContent.includes(region === 'all' ? 'Сите' : region)) {
-                    btn.classList.add('active');
-                }
+                if (btn.textContent.includes(region === 'all' ? 'Сите' : region)) btn.classList.add('active');
             });
             renderNews();
         }
@@ -676,9 +558,7 @@
             currentCategory = category;
             document.querySelectorAll('#categoryFilters .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.textContent.includes(category === 'all' ? 'СИТЕ' : category)) {
-                    btn.classList.add('active');
-                }
+                if (btn.textContent.includes(category === 'all' ? 'СИТЕ' : category)) btn.classList.add('active');
             });
             renderNews();
         }
@@ -688,21 +568,12 @@
             const search = document.getElementById('searchInput').value.toLowerCase();
             
             let filtered = allNews.filter(item => {
-                if (currentRegion !== 'all') {
-                    const itemRegion = detectRegion(item);
-                    if (itemRegion !== currentRegion) return false;
-                }
-                
-                if (currentCategory !== 'all') {
-                    const itemCategory = detectCategory(item);
-                    if (itemCategory !== currentCategory) return false;
-                }
-                
+                if (currentRegion !== 'all' && detectRegion(item) !== currentRegion) return false;
+                if (currentCategory !== 'all' && detectCategory(item) !== currentCategory) return false;
                 if (search) {
                     const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''}`.toLowerCase();
                     if (!text.includes(search)) return false;
                 }
-                
                 return true;
             });
             
@@ -735,37 +606,29 @@
             }).join('');
         }
         
-        // ===== ЕКСТРАКЦИЈА НА СЛИКА ОД RSS =====
         function extractImageFromItem(item) {
             if (item.enclosure?.url) return item.enclosure.url;
             if (item['media:content']?.['$']?.url) return item['media:content']['$'].url;
             if (item['media:thumbnail']?.['$']?.url) return item['media:thumbnail']['$'].url;
-            
             const imgRegex = /<img[^>]+src="([^">]+)"/;
             if (item.content?.match(imgRegex)) return item.content.match(imgRegex)[1];
             if (item.description?.match(imgRegex)) return item.description.match(imgRegex)[1];
-            
             return 'https://via.placeholder.com/800x400/667eea/ffffff?text=News';
         }
         
-        // ===== АВТОМАТСКА ДЕТЕКЦИЈА НА РЕГИОН =====
         function detectRegion(item) {
             const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''} ${item.category || ''}`.toLowerCase();
-            
             if (/македони[јаи]|скопје|битола|прилеп|тетово/i.test(text)) return 'Македонија';
             if (/срби[јаи]|хрватска|босна|црна гора|албани[јаи]|косово|бугари[јаи]|грци[јаи]|романи[јаи]/i.test(text)) return 'Балкан';
             if (/германи[јаи]|франци[јаи]|итали[јаи]|шпани[јаи]|велика британи[јаи]|холанди[јаи]|белги[јаи]|швајцари[јаи]|австри[јаи]|полска|чешка|унгари[јаи]/i.test(text)) return 'Европа';
             if (/кина|јапони[јаи]|коре[јаи]|виетнам|тајланд|сингапур|малези[јаи]|индонези[јаи]|филипини/i.test(text)) return 'Азија';
             if (/египет|нигери[јаи]|јужна африка|кени[јаи]|етиопи[јаи]|гана|мароко|алжир/i.test(text)) return 'Африка';
             if (/америка|соединети држави|канада|мексико|бразил|аргентина|чиле|колумби[јаи]|перу/i.test(text)) return 'Америка';
-            
             return null;
         }
         
-        // ===== АВТОМАТСКА ДЕТЕКЦИЈА НА КАТЕГОРИЈА =====
         function detectCategory(item) {
             const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''} ${item.category || ''}`.toLowerCase();
-            
             if (/политик[аи]|влада|парламент|парти[јаи]|избори|премиер|претседател/i.test(text)) return 'ПОЛИТИКА';
             if (/бизнис|компани[јаи]|корпораци[јаи]|менаџмент|маркетинг/i.test(text)) return 'БИЗНИС';
             if (/економи[јаи]|финансии|банки|берза|инвестици[јаи]|тргови[јаи]/i.test(text)) return 'ЕКОНОМИЈА';
@@ -775,31 +638,7 @@
             if (/наук[аи]|технологи[јаи]|истражува[њаи]|иноваци[јаи]/i.test(text)) return 'ТЕХНОЛОГИЈА';
             if (/дипломати[јаи]|амбасада|меѓународни односи/i.test(text)) return 'ДИПЛОМАТИЈА';
             if (/безбедност|војска|полици[јаи]|одбрана/i.test(text)) return 'БЕЗБЕДНОСТ';
-            
             return item.category || null;
-        }
-        
-        function openModal(item) {
-            const modal = document.getElementById('news-modal');
-            document.getElementById('modal-image').src = extractImageFromItem(item);
-            document.getElementById('modal-title').textContent = item.title || 'Без наслов';
-            document.getElementById('modal-meta').innerHTML = `
-                <div><strong>📢 Медиум:</strong> ${item.source || 'Непознат'}</div>
-                <div><strong>🕐 Датум:</strong> ${new Date(item.pubDate).toLocaleString('mk-MK')}</div>
-                <div><strong>📂 Категорија:</strong> ${detectCategory(item) || 'Општо'}</div>
-                ${detectRegion(item) ? `<div><strong>🐉 Регион:</strong> ${detectRegion(item)}</div>` : ''}
-            `;
-            document.getElementById('modal-text').textContent = item.contentSnippet || 'Нема дополнителни информации.';
-            document.getElementById('modal-link').href = item.link || '#';
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(event) {
-            if (!event || event.target.id === 'news-modal' || event.target.className === 'modal-close') {
-                document.getElementById('news-modal').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
         }
         
         function openPayment(method) {
@@ -810,6 +649,13 @@
                 'mastercard': 'https://checkout.stripe.com'
             };
             if (urls[method]) window.open(urls[method], '_blank');
+        }
+        
+        function closeModal(event) {
+            if (!event || event.target.id === 'news-modal' || event.target.className === 'modal-close') {
+                document.getElementById('news-modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         }
         
         function updateLastUpdated() {
