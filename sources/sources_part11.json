@@ -49,4 +49,26 @@
   {"name":"Discord","url":"https://discord.com/blog/rss","category":"Месинџери"},
   {"name":"Slack","url":"https://slack.com/feed","category":"Месинџери"},
   {"name":"Zoom","url":"https://blog.zoom.us/feed","category":"Месинџери"}
+  [
+  {"name":"Reddit","url":"https://www.reddit.com/.rss","category":"Социјални"},
+  {"name":"Mastodon","url":"https://mastodon.social/@mastodon.rss","category":"Социјални"},
+  {"name":"Medium","url":"https://medium.com/feed","category":"Социјални"},
+  {"name":"Substack","url":"https://substack.com/feed","category":"Социјални"},
+  {"name":"Telegram Blog","url":"https://telegram.org/blog/feed","category":"Месинџери"},
+  {"name":"Signal Blog","url":"https://signal.org/blog/feed","category":"Месинџери"},
+  {"name":"WhatsApp Blog","url":"https://blog.whatsapp.com/rss","category":"Месинџери"},
+  {"name":"Discord Blog","url":"https://discord.com/blog/rss","category":"Месинџери"},
+  {"name":"Slack Blog","url":"https://slack.com/feed","category":"Месинџери"},
+  {"name":"OpenAI","url":"https://openai.com/rss","category":"AI"},
+  {"name":"Anthropic","url":"https://www.anthropic.com/rss","category":"AI"},
+  {"name":"Google DeepMind","url":"https://deepmind.google/rss","category":"AI"},
+  {"name":"Meta AI","url":"https://ai.meta.com/rss","category":"AI"},
+  {"name":"Microsoft AI","url":"https://www.microsoft.com/ai/rss","category":"AI"},
+  {"name":"IBM Watson","url":"https://www.ibm.com/watson/rss","category":"AI"},
+  {"name":"NVIDIA AI","url":"https://www.nvidia.com/ai/rss","category":"AI"},
+  {"name":"Hugging Face","url":"https://huggingface.co/rss","category":"AI"},
+  {"name":"Stability AI","url":"https://stability.ai/rss","category":"AI"},
+  {"name":"Cohere","url":"https://cohere.com/rss","category":"AI"},
+  {"name":"Mistral AI","url":"https://mistral.ai/rss","category":"AI"}
+]
 ]
