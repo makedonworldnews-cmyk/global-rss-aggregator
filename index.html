@@ -8,13 +8,6 @@
     <!-- 🌐 Google Translate -->
     <meta name="google" content="notranslate">
     
-    <!-- 💰 Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    
-    <!-- 💳 Payment Scripts -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-    
     <style>
         :root {
             --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -23,9 +16,8 @@
             --text-secondary: #7f8c8d;
             --badge-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --badge-text: #ffffff;
-            --shadow: 0 10px 40px rgba(0,0,0,0.2);
-            --border-radius: 15px;
-            --transition: all 0.3s ease;
+            --shadow: 0 5px 20px rgba(0,0,0,0.15);
+            --border-radius: 12px;
         }
         
         [data-theme="dark"] {
@@ -34,8 +26,7 @@
             --text-primary: #ecf0f1;
             --text-secondary: #bdc3c7;
             --badge-bg: linear-gradient(135deg, #4a4a6a 0%, #3a3a5a 100%);
-            --badge-text: #ffffff;
-            --shadow: 0 10px 40px rgba(0,0,0,0.5);
+            --shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,6 +37,7 @@
             min-height: 100vh;
             padding: 15px;
             color: var(--text-primary);
+            line-height: 1.5;
         }
         
         .container { max-width: 1400px; margin: 0 auto; }
@@ -60,12 +52,12 @@
             text-align: center;
         }
         
-        h1 { color: var(--text-primary); font-size: 2.2em; margin-bottom: 15px; }
+        h1 { color: var(--text-primary); font-size: 2em; margin-bottom: 15px; }
         
         .stats {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 20px;
         }
@@ -73,20 +65,21 @@
         .stat {
             background: var(--badge-bg);
             color: var(--badge-text);
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-weight: 600;
+            font-size: 0.9em;
         }
         
         /* 🌐 Google Translate - ГОРЕ, ЦЕНТАР, ВИДЛИВ */
         #google_translate_element {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
-            padding: 30px;
-            border-radius: 20px;
-            margin: 30px auto;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            border: 4px solid #667eea;
-            max-width: 700px;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border: 3px solid #667eea;
+            max-width: 650px;
             display: block;
         }
         
@@ -97,22 +90,21 @@
         
         .goog-te-gadget {
             font-family: inherit !important;
-            font-size: 18px !important;
-            font-weight: 700 !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
         }
         
         .goog-te-gadget select {
-            border: 4px solid #667eea !important;
-            border-radius: 15px !important;
-            padding: 18px 30px !important;
-            font-size: 17px !important;
-            font-weight: 700 !important;
+            border: 3px solid #667eea !important;
+            border-radius: 12px !important;
+            padding: 14px 24px !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
             background: white !important;
             color: #2c3e50 !important;
             cursor: pointer;
             outline: none;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            min-width: 300px;
+            min-width: 280px;
         }
         
         [data-theme="dark"] .goog-te-gadget select {
@@ -121,16 +113,15 @@
             border-color: #4a4a6a !important;
         }
         
-        .goog-te-gadget select:hover {
-            border-color: #764ba2 !important;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
-            transform: translateY(-3px);
-        }
+        /* Hide Google banner */
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+        .skiptranslate { display: none; }
         
         /* Main Layout - 3 Columns */
         .main-layout {
             display: grid;
-            grid-template-columns: 300px 1fr 300px;
+            grid-template-columns: 280px 1fr 280px;
             gap: 20px;
             margin-bottom: 20px;
         }
@@ -155,190 +146,156 @@
         .sidebar h3 {
             color: var(--text-primary);
             margin-bottom: 15px;
-            font-size: 1.2em;
+            font-size: 1.15em;
             text-align: center;
-            border-bottom: 3px solid var(--badge-bg);
+            border-bottom: 2px solid var(--badge-bg);
             padding-bottom: 10px;
         }
         
         .platform-list {
             display: grid;
-            gap: 8px;
+            gap: 6px;
         }
         
         .platform-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 10px;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: var(--transition);
             background: rgba(102, 126, 234, 0.05);
+            text-decoration: none;
+            color: var(--text-primary);
         }
         
         .platform-item:hover {
             background: rgba(102, 126, 234, 0.15);
-            transform: translateX(5px);
         }
         
-        .platform-icon { font-size: 1.3em; }
-        .platform-name { font-weight: 600; font-size: 0.9em; }
+        .platform-icon { font-size: 1.2em; }
+        .platform-name { font-weight: 600; font-size: 0.85em; }
         .platform-count {
             margin-left: auto;
             background: var(--badge-bg);
             color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.75em;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.7em;
             font-weight: 700;
         }
         
         /* Center Content */
         .center-content {
             background: var(--bg-card);
-            padding: 25px;
+            padding: 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
         }
         
         /* Filters */
-        .filters-container {
-            margin-bottom: 25px;
-        }
+        .filters-container { margin-bottom: 20px; }
         
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
         
         .filter-btn {
-            padding: 8px 16px;
+            padding: 6px 14px;
             border: 2px solid var(--badge-bg);
             background: transparent;
             color: var(--text-primary);
-            border-radius: 20px;
+            border-radius: 18px;
             cursor: pointer;
             font-weight: 600;
-            transition: var(--transition);
+            font-size: 0.85em;
+            transition: background 0.2s;
         }
         
         .filter-btn:hover, .filter-btn.active {
             background: var(--badge-bg);
             color: white;
-            transform: translateY(-2px);
         }
         
         .search-input {
             width: 100%;
-            padding: 14px;
-            font-size: 15px;
-            border: 3px solid #667eea;
-            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
             outline: none;
         }
         
         .search-input:focus {
             border-color: #764ba2;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
         
-        /* News */
-        .news-container { display: grid; gap: 20px; }
+        /* News - БЕЗ ТРЕПЕРЕЊЕ */
+        .news-container { display: grid; gap: 18px; }
         
         .news-item {
             background: var(--bg-card);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            cursor: pointer;
             overflow: hidden;
-            transition: var(--transition);
+            /* ОТСТРАНЕТО: transform, transition за да нема треперење */
         }
         
+        /* Само сенка на hover, без движење */
         .news-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
         }
         
         .news-image {
             width: 100%;
-            height: 300px;
+            height: 280px;
             object-fit: cover;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: block;
         }
         
-        .news-content { padding: 20px; }
+        .news-content { padding: 18px; }
         
         .news-item h3 {
-            margin: 0 0 12px;
-            font-size: 1.2em;
+            margin: 0 0 10px;
+            font-size: 1.15em;
             line-height: 1.4;
+            color: var(--text-primary);
+        }
+        
+        .news-item h3 a {
+            text-decoration: none;
+            color: inherit;
         }
         
         .meta {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: var(--text-secondary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .badge {
             background: var(--badge-bg);
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-weight: 600;
-        }
-        
-        /* Payment Section - НАЈДОЛУ */
-        .payment-section {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            margin-top: 30px;
-            box-shadow: var(--shadow);
-        }
-        
-        .payment-section h3 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            font-size: 1.5em;
-        }
-        
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .payment-btn {
-            padding: 15px;
-            border: none;
+            padding: 3px 10px;
             border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            color: white;
-            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.75em;
         }
-        
-        .payment-btn:hover { transform: translateY(-3px); }
-        .stripe { background: #635bff; }
-        .paypal { background: #00457C; }
-        .visa { background: #1A1F71; }
-        .mastercard { background: #EB001B; }
         
         /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
             overflow-y: auto;
             padding: 20px;
@@ -346,40 +303,79 @@
         
         .modal-content {
             background: var(--bg-card);
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
         }
         
         .modal-image {
             width: 100%;
-            height: 450px;
+            height: 400px;
             object-fit: cover;
         }
         
-        .modal-body { padding: 35px; }
+        .modal-body { padding: 25px; }
         
         .modal-close {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: white;
             border: none;
-            font-size: 2em;
+            font-size: 1.8em;
             cursor: pointer;
             z-index: 10;
         }
         
+        /* Payment Section - НАЈДОЛУ */
+        .payment-section {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-top: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .payment-section h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            font-size: 1.3em;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .payment-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        .stripe { background: #635bff; }
+        .paypal { background: #00457C; }
+        .visa { background: #1A1F71; }
+        .mastercard { background: #EB001B; }
+        
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             color: white;
-            margin-top: 30px;
+            margin-top: 25px;
+            font-size: 0.9em;
         }
         
         footer a { color: white; text-decoration: underline; }
@@ -387,16 +383,23 @@
         /* Theme Toggle */
         #theme-toggle {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 12px 24px;
-            border-radius: 30px;
+            bottom: 25px;
+            right: 25px;
+            padding: 10px 20px;
+            border-radius: 25px;
             border: none;
             background: var(--badge-bg);
             color: white;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 600;
             z-index: 1000;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
         }
     </style>
 </head>
@@ -412,56 +415,76 @@
                 <div class="stat">🔄 Ажурирање на 6ч</div>
             </div>
             
-            <!-- 🌐 Google Translate - ГОРЕ, ЦЕНТАР, ВИДЛИВ -->
+            <!-- 🌐 Google Translate -->
             <div id="google_translate_element"></div>
         </header>
         
         <!-- Main Layout -->
         <div class="main-layout">
-            <!-- Left Sidebar -->
+            <!-- Left Sidebar - Социјални + Месинџери -->
             <aside class="sidebar">
-                <h3>📱 Социјални Мрежи</h3>
+                <h3>📱 Социјални + Месинџери</h3>
                 <div class="platform-list">
-                    <div class="platform-item" onclick="openPlatform('facebook')">
+                    <a class="platform-item" href="https://facebook.com" target="_blank" rel="noopener">
                         <span class="platform-icon">📘</span>
                         <span class="platform-name">Facebook</span>
                         <span class="platform-count">3.0B</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('instagram')">
+                    </a>
+                    <a class="platform-item" href="https://instagram.com" target="_blank" rel="noopener">
                         <span class="platform-icon">📷</span>
                         <span class="platform-name">Instagram</span>
                         <span class="platform-count">2.0B</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('twitter')">
+                    </a>
+                    <a class="platform-item" href="https://twitter.com" target="_blank" rel="noopener">
                         <span class="platform-icon">🐦</span>
                         <span class="platform-name">X/Twitter</span>
                         <span class="platform-count">550M</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('tiktok')">
+                    </a>
+                    <a class="platform-item" href="https://tiktok.com" target="_blank" rel="noopener">
                         <span class="platform-icon">🎵</span>
                         <span class="platform-name">TikTok</span>
                         <span class="platform-count">1.5B</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('youtube')">
+                    </a>
+                    <a class="platform-item" href="https://youtube.com" target="_blank" rel="noopener">
                         <span class="platform-icon">▶️</span>
                         <span class="platform-name">YouTube</span>
                         <span class="platform-count">2.5B</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('linkedin')">
+                    </a>
+                    <a class="platform-item" href="https://linkedin.com" target="_blank" rel="noopener">
                         <span class="platform-icon">💼</span>
                         <span class="platform-name">LinkedIn</span>
                         <span class="platform-count">900M</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('telegram')">
+                    </a>
+                    <a class="platform-item" href="https://telegram.org" target="_blank" rel="noopener">
                         <span class="platform-icon">✈️</span>
                         <span class="platform-name">Telegram</span>
                         <span class="platform-count">800M</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('whatsapp')">
+                    </a>
+                    <a class="platform-item" href="https://whatsapp.com" target="_blank" rel="noopener">
                         <span class="platform-icon">💬</span>
                         <span class="platform-name">WhatsApp</span>
                         <span class="platform-count">2.7B</span>
-                    </div>
+                    </a>
+                    <a class="platform-item" href="https://messenger.com" target="_blank" rel="noopener">
+                        <span class="platform-icon">💭</span>
+                        <span class="platform-name">Messenger</span>
+                        <span class="platform-count">1.0B</span>
+                    </a>
+                    <a class="platform-item" href="https://viber.com" target="_blank" rel="noopener">
+                        <span class="platform-icon">📞</span>
+                        <span class="platform-name">Viber</span>
+                        <span class="platform-count">800M</span>
+                    </a>
+                    <a class="platform-item" href="https://discord.com" target="_blank" rel="noopener">
+                        <span class="platform-icon">🎮</span>
+                        <span class="platform-name">Discord</span>
+                        <span class="platform-count">150M</span>
+                    </a>
+                    <a class="platform-item" href="https://signal.org" target="_blank" rel="noopener">
+                        <span class="platform-icon">🔐</span>
+                        <span class="platform-name">Signal</span>
+                        <span class="platform-count">40M</span>
+                    </a>
                 </div>
             </aside>
             
@@ -480,7 +503,7 @@
                         <button class="filter-btn" onclick="filterByRegion('Америка')">🐉 Америка</button>
                     </div>
                     
-                    <h3 style="margin-top: 20px;">📂 Филтер по Рубрика</h3>
+                    <h3 style="margin-top: 15px;">📂 Филтер по Рубрика</h3>
                     <div class="filter-buttons" id="categoryFilters">
                         <button class="filter-btn active" onclick="filterByCategory('all')">📰 СИТЕ</button>
                         <button class="filter-btn" onclick="filterByCategory('ПОЛИТИКА')">🏛️ ПОЛИТИКА</button>
@@ -496,68 +519,54 @@
                 
                 <!-- News Container -->
                 <div id="news-container" class="news-container">
-                    <div style="text-align: center; padding: 50px;">⏳ Вчитување...</div>
+                    <div class="loading">⏳ Вчитување вести...</div>
                 </div>
             </main>
             
-            <!-- Right Sidebar -->
+            <!-- Right Sidebar - AI Платформи -->
             <aside class="sidebar">
-                <h3>🤖 AI Асистенти</h3>
+                <h3>🤖 AI Платформи</h3>
                 <div class="platform-list">
-                    <div class="platform-item" onclick="openPlatform('chatgpt')">
+                    <a class="platform-item" href="https://chat.openai.com" target="_blank" rel="noopener">
                         <span class="platform-icon">🤖</span>
                         <span class="platform-name">ChatGPT</span>
                         <span class="platform-count">OpenAI</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('claude')">
+                    </a>
+                    <a class="platform-item" href="https://claude.ai" target="_blank" rel="noopener">
                         <span class="platform-icon">🧠</span>
                         <span class="platform-name">Claude</span>
                         <span class="platform-count">Anthropic</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('gemini')">
+                    </a>
+                    <a class="platform-item" href="https://gemini.google.com" target="_blank" rel="noopener">
                         <span class="platform-icon">💎</span>
                         <span class="platform-name">Gemini</span>
                         <span class="platform-count">Google</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('copilot')">
+                    </a>
+                    <a class="platform-item" href="https://copilot.microsoft.com" target="_blank" rel="noopener">
                         <span class="platform-icon">🦾</span>
                         <span class="platform-name">Copilot</span>
                         <span class="platform-count">Microsoft</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('midjourney')">
+                    </a>
+                    <a class="platform-item" href="https://midjourney.com" target="_blank" rel="noopener">
                         <span class="platform-icon">🎨</span>
                         <span class="platform-name">Midjourney</span>
                         <span class="platform-count">AI Art</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('perplexity')">
+                    </a>
+                    <a class="platform-item" href="https://perplexity.ai" target="_blank" rel="noopener">
                         <span class="platform-icon">🔍</span>
                         <span class="platform-name">Perplexity</span>
                         <span class="platform-count">AI Search</span>
-                    </div>
-                </div>
-                
-                <h3 style="margin-top: 25px;">💬 Месинџери</h3>
-                <div class="platform-list">
-                    <div class="platform-item" onclick="openPlatform('messenger')">
-                        <span class="platform-icon">💭</span>
-                        <span class="platform-name">Messenger</span>
-                        <span class="platform-count">1.0B</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('viber')">
-                        <span class="platform-icon">📞</span>
-                        <span class="platform-name">Viber</span>
-                        <span class="platform-count">800M</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('discord')">
-                        <span class="platform-icon">🎮</span>
-                        <span class="platform-name">Discord</span>
-                        <span class="platform-count">150M</span>
-                    </div>
-                    <div class="platform-item" onclick="openPlatform('signal')">
-                        <span class="platform-icon">🔐</span>
-                        <span class="platform-name">Signal</span>
-                        <span class="platform-count">40M</span>
-                    </div>
+                    </a>
+                    <a class="platform-item" href="https://grok.x.ai" target="_blank" rel="noopener">
+                        <span class="platform-icon">⚡</span>
+                        <span class="platform-name">Grok</span>
+                        <span class="platform-count">xAI</span>
+                    </a>
+                    <a class="platform-item" href="https://grammarly.com" target="_blank" rel="noopener">
+                        <span class="platform-icon">✓</span>
+                        <span class="platform-name">Grammarly</span>
+                        <span class="platform-count">Writing</span>
+                    </a>
                 </div>
             </aside>
         </div>
@@ -571,7 +580,7 @@
                 <button class="payment-btn visa" onclick="openPayment('visa')">💳 Visa</button>
                 <button class="payment-btn mastercard" onclick="openPayment('mastercard')">💳 Mastercard</button>
             </div>
-            <p style="text-align: center; color: var(--text-secondary);">
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.85em;">
                 📧 makedonworldnews@gmail.com
             </p>
         </section>
@@ -590,10 +599,10 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <img id="modal-image" class="modal-image" src="" alt="News">
             <div class="modal-body">
-                <h2 id="modal-title"></h2>
-                <div id="modal-meta" style="margin: 15px 0; padding: 15px; background: rgba(102,126,234,0.1); border-radius: 10px;"></div>
-                <p id="modal-text"></p>
-                <a id="modal-link" href="#" target="_blank" style="display: inline-block; margin-top: 20px; padding: 12px 30px; background: var(--badge-bg); color: white; text-decoration: none; border-radius: 25px; font-weight: 700;">🔗 Отвори вест</a>
+                <h2 id="modal-title" style="margin-bottom: 15px; font-size: 1.5em;"></h2>
+                <div id="modal-meta" style="margin-bottom: 15px; padding: 12px; background: rgba(102,126,234,0.1); border-radius: 8px; font-size: 0.9em;"></div>
+                <p id="modal-text" style="line-height: 1.6; color: var(--text-secondary);"></p>
+                <a id="modal-link" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 15px; padding: 10px 25px; background: var(--badge-bg); color: white; text-decoration: none; border-radius: 20px; font-weight: 600;">🔗 Отвори вест</a>
             </div>
         </div>
     </div>
@@ -648,7 +657,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('news-container').innerHTML = 
-                    '<div style="text-align: center; padding: 50px; color: red;">❌ Грешка при вчитување. Провери дали data/feeds.json постои.</div>';
+                    '<div class="loading">❌ Грешка при вчитување. Провери дали data/feeds.json постои.</div>';
             }
         }
         
@@ -698,7 +707,7 @@
             });
             
             if (!filtered.length) {
-                container.innerHTML = '<div style="text-align: center; padding: 50px;">📭 Нема пронајдени вести</div>';
+                container.innerHTML = '<div class="loading">📭 Нема пронајдени вести</div>';
                 return;
             }
             
@@ -709,17 +718,17 @@
                 const imageUrl = extractImageFromItem(item);
                 
                 return `
-                    <article class="news-item" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                    <article class="news-item">
                         <img class="news-image" src="${imageUrl}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/800x400/667eea/ffffff?text=News'">
                         <div class="news-content">
-                            <h3>${item.title || 'Без наслов'}</h3>
+                            <h3><a href="${item.link || '#'}" target="_blank" rel="noopener">${item.title || 'Без наслов'}</a></h3>
                             <div class="meta">
                                 ${category ? `<span class="badge">${category}</span>` : ''}
                                 ${region ? `<span class="badge" style="background: #ff6b6b;">${region}</span>` : ''}
                                 <span>📢 ${item.source || 'Непознат'}</span>
                                 <span>🕐 ${date}</span>
                             </div>
-                            ${item.contentSnippet ? `<p style="color: var(--text-secondary);">${item.contentSnippet.substring(0, 150)}...</p>` : ''}
+                            ${item.contentSnippet ? `<p style="color: var(--text-secondary); font-size: 0.95em;">${item.contentSnippet.substring(0, 150)}...</p>` : ''}
                         </div>
                     </article>
                 `;
@@ -728,19 +737,13 @@
         
         // ===== ЕКСТРАКЦИЈА НА СЛИКА ОД RSS =====
         function extractImageFromItem(item) {
-            // Probej razlichni metodi za ekstrakcija na slika
             if (item.enclosure?.url) return item.enclosure.url;
             if (item['media:content']?.['$']?.url) return item['media:content']['$'].url;
             if (item['media:thumbnail']?.['$']?.url) return item['media:thumbnail']['$'].url;
             
-            // Probej vo content i description
             const imgRegex = /<img[^>]+src="([^">]+)"/;
-            if (item.content?.match(imgRegex)) {
-                return item.content.match(imgRegex)[1];
-            }
-            if (item.description?.match(imgRegex)) {
-                return item.description.match(imgRegex)[1];
-            }
+            if (item.content?.match(imgRegex)) return item.content.match(imgRegex)[1];
+            if (item.description?.match(imgRegex)) return item.description.match(imgRegex)[1];
             
             return 'https://via.placeholder.com/800x400/667eea/ffffff?text=News';
         }
@@ -799,45 +802,14 @@
             }
         }
         
-        function openPlatform(platform) {
-            const platforms = {
-                'facebook': 'https://facebook.com',
-                'instagram': 'https://instagram.com',
-                'twitter': 'https://twitter.com',
-                'tiktok': 'https://tiktok.com',
-                'youtube': 'https://youtube.com',
-                'linkedin': 'https://linkedin.com',
-                'telegram': 'https://telegram.org',
-                'whatsapp': 'https://whatsapp.com',
-                'chatgpt': 'https://chat.openai.com',
-                'claude': 'https://claude.ai',
-                'gemini': 'https://gemini.google.com',
-                'copilot': 'https://copilot.microsoft.com',
-                'midjourney': 'https://midjourney.com',
-                'perplexity': 'https://perplexity.ai',
-                'messenger': 'https://messenger.com',
-                'viber': 'https://viber.com',
-                'discord': 'https://discord.com',
-                'signal': 'https://signal.org'
-            };
-            
-            if (platforms[platform]) {
-                window.open(platforms[platform], '_blank');
-            }
-        }
-        
         function openPayment(method) {
-            const email = 'makedonworldnews@gmail.com';
-            let url = '';
-            
-            switch(method) {
-                case 'stripe': url = 'https://buy.stripe.com/test'; break;
-                case 'paypal': url = 'https://www.paypal.com/paypalme/makedonworldnews'; break;
-                case 'visa': 
-                case 'mastercard': url = 'https://checkout.stripe.com'; break;
-            }
-            
-            window.open(url, '_blank');
+            const urls = {
+                'stripe': 'https://buy.stripe.com/test',
+                'paypal': 'https://www.paypal.com/paypalme/makedonworldnews',
+                'visa': 'https://checkout.stripe.com',
+                'mastercard': 'https://checkout.stripe.com'
+            };
+            if (urls[method]) window.open(urls[method], '_blank');
         }
         
         function updateLastUpdated() {
