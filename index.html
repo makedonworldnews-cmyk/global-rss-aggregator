@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 🔒 Безбедносни заглавија -->
+    <!-- 🔒 Безбедност -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="robots" content="index, follow">
     
-    <!-- 📱 PWA Manifest -->
+    <!-- 📱 PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- 🌐 Google Translate -->
+    <meta name="google" content="notranslate">
     
     <title>🌍 Глобални Вести - Санде | ~2950 RSS Извори</title>
     
@@ -101,6 +104,30 @@
             transition: var(--transition);
         }
         
+        /* Google Translate Bar */
+        #google_translate_element {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .goog-te-gadget {
+            font-family: inherit !important;
+            color: var(--text-primary) !important;
+        }
+        
+        .goog-te-gadget select {
+            border: 2px solid #667eea !important;
+            border-radius: 8px !important;
+            padding: 8px !important;
+            background: var(--bg-card) !important;
+            color: var(--text-primary) !important;
+        }
+        
         /* Controls */
         .controls {
             background: var(--bg-card);
@@ -151,6 +178,84 @@
         }
         
         .checkbox-group input { width: auto; }
+        
+        /* Digital World Section */
+        .digital-world {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .digital-world h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid var(--badge-bg);
+            padding-bottom: 10px;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .platform-category {
+            background: rgba(102, 126, 234, 0.08);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--badge-bg);
+        }
+        
+        .platform-category h3 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .platform-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            font-size: 0.85em;
+        }
+        
+        .platform-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        
+        .platform-item:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: var(--text-primary);
+        }
+        
+        .platform-icon { font-size: 1.2em; }
+        .platform-name { font-weight: 500; }
+        .platform-count { 
+            font-size: 0.8em; 
+            color: var(--badge-text);
+            background: var(--badge-bg);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+        
+        @media (max-width: 600px) {
+            .platform-list { grid-template-columns: 1fr; }
+        }
         
         /* News */
         .news-container { display: grid; gap: 15px; }
@@ -377,6 +482,11 @@
             body { background: white; color: black; }
             .news-item { break-inside: avoid; }
         }
+        
+        /* Hide Google Translate banner */
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+        .skiptranslate { display: none; }
     </style>
 </head>
 <body>
@@ -391,7 +501,99 @@
                 <div class="stat">🔄 Ажурирање на 6ч</div>
                 <div class="stat">💯 Бесплатно</div>
             </div>
+            
+            <!-- 🌐 Google Translate -->
+            <div id="google_translate_element"></div>
         </header>
+        
+        <!-- 🌐 Дигитален Свет Секција -->
+        <section class="digital-world">
+            <h2>🌐 ДИГИТАЛЕН СВЕТ</h2>
+            <div class="platforms-grid">
+                
+                <!-- Социјални Мрежи -->
+                <div class="platform-category">
+                    <h3>📱 Социјални Мрежи</h3>
+                    <div class="platform-list">
+                        <div class="platform-item"><span class="platform-icon">📘</span><span class="platform-name">Facebook</span><span class="platform-count">3.0B</span></div>
+                        <div class="platform-item"><span class="platform-icon">📷</span><span class="platform-name">Instagram</span><span class="platform-count">2.0B</span></div>
+                        <div class="platform-item"><span class="platform-icon">🐦</span><span class="platform-name">X/Twitter</span><span class="platform-count">550M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🎵</span><span class="platform-name">TikTok</span><span class="platform-count">1.5B</span></div>
+                        <div class="platform-item"><span class="platform-icon">▶️</span><span class="platform-name">YouTube</span><span class="platform-count">2.5B</span></div>
+                        <div class="platform-item"><span class="platform-icon">💼</span><span class="platform-name">LinkedIn</span><span class="platform-count">900M</span></div>
+                        <div class="platform-item"><span class="platform-icon">📌</span><span class="platform-name">Pinterest</span><span class="platform-count">450M</span></div>
+                        <div class="platform-item"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔴</span><span class="platform-name">Reddit</span><span class="platform-count">430M</span></div>
+                        <div class="platform-item"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🧵</span><span class="platform-name">Threads</span><span class="platform-count">150M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🦋</span><span class="platform-name">Bluesky</span><span class="platform-count">25M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🐘</span><span class="platform-name">Mastodon</span><span class="platform-count">12M</span></div>
+                        <div class="platform-item"><span class="platform-icon">❓</span><span class="platform-name">Quora</span><span class="platform-count">400M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔵</span><span class="platform-name">VKontakte</span><span class="platform-count">100M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🟠</span><span class="platform-name">Odnoklassniki</span><span class="platform-count">45M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🟢</span><span class="platform-name">Line</span><span class="platform-count">178M</span></div>
+                        <div class="platform-item"><span class="platform-icon">💛</span><span class="platform-name">KakaoTalk</span><span class="platform-count">53M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🌀</span><span class="platform-name">Tumblr</span><span class="platform-count">135M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🇺🇸</span><span class="platform-name">Truth Social</span><span class="platform-count">9M</span></div>
+                    </div>
+                </div>
+                
+                <!-- AI Платформи -->
+                <div class="platform-category">
+                    <h3>🤖 AI Асистенти</h3>
+                    <div class="platform-list">
+                        <div class="platform-item"><span class="platform-icon">🤖</span><span class="platform-name">ChatGPT</span><span class="platform-count">OpenAI</span></div>
+                        <div class="platform-item"><span class="platform-icon">🧠</span><span class="platform-name">Claude</span><span class="platform-count">Anthropic</span></div>
+                        <div class="platform-item"><span class="platform-icon">💎</span><span class="platform-name">Gemini</span><span class="platform-count">Google</span></div>
+                        <div class="platform-item"><span class="platform-icon">🦾</span><span class="platform-name">Copilot</span><span class="platform-count">Microsoft</span></div>
+                        <div class="platform-item"><span class="platform-icon">🎨</span><span class="platform-name">Midjourney</span><span class="platform-count">Midjourney</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔍</span><span class="platform-name">Perplexity</span><span class="platform-count">Perplexity AI</span></div>
+                        <div class="platform-item"><span class="platform-icon">⚡</span><span class="platform-name">Grok</span><span class="platform-count">xAI</span></div>
+                        <div class="platform-item"><span class="platform-icon">✓</span><span class="platform-name">Grammarly</span><span class="platform-count">Grammarly</span></div>
+                        <div class="platform-item"><span class="platform-icon">🖼️</span><span class="platform-name">DALL-E</span><span class="platform-count">OpenAI</span></div>
+                        <div class="platform-item"><span class="platform-icon">🎭</span><span class="platform-name">Stable Diffusion</span><span class="platform-count">Stability AI</span></div>
+                        <div class="platform-item"><span class="platform-icon">🗣️</span><span class="platform-name">Siri</span><span class="platform-count">Apple</span></div>
+                        <div class="platform-item"><span class="platform-icon">🧬</span><span class="platform-name">Watson</span><span class="platform-count">IBM</span></div>
+                        <div class="platform-item"><span class="platform-icon">☁️</span><span class="platform-name">Azure AI</span><span class="platform-count">Microsoft</span></div>
+                        <div class="platform-item"><span class="platform-icon">🌩️</span><span class="platform-name">AWS AI</span><span class="platform-count">Amazon</span></div>
+                        <div class="platform-item"><span class="platform-icon">🤗</span><span class="platform-name">HuggingFace</span><span class="platform-count">Hugging Face</span></div>
+                        <div class="platform-item"><span class="platform-icon">📝</span><span class="platform-name">Cohere</span><span class="platform-count">Cohere</span></div>
+                        <div class="platform-item"><span class="platform-icon">🌪️</span><span class="platform-name">Mistral</span><span class="platform-count">Mistral AI</span></div>
+                        <div class="platform-item"><span class="platform-icon">🦙</span><span class="platform-name">LLaMA</span><span class="platform-count">Meta AI</span></div>
+                        <div class="platform-item"><span class="platform-icon">🐋</span><span class="platform-name">DeepSeek</span><span class="platform-count">DeepSeek</span></div>
+                        <div class="platform-item"><span class="platform-icon">🎬</span><span class="platform-name">Runway</span><span class="platform-count">Runway</span></div>
+                    </div>
+                </div>
+                
+                <!-- Месинџери -->
+                <div class="platform-category">
+                    <h3>💬 Месинџер Апликации</h3>
+                    <div class="platform-list">
+                        <div class="platform-item"><span class="platform-icon">💬</span><span class="platform-name">WhatsApp</span><span class="platform-count">2.7B</span></div>
+                        <div class="platform-item"><span class="platform-icon">💭</span><span class="platform-name">Messenger</span><span class="platform-count">1.0B</span></div>
+                        <div class="platform-item"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item"><span class="platform-icon">📞</span><span class="platform-name">Viber</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item"><span class="platform-icon">💚</span><span class="platform-name">WeChat</span><span class="platform-count">1.3B</span></div>
+                        <div class="platform-item"><span class="platform-icon">🟢</span><span class="platform-name">Line</span><span class="platform-count">178M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🎮</span><span class="platform-name">Discord</span><span class="platform-count">150M</span></div>
+                        <div class="platform-item"><span class="platform-icon">💛</span><span class="platform-name">KakaoTalk</span><span class="platform-count">53M</span></div>
+                        <div class="platform-item"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
+                        <div class="platform-item"><span class="platform-icon">☁️</span><span class="platform-name">Skype</span><span class="platform-count">300M</span></div>
+                        <div class="platform-item"><span class="platform-icon">📹</span><span class="platform-name">Zoom</span><span class="platform-count">300M</span></div>
+                        <div class="platform-item"><span class="platform-icon">👥</span><span class="platform-name">Teams</span><span class="platform-count">280M</span></div>
+                        <div class="platform-item"><span class="platform-icon">💬</span><span class="platform-name">Slack</span><span class="platform-count">20M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔐</span><span class="platform-name">Signal</span><span class="platform-count">40M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔒</span><span class="platform-name">Threema</span><span class="platform-count">10M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🔑</span><span class="platform-name">Wire</span><span class="platform-count">5M</span></div>
+                        <div class="platform-item"><span class="platform-icon">🌐</span><span class="platform-name">Matrix</span><span class="platform-count">40M</span></div>
+                        <div class="platform-item"><span class="platform-icon">💬</span><span class="platform-name">iMessage</span><span class="platform-count">1.3B</span></div>
+                        <div class="platform-item"><span class="platform-icon">📱</span><span class="platform-name">RCS</span><span class="platform-count">1.0B</span></div>
+                        <div class="platform-item"><span class="platform-icon">📡</span><span class="platform-name">Zello</span><span class="platform-count">150M</span></div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
         
         <!-- Controls -->
         <div class="controls">
@@ -417,12 +619,11 @@
         
         <!-- Footer -->
         <footer>
-            <p>🤝 Креирано од <strong>Санде</strong> | <a href="https://github.com/makedonworldnews-cmyk/global-rss-aggregator" target="_blank" rel="noopener">GitHub Репозиториум</a></p>
-            <p>📊 Податоците се ажурираат автоматски на секои 6 часа преку GitHub Actions</p>
+            <p>🕐 Последно ажурирано: <span id="last-updated">...</span></p>
             <p class="contact-email">📧 Контакт: <a href="mailto:makedonworldnews@gmail.com">makedonworldnews@gmail.com</a></p>
             <p class="copyright">
                 © 2026 Global RSS Aggregator. Сите права задржани.<br>
-                🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode
+                🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode | 🌐 Google Translate
             </p>
         </footer>
     </div>
@@ -432,6 +633,19 @@
     
     <!-- PWA Install Button -->
     <button id="install-btn" aria-label="Инсталирај апликација">📱 Инсталирај</button>
+    
+    <!-- 🌐 Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'mk',
+                includedLanguages: 'mk,en,de,fr,es,it,ru,zh-CN,ja,ar,hi,pt,tr,pl,ro,el,sr,hr,bs,sq',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
     <script>
         // ===== ГЛОБАЛНИ ПРОМЕНЛИВИ =====
@@ -550,26 +764,18 @@
             
             // Филтрирање
             let filtered = allNews.filter(item => {
-                // Категорија
                 if (category !== 'all' && item.category !== category) return false;
-                
-                // Пребарување
                 if (search) {
                     const text = `${item.title} ${item.contentSnippet} ${item.source}`.toLowerCase();
                     if (!text.includes(search)) return false;
                 }
-                
-                // Македонски јазик
                 if (mkOnly && !isMacedonian(item)) return false;
-                
                 return true;
             });
             
-            // Ажурирање на бројач
             document.getElementById('resultsCounter').textContent = 
                 `📊 Прикажани: ${filtered.length} од ${allNews.length} вести`;
             
-            // Празни резултати
             if (!filtered.length) {
                 container.innerHTML = `
                     <div class="empty">
@@ -581,7 +787,6 @@
                 return;
             }
             
-            // Прикажи ги првите 100 (за перформанси)
             const display = filtered.slice(0, 100);
             
             container.innerHTML = display.map(item => {
@@ -608,7 +813,6 @@
                         </div>
                         ${item.contentSnippet ? `<p style="margin-top:10px;color:var(--text-secondary);font-size:0.95em;line-height:1.5">${item.contentSnippet.substring(0, 200)}${item.contentSnippet.length > 200 ? '...' : ''}</p>` : ''}
                         
-                        <!-- Копчиња за споделување -->
                         <div class="share-buttons">
                             <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(item.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📘 FB</a>
                             <a class="share-btn twitter" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(item.link)}&text=${encodeURIComponent(item.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🐦 X</a>
@@ -622,8 +826,6 @@
         }
         
         // ===== ПОМОШНИ ФУНКЦИИ =====
-        
-        // Детекција на македонски јазик
         function isMacedonian(item) {
             const text = `${item.title} ${item.contentSnippet} ${item.source}`.toLowerCase();
             const mkPatterns = [
@@ -636,14 +838,12 @@
             return mkPatterns.some(p => p.test(text));
         }
         
-        // Хайлајтирање на пребаруван текст
         function highlightText(text, search) {
             if (!search) return text;
             const regex = new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
             return text.replace(regex, '<mark>$1</mark>');
         }
         
-        // Копирање на линк
         function copyLink(url, event) {
             event?.stopPropagation();
             navigator.clipboard.writeText(url).then(() => {
@@ -659,41 +859,30 @@
             });
         }
         
-        // Toggle за македонски вести
         function toggleMacedonianOnly() {
             const checkbox = document.getElementById('macedonianOnly');
             checkbox.checked = !checkbox.checked;
             renderNews();
         }
         
-        // Ажурирање на "последно ажурирано"
         function updateLastUpdated() {
             if (allNews[0]?.pubDate) {
                 const date = new Date(allNews[0].pubDate).toLocaleString('mk-MK');
-                const footer = document.querySelector('footer');
-                const p = document.createElement('p');
-                p.innerHTML = `🕐 <strong>Последно ажурирано:</strong> ${date}`;
-                p.style.marginTop = '8px';
-                p.style.fontSize = '0.85em';
-                footer.insertBefore(p, footer.firstChild);
+                document.getElementById('last-updated').textContent = date;
             }
         }
         
-        // Кратенки на тастатура
         function setupKeyboardShortcuts() {
             document.addEventListener('keydown', (e) => {
-                // / за фокус на пребарување
                 if (e.key === '/' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
                     document.getElementById('searchInput').focus();
                 }
-                // Escape за чистење на пребарувањето
                 if (e.key === 'Escape') {
                     document.getElementById('searchInput').blur();
                     document.getElementById('searchInput').value = '';
                     renderNews();
                 }
-                // d за toggle на тема
                 if (e.key === 'd' && e.ctrlKey) {
                     e.preventDefault();
                     toggleTheme();
