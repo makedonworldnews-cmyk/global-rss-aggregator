@@ -2,14 +2,24 @@
 <html lang="mk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Глобални Вести - ~2950 RSS извори од целиот свет">
+    <meta name="keywords" content="вести, новости, глобални, RSS, агрегатор">
+    <meta name="author" content="makedonworldnews@gmail.com">
     
     <!-- 🔒 Безбедност -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="robots" content="index, follow">
+    
+    <!-- 💰 Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    
+    <!-- 💳 Payment Systems Meta -->
+    <meta property="og:title" content="🐉 Глобални Вести - Санде">
+    <meta property="og:description" content="~2950 RSS извори од целиот свет">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://makedonworldnews-cmyk.github.io/global-rss-aggregator/">
     
     <!-- 📱 PWA -->
     <link rel="manifest" href="manifest.json">
@@ -18,6 +28,10 @@
     <link rel="apple-touch-icon" href="icon-192.png">
     
     <title>🐉 Глобални Вести - Санде | ~2950 RSS Извори</title>
+    
+    <!-- 💳 Payment Scripts -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
     
     <style>
         :root {
@@ -32,6 +46,7 @@
             --border-radius: 15px;
             --transition: all 0.3s ease;
             --dragon-color: #ff6b6b;
+            --payment-bg: #28a745;
         }
         
         [data-theme="dark"] {
@@ -101,16 +116,18 @@
             transition: var(--transition);
         }
         
-        /* Google Translate - Централно и видливо */
+        /* Google Translate - ГОРЕ, ЦЕНТАР, ВИДЛИВ */
         #google_translate_element {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px auto;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-            border: 3px solid #667eea;
-            max-width: 600px;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px auto;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            border: 4px solid #667eea;
+            max-width: 700px;
             display: block;
+            position: relative;
+            z-index: 100;
         }
         
         [data-theme="dark"] #google_translate_element {
@@ -121,21 +138,23 @@
         .goog-te-gadget {
             font-family: inherit !important;
             color: var(--text-primary) !important;
-            font-size: 16px !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
         }
         
         .goog-te-gadget select {
-            border: 3px solid #667eea !important;
-            border-radius: 12px !important;
-            padding: 15px 25px !important;
-            font-size: 16px !important;
-            font-weight: 600 !important;
+            border: 4px solid #667eea !important;
+            border-radius: 15px !important;
+            padding: 18px 30px !important;
+            font-size: 17px !important;
+            font-weight: 700 !important;
             background: white !important;
             color: #2c3e50 !important;
             cursor: pointer;
             outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            min-width: 250px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            min-width: 300px;
+            transition: all 0.3s ease;
         }
         
         [data-theme="dark"] .goog-te-gadget select {
@@ -146,46 +165,97 @@
         
         .goog-te-gadget select:hover {
             border-color: #764ba2 !important;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
-            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5) !important;
+            transform: translateY(-3px) scale(1.02);
         }
         
         .goog-te-gadget span {
             display: none !important;
         }
         
-        /* Region Filters - Змеј икони */
-        .region-filters {
+        /* Payment Section */
+        .payment-section {
             background: var(--bg-card);
-            padding: 20px;
+            padding: 30px;
             border-radius: var(--border-radius);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
         
-        .region-filters h3 {
+        .payment-section h3 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: var(--text-primary);
-            font-size: 1.3em;
+            font-size: 1.5em;
         }
         
-        .region-buttons {
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1em;
+            color: white;
+        }
+        
+        .payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .stripe { background: #635bff; }
+        .paypal { background: #00457C; }
+        .visa { background: #1A1F71; }
+        .mastercard { background: #EB001B; }
+        .donate { background: var(--payment-bg); }
+        
+        /* Region & Category Filters */
+        .filters-container {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .filters-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 1.4em;
+        }
+        
+        .filter-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
+            margin-bottom: 20px;
         }
         
-        .region-btn {
+        .filter-btn {
             padding: 10px 20px;
-            border: 2px solid var(--badge-bg);
+            border: 3px solid var(--badge-bg);
             background: transparent;
             color: var(--text-primary);
             border-radius: 25px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             transition: var(--transition);
             display: flex;
             align-items: center;
@@ -193,90 +263,25 @@
             font-size: 0.9em;
         }
         
-        .region-btn:hover, .region-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--badge-bg);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
         
-        .dragon-icon {
-            font-size: 1.3em;
+        .dragon-icon { font-size: 1.3em; }
+        
+        /* Search */
+        .search-container {
+            margin-top: 20px;
         }
         
-        /* Category Filters - Рубрики */
-        .category-filters {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .category-filters h3 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            font-size: 1.3em;
-        }
-        
-        .category-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        
-        .category-btn {
-            padding: 8px 16px;
-            border: 2px solid var(--badge-bg);
-            background: transparent;
-            color: var(--text-primary);
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85em;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background: var(--badge-bg);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-        
-        /* Controls */
-        .controls {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            display: grid;
-            gap: 15px;
-            transition: var(--transition);
-        }
-        
-        .control-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        @media (max-width: 600px) {
-            .control-row { grid-template-columns: 1fr; }
-        }
-        
-        select, input[type="text"], input[type="search"] {
+        .search-input {
             width: 100%;
-            padding: 14px;
-            font-size: 15px;
-            border: 2px solid #667eea;
+            padding: 16px;
+            font-size: 16px;
+            border: 3px solid #667eea;
             border-radius: 12px;
             outline: none;
             background: var(--bg-card);
@@ -284,25 +289,13 @@
             transition: var(--transition);
         }
         
-        select:focus, input:focus {
+        .search-input:focus {
             border-color: #764ba2;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
         }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        
-        .checkbox-group input { width: auto; }
         
         /* News */
-        .news-container { display: grid; gap: 15px; }
+        .news-container { display: grid; gap: 20px; }
         
         .news-item {
             background: var(--bg-card);
@@ -315,28 +308,28 @@
         }
         
         .news-item:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
         }
         
         .news-item.macedonian {
-            border-left: 5px solid #d32f2f;
+            border-left: 6px solid #d32f2f;
         }
         
         .news-image {
             width: 100%;
-            height: 250px;
+            height: 300px;
             object-fit: cover;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         .news-content {
-            padding: 20px;
+            padding: 25px;
         }
         
         .news-item h3 {
-            margin: 0 0 12px;
-            font-size: 1.2em;
+            margin: 0 0 15px;
+            font-size: 1.3em;
             line-height: 1.4;
         }
         
@@ -355,24 +348,24 @@
             flex-wrap: wrap;
             font-size: 0.85em;
             color: var(--text-secondary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .badge {
             background: var(--badge-bg);
             color: var(--badge-text);
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 20px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.8em;
         }
         
-        .source { font-weight: 600; color: var(--text-primary); }
+        .source { font-weight: 700; color: var(--text-primary); }
         
         .lang-badge {
             background: #4caf50;
             color: white;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 10px;
             font-size: 0.75em;
             font-weight: bold;
@@ -381,7 +374,7 @@
         .region-badge {
             background: #ff6b6b;
             color: white;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 10px;
             font-size: 0.75em;
             font-weight: bold;
@@ -391,15 +384,15 @@
         .share-buttons {
             display: flex;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
         
         .share-btn {
-            padding: 6px 12px;
+            padding: 8px 15px;
             border: none;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 0.85em;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
@@ -407,6 +400,7 @@
             gap: 5px;
             text-decoration: none;
             color: white;
+            font-weight: 600;
         }
         
         .share-btn.facebook { background: #1877f2; }
@@ -417,7 +411,7 @@
         
         .share-btn:hover { opacity: 0.9; transform: scale(1.05); }
         
-        /* Modal/Popup за вест */
+        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -425,7 +419,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             overflow-y: auto;
             padding: 20px;
@@ -490,7 +484,7 @@
         
         .modal-meta-item strong {
             color: var(--text-primary);
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .modal-content-text {
@@ -533,7 +527,7 @@
             color: white;
             text-decoration: none;
             border-radius: 30px;
-            font-weight: 600;
+            font-weight: 700;
             transition: var(--transition);
             margin-top: 20px;
         }
@@ -543,12 +537,12 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
         
-        /* Digital World Section */
+        /* Digital World Section - ПОД ВЕСТИТЕ */
         .digital-world {
             background: var(--bg-card);
-            padding: 30px;
+            padding: 35px;
             border-radius: var(--border-radius);
-            margin: 30px 0;
+            margin: 35px 0;
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
@@ -556,65 +550,68 @@
         .digital-world h2 {
             color: var(--text-primary);
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.7em;
-            border-bottom: 3px solid var(--badge-bg);
-            padding-bottom: 15px;
+            margin-bottom: 35px;
+            font-size: 1.8em;
+            border-bottom: 4px solid var(--badge-bg);
+            padding-bottom: 20px;
         }
         
         .platforms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
         
         .platform-category {
             background: rgba(102, 126, 234, 0.08);
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
-            border-left: 5px solid var(--badge-bg);
+            border-left: 6px solid var(--badge-bg);
         }
         
         .platform-category h3 {
             color: var(--text-primary);
-            margin-bottom: 18px;
-            font-size: 1.25em;
+            margin-bottom: 20px;
+            font-size: 1.3em;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .platform-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             font-size: 0.85em;
         }
         
         .platform-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             color: var(--text-secondary);
-            padding: 8px 12px;
+            padding: 10px 14px;
             border-radius: 10px;
             transition: var(--transition);
+            cursor: pointer;
         }
         
         .platform-item:hover {
             background: rgba(102, 126, 234, 0.15);
             color: var(--text-primary);
+            transform: translateX(5px);
         }
         
-        .platform-icon { font-size: 1.3em; }
-        .platform-name { font-weight: 500; }
+        .platform-icon { font-size: 1.4em; }
+        .platform-name { font-weight: 600; }
         .platform-count { 
             font-size: 0.75em; 
             color: var(--badge-text);
             background: var(--badge-bg);
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 12px;
             margin-left: auto;
+            font-weight: 700;
         }
         
         @media (max-width: 600px) {
@@ -622,22 +619,24 @@
             .modal-image { height: 250px; }
             .modal-title { font-size: 1.5em; }
             .news-image { height: 200px; }
+            .payment-methods { grid-template-columns: 1fr; }
         }
         
         /* Loading/Error states */
         .loading, .error, .empty {
             text-align: center;
-            padding: 50px 20px;
+            padding: 60px 20px;
             background: var(--bg-card);
             border-radius: var(--border-radius);
             color: var(--text-secondary);
             transition: var(--transition);
+            font-size: 1.1em;
         }
         
         .error {
             background: #ffebee;
             color: #c62828;
-            border: 2px solid #ef5350;
+            border: 3px solid #ef5350;
         }
         
         [data-theme="dark"] .error {
@@ -649,22 +648,22 @@
         /* Theme toggle */
         #theme-toggle {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            padding: 12px 24px;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 28px;
             border-radius: 30px;
             border: none;
             background: var(--badge-bg);
             color: var(--badge-text);
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95em;
+            font-weight: 700;
+            font-size: 1em;
             box-shadow: var(--shadow);
             z-index: 1000;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         #theme-toggle:hover { transform: scale(1.05); }
@@ -672,41 +671,43 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 35px 20px;
             color: var(--badge-text);
-            margin-top: 30px;
-            font-size: 0.9em;
-            line-height: 1.6;
+            margin-top: 35px;
+            font-size: 0.95em;
+            line-height: 1.8;
         }
         
         footer a {
             color: var(--badge-text);
             text-decoration: underline;
             transition: opacity 0.2s;
+            font-weight: 600;
         }
         
         footer a:hover { opacity: 0.9; }
         
         .copyright {
-            margin-top: 10px;
-            font-size: 0.85em;
-            opacity: 0.9;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.95;
         }
         
         .contact-email {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            margin-top: 8px;
+            gap: 8px;
+            margin-top: 10px;
+            font-weight: 700;
         }
         
         /* Search highlight */
         mark {
             background: #ffeb3b;
             color: #000;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: 600;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: 700;
         }
         
         [data-theme="dark"] mark {
@@ -718,16 +719,16 @@
         #install-btn {
             display: none;
             position: fixed;
-            bottom: 85px;
-            right: 25px;
-            padding: 12px 24px;
+            bottom: 95px;
+            right: 30px;
+            padding: 14px 28px;
             border-radius: 30px;
             border: none;
             background: #4caf50;
             color: white;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95em;
+            font-weight: 700;
+            font-size: 1em;
             box-shadow: var(--shadow);
             z-index: 1000;
             transition: var(--transition);
@@ -738,13 +739,14 @@
         /* Results counter */
         .results-counter {
             text-align: center;
-            padding: 15px;
+            padding: 18px;
             color: var(--text-secondary);
-            font-size: 1em;
-            margin-bottom: 15px;
+            font-size: 1.05em;
+            margin-bottom: 20px;
             background: var(--bg-card);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
+            font-weight: 600;
         }
         
         /* Accessibility */
@@ -754,7 +756,8 @@
         
         /* Print */
         @media print {
-            #theme-toggle, #install-btn, .share-buttons, .modal-overlay, .region-filters, .category-filters { display: none !important; }
+            #theme-toggle, #install-btn, .share-buttons, .modal-overlay, 
+            .filters-container, .payment-section { display: none !important; }
             body { background: white; color: black; }
             .news-item { break-inside: avoid; }
         }
@@ -778,113 +781,92 @@
                 <div class="stat">💯 Бесплатно</div>
             </div>
             
-            <!-- 🌐 Google Translate - Централно и видливо -->
+            <!-- 🌐 Google Translate - ГОРЕ, ЦЕНТАР, ВИДЛИВ -->
             <div id="google_translate_element"></div>
         </header>
         
-        <!-- Region Filters - Змеј икони -->
-        <div class="region-filters">
-            <h3>🐉 Избери Регион</h3>
-            <div class="region-buttons">
-                <button class="region-btn active" onclick="filterByRegion('all')">
+        <!-- 💳 Payment Section -->
+        <section class="payment-section">
+            <h3>💳 Поддржете нè преку:</h3>
+            <div class="payment-methods">
+                <button class="payment-btn stripe" onclick="openPayment('stripe')">
+                    <span>💳</span> Stripe
+                </button>
+                <button class="payment-btn paypal" onclick="openPayment('paypal')">
+                    <span>💰</span> PayPal
+                </button>
+                <button class="payment-btn visa" onclick="openPayment('visa')">
+                    <span>💳</span> Visa
+                </button>
+                <button class="payment-btn mastercard" onclick="openPayment('mastercard')">
+                    <span>💳</span> Mastercard
+                </button>
+                <button class="payment-btn donate" onclick="openPayment('donate')">
+                    <span>❤️</span> Донација
+                </button>
+            </div>
+            <p style="text-align: center; color: var(--text-secondary); font-size: 0.9em;">
+                📧 Сите плаќања се процесираат преку: <strong>makedonworldnews@gmail.com</strong>
+            </p>
+        </section>
+        
+        <!-- Region & Category Filters -->
+        <div class="filters-container">
+            <h3>🐉 Филтер по Регион</h3>
+            <div class="filter-buttons" id="regionFilters">
+                <button class="filter-btn active" onclick="filterByRegion('all')">
                     <span class="dragon-icon">🐉</span> Сите Региони
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Македонија')">
+                <button class="filter-btn" onclick="filterByRegion('Македонија')">
                     <span class="dragon-icon">🐉</span> Македонија
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Балкан')">
+                <button class="filter-btn" onclick="filterByRegion('Балкан')">
                     <span class="dragon-icon">🐉</span> Балкан
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Европа')">
+                <button class="filter-btn" onclick="filterByRegion('Европа')">
                     <span class="dragon-icon">🐉</span> Европа
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Азија')">
+                <button class="filter-btn" onclick="filterByRegion('Азија')">
                     <span class="dragon-icon">🐉</span> Азија
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Индија')">
+                <button class="filter-btn" onclick="filterByRegion('Индија')">
                     <span class="dragon-icon">🐉</span> Индија
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Африка')">
+                <button class="filter-btn" onclick="filterByRegion('Африка')">
                     <span class="dragon-icon">🐉</span> Африка
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Америка')">
+                <button class="filter-btn" onclick="filterByRegion('Америка')">
                     <span class="dragon-icon">🐉</span> Америка
                 </button>
-                <button class="region-btn" onclick="filterByRegion('Океанија')">
-                    <span class="dragon-icon">🐉</span> Австралија-Океанија
-                </button>
-                <button class="region-btn" onclick="filterByRegion('Океани')">
-                    <span class="dragon-icon">🐉</span> Четири Океани
+                <button class="filter-btn" onclick="filterByRegion('Океанија')">
+                    <span class="dragon-icon">🐉</span> Океанија
                 </button>
             </div>
-        </div>
-        
-        <!-- Category Filters - Рубрики -->
-        <div class="category-filters">
-            <h3>📂 Избери Рубрика</h3>
-            <div class="category-buttons">
-                <button class="category-btn active" onclick="filterByCategory('all')">
-                    <span>📰</span> СИТЕ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ПРОТОКОЛ')">
-                    <span>🎩</span> ПРОТОКОЛ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ДИПЛОМАТИЈА')">
-                    <span>🤝</span> ДИПЛОМАТИЈА
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ОДНОСИ СО ЈАВНОСТ')">
-                    <span>📢</span> ОДНОСИ СО ЈАВНОСТ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('БЕЗБЕДНОСТ')">
-                    <span>🛡️</span> БЕЗБЕДНОСТ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ПОЛИТИКА')">
-                    <span>🏛️</span> ПОЛИТИКА
-                </button>
-                <button class="category-btn" onclick="filterByCategory('БИЗНИС')">
-                    <span>💼</span> БИЗНИС
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ЕКОНОМИЈА')">
-                    <span>💰</span> ЕКОНОМИЈА
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ЗДРАВЈЕ')">
-                    <span>🏥</span> ЗДРАВЈЕ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ЗАБАВА')">
-                    <span>🎭</span> ЗАБАВА
-                </button>
-                <button class="category-btn" onclick="filterByCategory('КУЛТУРА')">
-                    <span>🎨</span> КУЛТУРА-УМЕТНОСТ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ПАТУВАЊЕ')">
-                    <span>✈️</span> ПАТУВАЊЕ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('НАУКА')">
-                    <span>🔬</span> НАУКА
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ВРЕМЕ')">
-                    <span>🌤️</span> ВРЕМЕ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('СПОРТ')">
-                    <span>⚽</span> СПОРТ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('НАЈНОВИ')">
-                    <span>🔥</span> НАЈНОВИ
-                </button>
-                <button class="category-btn" onclick="filterByCategory('ВО ЖИВО')">
-                    <span>🔴</span> ВО ЖИВО
-                </button>
+            
+            <h3 style="margin-top: 25px;">📂 Филтер по Рубрика</h3>
+            <div class="filter-buttons" id="categoryFilters">
+                <button class="filter-btn active" onclick="filterByCategory('all')">📰 СИТЕ</button>
+                <button class="filter-btn" onclick="filterByCategory('ПРОТОКОЛ')">🎩 ПРОТОКОЛ</button>
+                <button class="filter-btn" onclick="filterByCategory('ДИПЛОМАТИЈА')">🤝 ДИПЛОМАТИЈА</button>
+                <button class="filter-btn" onclick="filterByCategory('ОДНОСИ СО ЈАВНОСТ')">📢 ОДНОСИ СО ЈАВНОСТ</button>
+                <button class="filter-btn" onclick="filterByCategory('БЕЗБЕДНОСТ')">🛡️ БЕЗБЕДНОСТ</button>
+                <button class="filter-btn" onclick="filterByCategory('ПОЛИТИКА')">🏛️ ПОЛИТИКА</button>
+                <button class="filter-btn" onclick="filterByCategory('БИЗНИС')">💼 БИЗНИС</button>
+                <button class="filter-btn" onclick="filterByCategory('ЕКОНОМИЈА')">💰 ЕКОНОМИЈА</button>
+                <button class="filter-btn" onclick="filterByCategory('ЗДРАВЈЕ')">🏥 ЗДРАВЈЕ</button>
+                <button class="filter-btn" onclick="filterByCategory('ЗАБАВА')">🎭 ЗАБАВА</button>
+                <button class="filter-btn" onclick="filterByCategory('КУЛТУРА')">🎨 КУЛТУРА</button>
+                <button class="filter-btn" onclick="filterByCategory('ПАТУВАЊЕ')">✈️ ПАТУВАЊЕ</button>
+                <button class="filter-btn" onclick="filterByCategory('НАУКА')">🔬 НАУКА</button>
+                <button class="filter-btn" onclick="filterByCategory('ВРЕМЕ')">🌤️ ВРЕМЕ</button>
+                <button class="filter-btn" onclick="filterByCategory('СПОРТ')">⚽ СПОРТ</button>
+                <button class="filter-btn" onclick="filterByCategory('НАЈНОВИ')">🔥 НАЈНОВИ</button>
+                <button class="filter-btn" onclick="filterByCategory('ВО ЖИВО')">🔴 ВО ЖИВО</button>
             </div>
-        </div>
-        
-        <!-- Controls -->
-        <div class="controls">
-            <div class="control-row">
-                <input type="search" id="searchInput" placeholder="🔎 Пребарај вести..." oninput="renderNews()" aria-label="Пребарување">
-            </div>
-            <div class="checkbox-group" onclick="toggleMacedonianOnly()">
-                <input type="checkbox" id="macedonianOnly" aria-label="Само македонски вести">
-                <label for="macedonianOnly" style="cursor: pointer; margin: 0;">🇲🇰 Само македонски вести</label>
+            
+            <!-- Search -->
+            <div class="search-container">
+                <input type="search" id="searchInput" class="search-input" placeholder="🔎 Пребарај вести..." oninput="renderNews()">
             </div>
         </div>
         
@@ -896,7 +878,7 @@
             <div class="loading">⏳ Вчитување вести... Молиме почекајте.</div>
         </div>
         
-        <!-- Digital World Section -->
+        <!-- Digital World Section - ПОД ВЕСТИТЕ -->
         <section class="digital-world">
             <h2>🌐 ДИГИТАЛЕН СВЕТ</h2>
             <div class="platforms-grid">
@@ -905,18 +887,18 @@
                 <div class="platform-category">
                     <h3>📱 Социјални Мрежи</h3>
                     <div class="platform-list">
-                        <div class="platform-item"><span class="platform-icon">📘</span><span class="platform-name">Facebook</span><span class="platform-count">3.0B</span></div>
-                        <div class="platform-item"><span class="platform-icon">📷</span><span class="platform-name">Instagram</span><span class="platform-count">2.0B</span></div>
-                        <div class="platform-item"><span class="platform-icon">🐦</span><span class="platform-name">X/Twitter</span><span class="platform-count">550M</span></div>
-                        <div class="platform-item"><span class="platform-icon">🎵</span><span class="platform-name">TikTok</span><span class="platform-count">1.5B</span></div>
-                        <div class="platform-item"><span class="platform-icon">▶️</span><span class="platform-name">YouTube</span><span class="platform-count">2.5B</span></div>
-                        <div class="platform-item"><span class="platform-icon">💼</span><span class="platform-name">LinkedIn</span><span class="platform-count">900M</span></div>
-                        <div class="platform-item"><span class="platform-icon">📌</span><span class="platform-name">Pinterest</span><span class="platform-count">450M</span></div>
-                        <div class="platform-item"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
-                        <div class="platform-item"><span class="platform-icon">🔴</span><span class="platform-name">Reddit</span><span class="platform-count">430M</span></div>
-                        <div class="platform-item"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
-                        <div class="platform-item"><span class="platform-icon">🧵</span><span class="platform-name">Threads</span><span class="platform-count">150M</span></div>
-                        <div class="platform-item"><span class="platform-icon">🦋</span><span class="platform-name">Bluesky</span><span class="platform-count">25M</span></div>
+                        <div class="platform-item" onclick="openPlatform('facebook')"><span class="platform-icon">📘</span><span class="platform-name">Facebook</span><span class="platform-count">3.0B</span></div>
+                        <div class="platform-item" onclick="openPlatform('instagram')"><span class="platform-icon">📷</span><span class="platform-name">Instagram</span><span class="platform-count">2.0B</span></div>
+                        <div class="platform-item" onclick="openPlatform('twitter')"><span class="platform-icon">🐦</span><span class="platform-name">X/Twitter</span><span class="platform-count">550M</span></div>
+                        <div class="platform-item" onclick="openPlatform('tiktok')"><span class="platform-icon">🎵</span><span class="platform-name">TikTok</span><span class="platform-count">1.5B</span></div>
+                        <div class="platform-item" onclick="openPlatform('youtube')"><span class="platform-icon">▶️</span><span class="platform-name">YouTube</span><span class="platform-count">2.5B</span></div>
+                        <div class="platform-item" onclick="openPlatform('linkedin')"><span class="platform-icon">💼</span><span class="platform-name">LinkedIn</span><span class="platform-count">900M</span></div>
+                        <div class="platform-item" onclick="openPlatform('pinterest')"><span class="platform-icon">📌</span><span class="platform-name">Pinterest</span><span class="platform-count">450M</span></div>
+                        <div class="platform-item" onclick="openPlatform('snapchat')"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
+                        <div class="platform-item" onclick="openPlatform('reddit')"><span class="platform-icon">🔴</span><span class="platform-name">Reddit</span><span class="platform-count">430M</span></div>
+                        <div class="platform-item" onclick="openPlatform('telegram')"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item" onclick="openPlatform('threads')"><span class="platform-icon">🧵</span><span class="platform-name">Threads</span><span class="platform-count">150M</span></div>
+                        <div class="platform-item" onclick="openPlatform('bluesky')"><span class="platform-icon">🦋</span><span class="platform-name">Bluesky</span><span class="platform-count">25M</span></div>
                     </div>
                 </div>
                 
@@ -924,18 +906,18 @@
                 <div class="platform-category">
                     <h3>🤖 AI Асистенти</h3>
                     <div class="platform-list">
-                        <div class="platform-item"><span class="platform-icon">🤖</span><span class="platform-name">ChatGPT</span><span class="platform-count">OpenAI</span></div>
-                        <div class="platform-item"><span class="platform-icon">🧠</span><span class="platform-name">Claude</span><span class="platform-count">Anthropic</span></div>
-                        <div class="platform-item"><span class="platform-icon">💎</span><span class="platform-name">Gemini</span><span class="platform-count">Google</span></div>
-                        <div class="platform-item"><span class="platform-icon">🦾</span><span class="platform-name">Copilot</span><span class="platform-count">Microsoft</span></div>
-                        <div class="platform-item"><span class="platform-icon">🎨</span><span class="platform-name">Midjourney</span><span class="platform-count">Midjourney</span></div>
-                        <div class="platform-item"><span class="platform-icon">🔍</span><span class="platform-name">Perplexity</span><span class="platform-count">Perplexity AI</span></div>
-                        <div class="platform-item"><span class="platform-icon">⚡</span><span class="platform-name">Grok</span><span class="platform-count">xAI</span></div>
-                        <div class="platform-item"><span class="platform-icon">✓</span><span class="platform-name">Grammarly</span><span class="platform-count">Grammarly</span></div>
-                        <div class="platform-item"><span class="platform-icon">🖼️</span><span class="platform-name">DALL-E</span><span class="platform-count">OpenAI</span></div>
-                        <div class="platform-item"><span class="platform-icon">🎭</span><span class="platform-name">Stable Diffusion</span><span class="platform-count">Stability AI</span></div>
-                        <div class="platform-item"><span class="platform-icon">🗣️</span><span class="platform-name">Siri</span><span class="platform-count">Apple</span></div>
-                        <div class="platform-item"><span class="platform-icon">🧬</span><span class="platform-name">Watson</span><span class="platform-count">IBM</span></div>
+                        <div class="platform-item" onclick="openPlatform('chatgpt')"><span class="platform-icon">🤖</span><span class="platform-name">ChatGPT</span><span class="platform-count">OpenAI</span></div>
+                        <div class="platform-item" onclick="openPlatform('claude')"><span class="platform-icon">🧠</span><span class="platform-name">Claude</span><span class="platform-count">Anthropic</span></div>
+                        <div class="platform-item" onclick="openPlatform('gemini')"><span class="platform-icon">💎</span><span class="platform-name">Gemini</span><span class="platform-count">Google</span></div>
+                        <div class="platform-item" onclick="openPlatform('copilot')"><span class="platform-icon">🦾</span><span class="platform-name">Copilot</span><span class="platform-count">Microsoft</span></div>
+                        <div class="platform-item" onclick="openPlatform('midjourney')"><span class="platform-icon">🎨</span><span class="platform-name">Midjourney</span><span class="platform-count">Midjourney</span></div>
+                        <div class="platform-item" onclick="openPlatform('perplexity')"><span class="platform-icon">🔍</span><span class="platform-name">Perplexity</span><span class="platform-count">Perplexity AI</span></div>
+                        <div class="platform-item" onclick="openPlatform('grok')"><span class="platform-icon">⚡</span><span class="platform-name">Grok</span><span class="platform-count">xAI</span></div>
+                        <div class="platform-item" onclick="openPlatform('grammarly')"><span class="platform-icon">✓</span><span class="platform-name">Grammarly</span><span class="platform-count">Grammarly</span></div>
+                        <div class="platform-item" onclick="openPlatform('dalle')"><span class="platform-icon">🖼️</span><span class="platform-name">DALL-E</span><span class="platform-count">OpenAI</span></div>
+                        <div class="platform-item" onclick="openPlatform('stablediffusion')"><span class="platform-icon">🎭</span><span class="platform-name">Stable Diffusion</span><span class="platform-count">Stability AI</span></div>
+                        <div class="platform-item" onclick="openPlatform('siri')"><span class="platform-icon">🗣️</span><span class="platform-name">Siri</span><span class="platform-count">Apple</span></div>
+                        <div class="platform-item" onclick="openPlatform('watson')"><span class="platform-icon">🧬</span><span class="platform-name">Watson</span><span class="platform-count">IBM</span></div>
                     </div>
                 </div>
                 
@@ -943,18 +925,18 @@
                 <div class="platform-category">
                     <h3>💬 Месинџер Апликации</h3>
                     <div class="platform-list">
-                        <div class="platform-item"><span class="platform-icon">💬</span><span class="platform-name">WhatsApp</span><span class="platform-count">2.7B</span></div>
-                        <div class="platform-item"><span class="platform-icon">💭</span><span class="platform-name">Messenger</span><span class="platform-count">1.0B</span></div>
-                        <div class="platform-item"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
-                        <div class="platform-item"><span class="platform-icon">📞</span><span class="platform-name">Viber</span><span class="platform-count">800M</span></div>
-                        <div class="platform-item"><span class="platform-icon">💚</span><span class="platform-name">WeChat</span><span class="platform-count">1.3B</span></div>
-                        <div class="platform-item"><span class="platform-icon">🟢</span><span class="platform-name">Line</span><span class="platform-count">178M</span></div>
-                        <div class="platform-item"><span class="platform-icon">🎮</span><span class="platform-name">Discord</span><span class="platform-count">150M</span></div>
-                        <div class="platform-item"><span class="platform-icon">💛</span><span class="platform-name">KakaoTalk</span><span class="platform-count">53M</span></div>
-                        <div class="platform-item"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
-                        <div class="platform-item"><span class="platform-icon">☁️</span><span class="platform-name">Skype</span><span class="platform-count">300M</span></div>
-                        <div class="platform-item"><span class="platform-icon">📹</span><span class="platform-name">Zoom</span><span class="platform-count">300M</span></div>
-                        <div class="platform-item"><span class="platform-icon">👥</span><span class="platform-name">Teams</span><span class="platform-count">280M</span></div>
+                        <div class="platform-item" onclick="openPlatform('whatsapp')"><span class="platform-icon">💬</span><span class="platform-name">WhatsApp</span><span class="platform-count">2.7B</span></div>
+                        <div class="platform-item" onclick="openPlatform('messenger')"><span class="platform-icon">💭</span><span class="platform-name">Messenger</span><span class="platform-count">1.0B</span></div>
+                        <div class="platform-item" onclick="openPlatform('telegram')"><span class="platform-icon">✈️</span><span class="platform-name">Telegram</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item" onclick="openPlatform('viber')"><span class="platform-icon">📞</span><span class="platform-name">Viber</span><span class="platform-count">800M</span></div>
+                        <div class="platform-item" onclick="openPlatform('wechat')"><span class="platform-icon">💚</span><span class="platform-name">WeChat</span><span class="platform-count">1.3B</span></div>
+                        <div class="platform-item" onclick="openPlatform('line')"><span class="platform-icon">🟢</span><span class="platform-name">Line</span><span class="platform-count">178M</span></div>
+                        <div class="platform-item" onclick="openPlatform('discord')"><span class="platform-icon">🎮</span><span class="platform-name">Discord</span><span class="platform-count">150M</span></div>
+                        <div class="platform-item" onclick="openPlatform('kakaotalk')"><span class="platform-icon">💛</span><span class="platform-name">KakaoTalk</span><span class="platform-count">53M</span></div>
+                        <div class="platform-item" onclick="openPlatform('snapchat')"><span class="platform-icon">👻</span><span class="platform-name">Snapchat</span><span class="platform-count">750M</span></div>
+                        <div class="platform-item" onclick="openPlatform('skype')"><span class="platform-icon">☁️</span><span class="platform-name">Skype</span><span class="platform-count">300M</span></div>
+                        <div class="platform-item" onclick="openPlatform('zoom')"><span class="platform-icon">📹</span><span class="platform-name">Zoom</span><span class="platform-count">300M</span></div>
+                        <div class="platform-item" onclick="openPlatform('teams')"><span class="platform-icon">👥</span><span class="platform-name">Teams</span><span class="platform-count">280M</span></div>
                     </div>
                 </div>
                 
@@ -967,7 +949,8 @@
             <p class="contact-email">📧 Контакт: <a href="mailto:makedonworldnews@gmail.com">makedonworldnews@gmail.com</a></p>
             <p class="copyright">
                 © 2026 Global RSS Aggregator. Сите права задржани.<br>
-                🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode | 🌐 Google Translate
+                🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode | 🌐 Google Translate<br>
+                💳 Stripe | PayPal | Visa | Mastercard | 💰 Монетизација активирана
             </p>
         </footer>
     </div>
@@ -1009,10 +992,9 @@
         // ===== ГЛОБАЛНИ ПРОМЕНЛИВИ =====
         let allNews = [];
         let categories = new Set();
-        let macedonianOnly = false;
-        let deferredPrompt = null;
         let currentRegion = 'all';
         let currentCategory = 'all';
+        let deferredPrompt = null;
         
         // ===== ИНИЦИЈАЛИЗАЦИЈА =====
         document.addEventListener('DOMContentLoaded', () => {
@@ -1070,8 +1052,7 @@
         function filterByRegion(region) {
             currentRegion = region;
             
-            // Ажурирај ги активните копчиња
-            document.querySelectorAll('.region-btn').forEach(btn => {
+            document.querySelectorAll('#regionFilters .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent.includes(region === 'all' ? 'Сите Региони' : region)) {
                     btn.classList.add('active');
@@ -1084,8 +1065,7 @@
         function filterByCategory(category) {
             currentCategory = category;
             
-            // Ажурирај ги активните копчиња
-            document.querySelectorAll('.category-btn').forEach(btn => {
+            document.querySelectorAll('#categoryFilters .filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.textContent.includes(category === 'all' ? 'СИТЕ' : category)) {
                     btn.classList.add('active');
@@ -1135,7 +1115,6 @@
         function renderNews() {
             const container = document.getElementById('news-container');
             const search = document.getElementById('searchInput').value.toLowerCase().trim();
-            const mkOnly = document.getElementById('macedonianOnly').checked;
             
             // Филтрирање
             let filtered = allNews.filter(item => {
@@ -1156,9 +1135,6 @@
                     const text = `${item.title} ${item.contentSnippet} ${item.source}`.toLowerCase();
                     if (!text.includes(search)) return false;
                 }
-                
-                // Македонски јазик
-                if (mkOnly && !isMacedonian(item)) return false;
                 
                 return true;
             });
@@ -1184,16 +1160,15 @@
                     hour: '2-digit', minute: '2-digit'
                 });
                 
-                const isMk = isMacedonian(item);
                 const highlightedTitle = search ? highlightText(item.title || 'Без наслов', search) : (item.title || 'Без наслов');
                 const region = detectRegion(item);
                 const category = detectCategory(item);
                 
-                // Слика од веста или placeholder
-                const imageUrl = item.enclosure?.url || item['media:content']?.['$']?.url || generatePlaceholderImage(item.title);
+                // Вистинска слика од RSS
+                const imageUrl = extractImageFromItem(item);
                 
                 return `
-                    <article class="news-item ${isMk ? 'macedonian' : ''}" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                    <article class="news-item" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
                         <img class="news-image" src="${imageUrl}" alt="${item.title}" onerror="this.src='${generatePlaceholderImage(item.title)}'">
                         <div class="news-content">
                             <h3>
@@ -1203,8 +1178,7 @@
                             </h3>
                             <div class="meta">
                                 <span class="badge">${category || 'Општо'}</span>
-                                <span class="region-badge">${region || 'Глобално'}</span>
-                                ${isMk ? '<span class="lang-badge">🇲🇰 МК</span>' : ''}
+                                ${region ? `<span class="region-badge">${region}</span>` : ''}
                                 <span class="source">📢 ${item.source || 'Непознат'}</span>
                                 <span>🕐 ${date}</span>
                             </div>
@@ -1222,6 +1196,21 @@
             }).join('');
         }
         
+        // ===== ЕКСТРАКЦИЈА НА СЛИКА ОД RSS =====
+        function extractImageFromItem(item) {
+            // Пробај различни методи за екстракција на слика
+            if (item.enclosure?.url) return item.enclosure.url;
+            if (item['media:content']?.['$']?.url) return item['media:content']['$'].url;
+            if (item['media:thumbnail']?.['$']?.url) return item['media:thumbnail']['$'].url;
+            if (item.content?.match(/<img[^>]+src="([^">]+)"/)) {
+                return item.content.match(/<img[^>]+src="([^">]+)"/)[1];
+            }
+            if (item.description?.match(/<img[^>]+src="([^">]+)"/)) {
+                return item.description.match(/<img[^>]+src="([^">]+)"/)[1];
+            }
+            return generatePlaceholderImage(item.title);
+        }
+        
         // ===== ДЕТЕКЦИЈА НА РЕГИОН =====
         function detectRegion(item) {
             const text = `${item.title} ${item.contentSnippet} ${item.source} ${item.category}`.toLowerCase();
@@ -1234,7 +1223,6 @@
             if (/египет|каиро|нигери[јаи]|абуџа|лагос|јужна африка|претори[јаи]|кени[јаи]|најроби|етиопи[јаи]|адис абеба|гана|акра|мароко|рабат|алжир|тунис|либи[јаи]|триполи|судан|картум|уганда|кампаала|танзани[јаи]|да ес салам|руанда|кигали/i.test(text)) return 'Африка';
             if (/америка|соединети држави|вашингтон|њy јорк|канада|оторонто|мексико|мексико сити|бразил|бразили[јаи]|аргентина|буенос аирес|чиле|сантијаго|колумби[јаи]|богота|перу|лима|венецуела|каракас|еквадор|кито|боливи[јаи]|ла пас|парагвај|асунсион|уругвај|монтевидео/i.test(text)) return 'Америка';
             if (/австрали[јаи]|канбера|сиднеј|мелбурн|нов зеланд|велингтон|оукленд|фиџи|сува|папуа нова гвине[јаи]|порт морсби|самоа|апи[јаи]|тонга|нукуалофа|вануату|порт вила/i.test(text)) return 'Океанија';
-            if (/океан|атлантски|пацифик|индиски|арктик|антарктик/i.test(text)) return 'Океани';
             
             return null;
         }
@@ -1277,8 +1265,8 @@
                 hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
             
-            // Слика од веста
-            const imageUrl = item.enclosure?.url || item['media:content']?.['$']?.url || generatePlaceholderImage(item.title);
+            // Вистинска слика
+            const imageUrl = extractImageFromItem(item);
             modalImage.src = imageUrl;
             modalImage.alt = item.title;
             
@@ -1303,7 +1291,6 @@
                     <strong>Рубрика:</strong> ${category || 'Општо'}
                 </div>
                 ${region ? `<div class="modal-meta-item"><span>🐉</span><strong>Регион:</strong> ${region}</div>` : ''}
-                ${isMacedonian(item) ? '<div class="modal-meta-item"><span>🇲🇰</span><strong>Јазик:</strong> Македонски</div>' : ''}
             `;
             
             // Текст
@@ -1333,18 +1320,6 @@
         }
         
         // ===== ПОМОШНИ ФУНКЦИИ =====
-        function isMacedonian(item) {
-            const text = `${item.title} ${item.contentSnippet} ${item.source}`.toLowerCase();
-            const mkPatterns = [
-                /македони[јаи]/i, /скопје/i, /македонски/i, /македонец/i,
-                /кирил/i, /гоце/i, /делчев/i, /самуил/i, /охрид/i,
-                /битола/i, /прилеп/i, /тетово/i, /куманово/i,
-                /а1он|мит|сител|телма|канал|алфа|алсат/i,
-                /слободен печат|вечер|плусинфо|република|фактор/i
-            ];
-            return mkPatterns.some(p => p.test(text));
-        }
-        
         function highlightText(text, search) {
             if (!search) return text;
             const regex = new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
@@ -1358,12 +1333,6 @@
                 console.error('❌ Failed to copy:', err);
                 prompt('Копирај го линкот:', url);
             });
-        }
-        
-        function toggleMacedonianOnly() {
-            const checkbox = document.getElementById('macedonianOnly');
-            checkbox.checked = !checkbox.checked;
-            renderNews();
         }
         
         function updateLastUpdated() {
@@ -1392,7 +1361,74 @@
             });
         }
         
-        // Затвори модал со ESC
+        // ===== PAYMENT FUNCTIONS =====
+        function openPayment(method) {
+            const email = 'makedonworldnews@gmail.com';
+            let url = '';
+            
+            switch(method) {
+                case 'stripe':
+                    url = `https://buy.stripe.com/test_28o5lA0000000000001?prefilled_email=${email}`;
+                    break;
+                case 'paypal':
+                    url = `https://www.paypal.com/paypalme/makedonworldnews`;
+                    break;
+                case 'visa':
+                case 'mastercard':
+                    url = `https://checkout.stripe.com/pay/cs_test_...`; // Replace with actual Stripe link
+                    break;
+                case 'donate':
+                    url = `https://www.paypal.com/donate?hosted_button_id=...&business=${email}`;
+                    break;
+            }
+            
+            window.open(url, '_blank');
+        }
+        
+        // ===== PLATFORM FUNCTIONS =====
+        function openPlatform(platform) {
+            const platforms = {
+                'facebook': 'https://facebook.com',
+                'instagram': 'https://instagram.com',
+                'twitter': 'https://twitter.com',
+                'tiktok': 'https://tiktok.com',
+                'youtube': 'https://youtube.com',
+                'linkedin': 'https://linkedin.com',
+                'pinterest': 'https://pinterest.com',
+                'snapchat': 'https://snapchat.com',
+                'reddit': 'https://reddit.com',
+                'telegram': 'https://telegram.org',
+                'threads': 'https://threads.net',
+                'bluesky': 'https://bsky.app',
+                'chatgpt': 'https://chat.openai.com',
+                'claude': 'https://claude.ai',
+                'gemini': 'https://gemini.google.com',
+                'copilot': 'https://copilot.microsoft.com',
+                'midjourney': 'https://midjourney.com',
+                'perplexity': 'https://perplexity.ai',
+                'grok': 'https://grok.x.ai',
+                'grammarly': 'https://grammarly.com',
+                'dalle': 'https://openai.com/dall-e',
+                'stablediffusion': 'https://stability.ai',
+                'siri': 'https://apple.com/siri',
+                'watson': 'https://ibm.com/watson',
+                'whatsapp': 'https://whatsapp.com',
+                'messenger': 'https://messenger.com',
+                'viber': 'https://viber.com',
+                'wechat': 'https://wechat.com',
+                'line': 'https://line.me',
+                'discord': 'https://discord.com',
+                'kakaotalk': 'https://kakao.com',
+                'skype': 'https://skype.com',
+                'zoom': 'https://zoom.us',
+                'teams': 'https://teams.microsoft.com'
+            };
+            
+            if (platforms[platform]) {
+                window.open(platforms[platform], '_blank');
+            }
+        }
+        
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
