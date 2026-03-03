@@ -1,37 +1,13 @@
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-    <!-- 🔹 Основни мета тагови -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Глобални Вести - Автоматски RSS агрегатор со ~2950 извори од целиот свет">
-    <meta name="keywords" content="вести, новости, глобални, RSS, агрегатор, Македонија, Балкан, Европа, Азија, Африка, Америка">
-    <meta name="author" content="makedonworldnews@gmail.com">
-    <meta name="robots" content="index, follow">
-    
-    <!-- 🔹 Google Translate - оневозможи авто-превод -->
     <meta name="google" content="notranslate">
+    <title>🐉 Глобални Вести - Санде</title>
     
-    <!-- 🔹 Google AdSense - ЗА МОНЕТИЗАЦИЈА -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    
-    <!-- 🔹 Payment Systems Scripts -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-    
-    <!-- 🔹 PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <title>🐉 Глобални Вести - Санде | ~2950 RSS Извори од Целиот Свет</title>
-    
-    <!-- 🔹 CSS VARIABLES - Темска конфигурација -->
     <style>
         :root {
-            /* Бои за светла тема */
             --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --bg-card: #ffffff;
             --text-primary: #2c3e50;
@@ -40,10 +16,7 @@
             --badge-text: #ffffff;
             --shadow: 0 3px 12px rgba(0,0,0,0.1);
             --border-radius: 10px;
-            --transition: none; /* НИКАКВИ АНИМАЦИИ - СТАБИЛНОСТ! */
         }
-        
-        /* Бои за темна тема */
         [data-theme="dark"] {
             --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             --bg-card: #1e1e2f;
@@ -53,23 +26,26 @@
             --shadow: 0 3px 12px rgba(0,0,0,0.4);
         }
         
-        /* 🔹 ГЛОБАЛНИ СТИЛОВИ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             min-height: 100vh;
             padding: 12px;
             color: var(--text-primary);
             line-height: 1.5;
+            /* 🔹 FIX ЗА ТРЕПЕРЕЊЕ - стабилно рендерирање */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         
         .container { max-width: 1300px; margin: 0 auto; }
         
-        /* 🔹 HEADER СЕКЦИЈА */
+        /* Header */
         header {
             background: var(--bg-card);
             padding: 20px;
@@ -79,101 +55,71 @@
             text-align: center;
         }
         
-        h1 {
-            color: var(--text-primary);
-            font-size: 1.8em;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
+        h1 { color: var(--text-primary); font-size: 1.8em; margin-bottom: 12px; font-weight: 700; }
+        .stats { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .stat { background: var(--badge-bg); color: var(--badge-text); padding: 6px 14px; border-radius: 18px; font-weight: 600; font-size: 0.85em; }
         
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.95em;
-            margin-bottom: 15px;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-        
-        .stat {
-            background: var(--badge-bg);
-            color: var(--badge-text);
-            padding: 6px 14px;
-            border-radius: 18px;
-            font-weight: 600;
-            font-size: 0.85em;
-        }
-        
-        /* 🔹 GOOGLE TRANSLATE - ГОРЕ, ЦЕНТАР, ВИДЛИВ */
+        /* 🔹 GOOGLE TRANSLATE - ВИДЛИВ И ФУНКЦИОНАЛЕН */
         #google_translate_element {
-            background: #f5f7fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px auto;
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px auto;
             border: 2px solid #667eea;
-            max-width: 600px;
-            display: block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 550px;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            /* 🔹 FIX: Спречи скриен елемент */
+            position: relative !important;
+            z-index: 100 !important;
         }
-        
-        [data-theme="dark"] #google_translate_element {
-            background: #2d3748;
-            border-color: #4a4a6a;
-        }
+        [data-theme="dark"] #google_translate_element { background: #2d3748; border-color: #4a4a6a; }
         
         .goog-te-gadget {
             font-family: inherit !important;
             font-size: 15px !important;
             font-weight: 600 !important;
-            color: var(--text-primary) !important;
+            color: #2c3e50 !important;
         }
+        [data-theme="dark"] .goog-te-gadget { color: #ecf0f1 !important; }
         
         .goog-te-gadget select {
             border: 2px solid #667eea !important;
-            border-radius: 10px !important;
-            padding: 12px 20px !important;
+            border-radius: 8px !important;
+            padding: 10px 18px !important;
             font-size: 14px !important;
             font-weight: 600 !important;
             background: white !important;
             color: #2c3e50 !important;
             cursor: pointer;
             outline: none;
-            min-width: 250px;
+            min-width: 240px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
+            /* 🔹 FIX: Спречи треперење на dropdown */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
-        
         [data-theme="dark"] .goog-te-gadget select {
             background: #2d3748 !important;
             color: #ecf0f1 !important;
             border-color: #4a4a6a !important;
         }
         
-        /* Скриј го Google банерот */
+        /* 🔹 FIX: Скриј го Google банерот но задржи го преводот */
         .goog-te-banner-frame { display: none !important; }
+        .goog-te-menu-frame { border: none !important; }
         body { top: 0 !important; position: relative !important; }
         .skiptranslate { display: none; }
-        .goog-te-gadget-simple { border: none !important; }
+        .VIpgJd-ZVi9od-l4eHX-hSRGPd { display: none !important; }
         
-        /* 🔹 MAIN LAYOUT - 3 Колони */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr 260px;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+        /* Layout */
+        .main-layout { display: grid; grid-template-columns: 260px 1fr 260px; gap: 15px; margin-bottom: 15px; }
+        @media (max-width: 1000px) { .main-layout { grid-template-columns: 1fr; } }
         
-        @media (max-width: 1000px) {
-            .main-layout { grid-template-columns: 1fr; }
-        }
-        
-        /* 🔹 SIDEBAR СЕКЦИИ */
+        /* Sidebar */
         .sidebar {
             background: var(--bg-card);
             padding: 15px;
@@ -182,18 +128,11 @@
             height: fit-content;
             position: sticky;
             top: 15px;
+            /* 🔹 FIX: Спречи треперење на sidebar */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
-        
-        .sidebar h3 {
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            font-size: 1.1em;
-            text-align: center;
-            border-bottom: 2px solid var(--badge-bg);
-            padding-bottom: 8px;
-            font-weight: 600;
-        }
-        
+        .sidebar h3 { color: var(--text-primary); margin-bottom: 12px; font-size: 1.1em; text-align: center; border-bottom: 2px solid var(--badge-bg); padding-bottom: 8px; font-weight: 600; }
         .platform-list { display: grid; gap: 5px; }
         
         .platform-item {
@@ -206,73 +145,32 @@
             text-decoration: none;
             color: var(--text-primary);
             font-size: 0.82em;
-            /* БЕЗ transition, БЕЗ transform - ЦЕЛОСНО СТАБИЛНО! */
+            font-weight: 500;
+            /* 🔹 FIX: НИКАКВИ анимации - целосно стабилно! */
+            transition: none !important;
+            transform: none !important;
+            will-change: auto !important;
+        }
+        /* 🔹 FIX: Отстрани hover ефекти што предизвикуваат треперење */
+        .platform-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transition: none !important;
+            transform: none !important;
         }
         
-        .platform-icon { font-size: 1.1em; }
+        .platform-icon { font-size: 1.1em; line-height: 1; }
         .platform-name { font-weight: 600; }
-        .platform-count {
-            margin-left: auto;
-            background: var(--badge-bg);
-            color: white;
-            padding: 1px 5px;
-            border-radius: 7px;
-            font-size: 0.68em;
-            font-weight: 700;
-        }
+        .platform-count { margin-left: auto; background: var(--badge-bg); color: white; padding: 1px 5px; border-radius: 7px; font-size: 0.68em; font-weight: 700; }
         
-        /* 🔹 CENTER CONTENT */
-        .center-content {
-            background: var(--bg-card);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-        
-        /* 🔹 FILTERS */
+        /* Center */
+        .center-content { background: var(--bg-card); padding: 15px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .filters-container { margin-bottom: 15px; }
+        .filter-buttons { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+        .filter-btn { padding: 5px 12px; border: 2px solid var(--badge-bg); background: transparent; color: var(--text-primary); border-radius: 16px; cursor: pointer; font-weight: 600; font-size: 0.82em; transition: none !important; }
+        .filter-btn.active { background: var(--badge-bg); color: white; }
+        .search-input { width: 100%; padding: 10px; font-size: 13px; border: 2px solid #667eea; border-radius: 9px; outline: none; background: var(--bg-card); color: var(--text-primary); }
         
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-        
-        .filter-btn {
-            padding: 5px 12px;
-            border: 2px solid var(--badge-bg);
-            background: transparent;
-            color: var(--text-primary);
-            border-radius: 16px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.82em;
-            transition: background 0.2s;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--badge-bg);
-            color: white;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 13px;
-            border: 2px solid #667eea;
-            border-radius: 9px;
-            outline: none;
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-        
-        .search-input:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-        }
-        
-        /* 🔹 NEWS SECTION - ЦЕЛОСНО СТАБИЛНО */
+        /* 🔹 NEWS - ЦЕЛОСНО СТАБИЛНО, БЕЗ ТРЕПЕРЕЊЕ */
         .news-container { display: grid; gap: 15px; }
         
         .news-item {
@@ -280,16 +178,27 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             overflow: hidden;
-            /* НИКАКВИ transform, transition, animation - ЦЕЛОСНО СТАБИЛНО! */
+            /* 🔹 FIX: НИКАКВИ анимации, transform или transition */
+            transition: none !important;
+            transform: none !important;
+            will-change: auto !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         
+        /* 🔹 FIX: Сликата без треперење */
         .news-image {
             width: 100%;
             height: 260px;
             object-fit: cover;
             background: #667eea;
             display: block;
-            /* БЕЗ transition, БЕЗ transform - сликата е стабилна! */
+            /* 🔹 FIX: Спречи треперење на слика */
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: none !important;
+            transform: none !important;
         }
         
         .news-content { padding: 15px; }
@@ -300,198 +209,68 @@
             line-height: 1.4;
             color: var(--text-primary);
             font-weight: 600;
+            /* 🔹 FIX: Текст без треперење */
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
         
-        .news-item h3 a {
-            text-decoration: none;
-            color: inherit;
-        }
+        .news-item h3 a { text-decoration: none; color: inherit; transition: none !important; }
         
-        .news-item h3 a:hover {
-            color: var(--badge-bg);
-        }
+        .meta { display: flex; gap: 7px; flex-wrap: wrap; font-size: 0.78em; color: var(--text-secondary); margin-bottom: 7px; }
+        .badge { background: var(--badge-bg); color: white; padding: 2px 9px; border-radius: 11px; font-weight: 600; font-size: 0.73em; }
+        .region-badge { background: #ff6b6b; }
         
-        .meta {
-            display: flex;
-            gap: 7px;
-            flex-wrap: wrap;
-            font-size: 0.78em;
-            color: var(--text-secondary);
-            margin-bottom: 7px;
-        }
-        
-        .badge {
-            background: var(--badge-bg);
-            color: white;
-            padding: 2px 9px;
-            border-radius: 11px;
-            font-weight: 600;
-            font-size: 0.73em;
-        }
-        
-        .region-badge {
-            background: #ff6b6b;
-        }
-        
-        /* 🔹 MODAL FOR NEWS */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 15px;
-        }
-        
-        .modal-content {
-            background: var(--bg-card);
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .modal-image {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-            background: #667eea;
-        }
-        
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 2000; overflow-y: auto; padding: 15px; }
+        .modal-content { background: var(--bg-card); max-width: 800px; margin: 0 auto; border-radius: 12px; overflow: hidden; }
+        .modal-image { width: 100%; height: 380px; object-fit: cover; background: #667eea; }
         .modal-body { padding: 20px; }
+        .modal-close { position: fixed; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: white; border: none; font-size: 1.6em; cursor: pointer; z-index: 10; }
         
-        .modal-close {
-            position: fixed;
-            top: 12px;
-            right: 12px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: white;
-            border: none;
-            font-size: 1.6em;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* Payment */
+        .payment-section { background: var(--bg-card); padding: 20px; border-radius: var(--border-radius); margin-top: 20px; box-shadow: var(--shadow); }
+        .payment-section h3 { text-align: center; margin-bottom: 12px; color: var(--text-primary); font-size: 1.2em; font-weight: 600; }
+        .payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 12px; }
+        .payment-btn { padding: 10px; border: none; border-radius: 9px; font-weight: 600; cursor: pointer; color: white; font-size: 0.88em; }
+        .stripe { background: #635bff; } .paypal { background: #00457C; } .visa { background: #1A1F71; } .mastercard { background: #EB001B; }
         
-        /* 🔹 PAYMENT SECTION - НАЈДОЛУ */
-        .payment-section {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-top: 20px;
-            box-shadow: var(--shadow);
-        }
+        /* Footer */
+        footer { text-align: center; padding: 20px; color: white; margin-top: 20px; font-size: 0.88em; }
+        footer a { color: white; text-decoration: underline; }
         
-        .payment-section h3 {
-            text-align: center;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-            font-size: 1.2em;
-            font-weight: 600;
-        }
+        /* Theme Toggle */
+        #theme-toggle { position: fixed; bottom: 20px; right: 20px; padding: 9px 18px; border-radius: 23px; border: none; background: var(--badge-bg); color: white; cursor: pointer; font-weight: 600; z-index: 1000; }
         
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+        .loading { text-align: center; padding: 35px; color: var(--text-secondary); }
         
-        .payment-btn {
-            padding: 10px;
-            border: none;
-            border-radius: 9px;
-            font-weight: 600;
-            cursor: pointer;
-            color: white;
-            font-size: 0.88em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        .stripe { background: #635bff; }
-        .paypal { background: #00457C; }
-        .visa { background: #1A1F71; }
-        .mastercard { background: #EB001B; }
-        
-        /* 🔹 FOOTER */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            margin-top: 20px;
-            font-size: 0.88em;
-        }
-        
-        footer a {
-            color: white;
-            text-decoration: underline;
-        }
-        
-        /* 🔹 THEME TOGGLE BUTTON */
-        #theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 9px 18px;
-            border-radius: 23px;
-            border: none;
-            background: var(--badge-bg);
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            z-index: 1000;
-            font-size: 0.9em;
-        }
-        
-        /* 🔹 LOADING STATE */
-        .loading {
-            text-align: center;
-            padding: 35px;
-            color: var(--text-secondary);
-            font-size: 1.1em;
-        }
-        
-        /* 🔹 ACCESSIBILITY */
+        /* 🔹 FIX: Accessibility - намали анимации за оние што претпочитаат */
         @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; animation: none !important; }
-        }
-        
-        /* 🔹 PRINT STYLES */
-        @media print {
-            #theme-toggle, .payment-section, .sidebar { display: none !important; }
-            body { background: white; color: black; }
-            .news-item { break-inside: avoid; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 🔹 HEADER -->
         <header>
             <h1>🐉 Глобални Вести</h1>
-            <p class="subtitle">Автоматски агрегатор со ~2950 RSS извори од целиот свет</p>
+            <p style="color:var(--text-secondary);margin-bottom:15px">Автоматски агрегатор со ~2950 RSS извори</p>
             <div class="stats">
                 <div class="stat">📰 ~2950 Извори</div>
                 <div class="stat">🌐 195 Држави</div>
                 <div class="stat">🔄 Ажурирање на 6ч</div>
-                <div class="stat">💯 Бесплатно</div>
             </div>
             
-            <!-- 🌐 Google Translate - ГОРЕ, ЦЕНТАР, ВИДЛИВ -->
+            <!-- 🌐 Google Translate - ВИДЛИВ И ФУНКЦИОНАЛЕН -->
             <div id="google_translate_element"></div>
         </header>
         
-        <!-- 🔹 MAIN LAYOUT -->
         <div class="main-layout">
-            <!-- 🔹 LEFT SIDEBAR - Социјални Мрежи + Месинџери -->
+            <!-- Left Sidebar -->
             <aside class="sidebar">
                 <h3>📱 Социјални + Месинџери</h3>
                 <div class="platform-list">
@@ -510,7 +289,7 @@
                 </div>
             </aside>
             
-            <!-- 🔹 CENTER CONTENT - Вести + Филтри -->
+            <!-- Center Content -->
             <main class="center-content">
                 <div class="filters-container">
                     <h3>🐉 Филтер по Регион</h3>
@@ -525,38 +304,24 @@
                         <button class="filter-btn" onclick="filterByRegion('Америка')">🐉 Америка</button>
                         <button class="filter-btn" onclick="filterByRegion('Океанија')">🐉 Океанија</button>
                     </div>
-                    
-                    <h3 style="margin-top: 12px;">📂 Филтер по Рубрика</h3>
+                    <h3 style="margin-top:12px">📂 Филтер по Рубрика</h3>
                     <div class="filter-buttons" id="categoryFilters">
                         <button class="filter-btn active" onclick="filterByCategory('all')">📰 СИТЕ</button>
-                        <button class="filter-btn" onclick="filterByCategory('ПРОТОКОЛ')">🎩 ПРОТОКОЛ</button>
-                        <button class="filter-btn" onclick="filterByCategory('ДИПЛОМАТИЈА')">🤝 ДИПЛОМАТИЈА</button>
-                        <button class="filter-btn" onclick="filterByCategory('ОДНОСИ СО ЈАВНОСТ')">📢 ОДНОСИ СО ЈАВНОСТ</button>
-                        <button class="filter-btn" onclick="filterByCategory('БЕЗБЕДНОСТ')">🛡️ БЕЗБЕДНОСТ</button>
                         <button class="filter-btn" onclick="filterByCategory('ПОЛИТИКА')">🏛️ ПОЛИТИКА</button>
                         <button class="filter-btn" onclick="filterByCategory('БИЗНИС')">💼 БИЗНИС</button>
-                        <button class="filter-btn" onclick="filterByCategory('ЕКОНОМИЈА')">💰 ЕКОНОМИЈА</button>
+                        <button class="filter-btn" onclick="filterByCategory('СПОРТ')">⚽ СПОРТ</button>
+                        <button class="filter-btn" onclick="filterByCategory('ТЕХНОЛОГИЈА')">💻 ТЕХНОЛОГИЈА</button>
                         <button class="filter-btn" onclick="filterByCategory('ЗДРАВЈЕ')">🏥 ЗДРАВЈЕ</button>
                         <button class="filter-btn" onclick="filterByCategory('ЗАБАВА')">🎭 ЗАБАВА</button>
-                        <button class="filter-btn" onclick="filterByCategory('КУЛТУРА')">🎨 КУЛТУРА</button>
-                        <button class="filter-btn" onclick="filterByCategory('ПАТУВАЊЕ')">✈️ ПАТУВАЊЕ</button>
-                        <button class="filter-btn" onclick="filterByCategory('НАУКА')">🔬 НАУКА</button>
-                        <button class="filter-btn" onclick="filterByCategory('ВРЕМЕ')">🌤️ ВРЕМЕ</button>
-                        <button class="filter-btn" onclick="filterByCategory('СПОРТ')">⚽ СПОРТ</button>
-                        <button class="filter-btn" onclick="filterByCategory('НАЈНОВИ')">🔥 НАЈНОВИ</button>
-                        <button class="filter-btn" onclick="filterByCategory('ВО ЖИВО')">🔴 ВО ЖИВО</button>
                     </div>
-                    
                     <input type="search" id="searchInput" class="search-input" placeholder="🔎 Пребарај вести..." oninput="renderNews()">
                 </div>
-                
-                <!-- News Container -->
                 <div id="news-container" class="news-container">
-                    <div class="loading">⏳ Вчитување вести... Молиме почекајте.</div>
+                    <div class="loading">⏳ Вчитување вести...</div>
                 </div>
             </main>
             
-            <!-- 🔹 RIGHT SIDEBAR - AI Платформи -->
+            <!-- Right Sidebar -->
             <aside class="sidebar">
                 <h3>🤖 AI Платформи</h3>
                 <div class="platform-list">
@@ -568,15 +333,11 @@
                     <a class="platform-item" href="https://perplexity.ai" target="_blank" rel="noopener"><span class="platform-icon">🔍</span><span class="platform-name">Perplexity</span><span class="platform-count">AI Search</span></a>
                     <a class="platform-item" href="https://grok.x.ai" target="_blank" rel="noopener"><span class="platform-icon">⚡</span><span class="platform-name">Grok</span><span class="platform-count">xAI</span></a>
                     <a class="platform-item" href="https://grammarly.com" target="_blank" rel="noopener"><span class="platform-icon">✓</span><span class="platform-name">Grammarly</span><span class="platform-count">Writing</span></a>
-                    <a class="platform-item" href="https://dall-e.openai.com" target="_blank" rel="noopener"><span class="platform-icon">🖼️</span><span class="platform-name">DALL-E</span><span class="platform-count">OpenAI</span></a>
-                    <a class="platform-item" href="https://stability.ai" target="_blank" rel="noopener"><span class="platform-icon">🎭</span><span class="platform-name">Stable Diffusion</span><span class="platform-count">Stability AI</span></a>
-                    <a class="platform-item" href="https://huggingface.co" target="_blank" rel="noopener"><span class="platform-icon">🤗</span><span class="platform-name">HuggingFace</span><span class="platform-count">AI Hub</span></a>
-                    <a class="platform-item" href="https://mistral.ai" target="_blank" rel="noopener"><span class="platform-icon">🌪️</span><span class="platform-name">Mistral</span><span class="platform-count">Mistral AI</span></a>
                 </div>
             </aside>
         </div>
         
-        <!-- 🔹 PAYMENT SECTION - НАЈДОЛУ -->
+        <!-- Payment Section -->
         <section class="payment-section">
             <h3>💳 Поддржете нè преку:</h3>
             <div class="payment-methods">
@@ -585,40 +346,33 @@
                 <button class="payment-btn visa" onclick="openPayment('visa')">💳 Visa</button>
                 <button class="payment-btn mastercard" onclick="openPayment('mastercard')">💳 Mastercard</button>
             </div>
-            <p style="text-align: center; color: var(--text-secondary); font-size: 0.83em;">
-                📧 Сите плаќања се процесираат преку: <strong>makedonworldnews@gmail.com</strong>
-            </p>
+            <p style="text-align:center;color:var(--text-secondary);font-size:0.83em">📧 makedonworldnews@gmail.com</p>
         </section>
         
-        <!-- 🔹 FOOTER -->
         <footer>
             <p>🕐 Последно ажурирано: <span id="last-updated">...</span></p>
             <p>📧 <a href="mailto:makedonworldnews@gmail.com">makedonworldnews@gmail.com</a></p>
             <p>© 2026 Global RSS Aggregator. Сите права задржани.</p>
-            <p style="margin-top: 8px; font-size: 0.8em; opacity: 0.9;">
-                🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode | 🌐 Google Translate
-            </p>
         </footer>
     </div>
     
-    <!-- 🔹 MODAL FOR NEWS DETAILS -->
+    <!-- Modal -->
     <div id="news-modal" class="modal-overlay" onclick="closeModal(event)">
         <button class="modal-close" onclick="closeModal()">&times;</button>
         <div class="modal-content" onclick="event.stopPropagation()">
-            <img id="modal-image" class="modal-image" src="" alt="News Image">
+            <img id="modal-image" class="modal-image" src="" alt="News">
             <div class="modal-body">
-                <h2 id="modal-title" style="margin-bottom: 12px; font-size: 1.4em; font-weight: 700;"></h2>
-                <div id="modal-meta" style="margin-bottom: 12px; padding: 10px; background: rgba(102,126,234,0.1); border-radius: 7px; font-size: 0.88em;"></div>
-                <p id="modal-text" style="line-height: 1.6; color: var(--text-secondary);"></p>
-                <a id="modal-link" href="#" target="_blank" rel="noopener" style="display: inline-block; margin-top: 12px; padding: 9px 22px; background: var(--badge-bg); color: white; text-decoration: none; border-radius: 18px; font-weight: 600;">🔗 Отвори цела вест</a>
+                <h2 id="modal-title" style="margin-bottom:12px;font-size:1.4em;font-weight:700"></h2>
+                <div id="modal-meta" style="margin-bottom:12px;padding:10px;background:rgba(102,126,234,0.1);border-radius:7px;font-size:0.88em"></div>
+                <p id="modal-text" style="line-height:1.6;color:var(--text-secondary)"></p>
+                <a id="modal-link" href="#" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:9px 22px;background:var(--badge-bg);color:white;text-decoration:none;border-radius:18px;font-weight:600">🔗 Отвори вест</a>
             </div>
         </div>
     </div>
     
-    <!-- 🔹 THEME TOGGLE BUTTON -->
     <button id="theme-toggle" onclick="toggleTheme()">🌓 Тема</button>
     
-    <!-- 🔹 Google Translate Script -->
+    <!-- 🌐 Google Translate Script -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -631,348 +385,136 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
-    <!-- 🔹 MAIN JAVASCRIPT -->
     <script>
-        // ===== ГЛОБАЛНИ ПРОМЕНЛИВИ =====
-        let allNews = [];
-        let currentRegion = 'all';
-        let currentCategory = 'all';
+        let allNews = [], currentRegion = 'all', currentCategory = 'all';
         
-        // ===== ИНИЦИЈАЛИЗАЦИЈА =====
-        document.addEventListener('DOMContentLoaded', () => {
-            loadNews();
-            initTheme();
-        });
+        document.addEventListener('DOMContentLoaded', () => { loadNews(); initTheme(); });
         
-        // ===== DARK/LIGHT MODE =====
         function initTheme() {
             const saved = localStorage.getItem('theme');
-            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (saved === 'dark' || (!saved && systemDark)) {
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         }
         
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
+            document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
         }
         
-        // ===== ВЧИТУВАЊЕ НА ВЕСТИ =====
         async function loadNews() {
             try {
-                const response = await fetch('data/feeds.json', {
-                    headers: { 'Accept': 'application/json', 'Cache-Control': 'no-cache' }
-                });
-                
-                if (!response.ok) throw new Error(`HTTP грешка: ${response.status}`);
-                
-                allNews = await response.json();
+                const res = await fetch('data/feeds.json');
+                if (!res.ok) throw new Error('Network error');
+                allNews = await res.json();
                 renderNews();
-                updateLastUpdated();
-                
-            } catch (error) {
-                console.error('❌ Грешка при вчитување:', error);
-                document.getElementById('news-container').innerHTML = `
-                    <div class="loading">
-                        ❌ Грешка при вчитување на вести<br>
-                        <small style="display: block; margin-top: 10px;">
-                            Провери дали data/feeds.json постои во репозиториумот<br>
-                            Или оди во Actions и пушти го workflow-от рачно
-                        </small>
-                    </div>
-                `;
+                if (allNews[0]?.pubDate) {
+                    document.getElementById('last-updated').textContent = new Date(allNews[0].pubDate).toLocaleString('mk-MK');
+                }
+            } catch (e) {
+                document.getElementById('news-container').innerHTML = '<div class="loading">❌ Грешка при вчитување</div>';
             }
         }
         
-        // ===== ФИЛТЕР ПО РЕГИОН =====
-        function filterByRegion(region) {
-            currentRegion = region;
-            
-            // Ажурирај ги активните копчиња
-            document.querySelectorAll('#regionFilters .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(region === 'all' ? 'Сите' : region)) {
-                    btn.classList.add('active');
-                }
+        function filterByRegion(r) {
+            currentRegion = r;
+            document.querySelectorAll('#regionFilters .filter-btn').forEach(b => {
+                b.classList.toggle('active', b.textContent.includes(r === 'all' ? 'Сите' : r));
             });
-            
             renderNews();
         }
         
-        // ===== ФИЛТЕР ПО КАТЕГОРИЈА =====
-        function filterByCategory(category) {
-            currentCategory = category;
-            
-            // Ажурирај ги активните копчиња
-            document.querySelectorAll('#categoryFilters .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(category === 'all' ? 'СИТЕ' : category)) {
-                    btn.classList.add('active');
-                }
+        function filterByCategory(c) {
+            currentCategory = c;
+            document.querySelectorAll('#categoryFilters .filter-btn').forEach(b => {
+                b.classList.toggle('active', b.textContent.includes(c === 'all' ? 'СИТЕ' : c));
             });
-            
             renderNews();
         }
         
-        // ===== ПРИКАЖУВАЊЕ НА ВЕСТИ =====
         function renderNews() {
             const container = document.getElementById('news-container');
-            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            const search = document.getElementById('searchInput').value.toLowerCase();
             
-            // Филтрирање на вестите
             let filtered = allNews.filter(item => {
-                // Филтер по регион
-                if (currentRegion !== 'all') {
-                    const itemRegion = detectRegion(item);
-                    if (itemRegion !== currentRegion) return false;
-                }
-                
-                // Филтер по категорија
-                if (currentCategory !== 'all') {
-                    const itemCategory = detectCategory(item);
-                    if (itemCategory !== currentCategory) return false;
-                }
-                
-                // Пребарување по текст
-                if (search) {
-                    const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''}`.toLowerCase();
-                    if (!text.includes(search)) return false;
-                }
-                
+                if (currentRegion !== 'all' && detectRegion(item) !== currentRegion) return false;
+                if (currentCategory !== 'all' && detectCategory(item) !== currentCategory) return false;
+                if (search && !(`${item.title} ${item.contentSnippet||''} ${item.source||''}`.toLowerCase().includes(search))) return false;
                 return true;
             });
             
-            // Прикажи порака ако нема резултати
-            if (!filtered.length) {
-                container.innerHTML = '<div class="loading">📭 Нема пронајдени вести за избраниот филтер</div>';
-                return;
-            }
+            if (!filtered.length) { container.innerHTML = '<div class="loading">📭 Нема вести</div>'; return; }
             
-            // Прикажи ги првите 50 вести (за перформанси)
-            const display = filtered.slice(0, 50);
-            
-            container.innerHTML = display.map(item => {
-                const date = new Date(item.pubDate).toLocaleString('mk-MK', {
-                    year: 'numeric', month: 'long', day: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                });
-                
-                const region = detectRegion(item);
-                const category = detectCategory(item);
-                const imageUrl = extractImageFromItem(item);
-                
-                return `
-                    <article class="news-item">
-                        <img class="news-image" src="${imageUrl}" alt="${item.title || 'Вест'}" onerror="this.src='https://via.placeholder.com/800x400/667eea/ffffff?text=News'">
-                        <div class="news-content">
-                            <h3><a href="${item.link || '#'}" target="_blank" rel="noopener">${item.title || 'Без наслов'}</a></h3>
-                            <div class="meta">
-                                ${category ? `<span class="badge">${category}</span>` : ''}
-                                ${region ? `<span class="badge region-badge">${region}</span>` : ''}
-                                <span>📢 ${item.source || 'Непознат извор'}</span>
-                                <span>🕐 ${date}</span>
-                            </div>
-                            ${item.contentSnippet ? `<p style="color: var(--text-secondary); font-size: 0.93em; line-height: 1.5;">${item.contentSnippet.substring(0, 140)}${item.contentSnippet.length > 140 ? '...' : ''}</p>` : ''}
+            container.innerHTML = filtered.slice(0,50).map(item => {
+                const date = new Date(item.pubDate).toLocaleString('mk-MK');
+                const region = detectRegion(item), category = detectCategory(item);
+                const img = extractImage(item);
+                return `<article class="news-item">
+                    <img class="news-image" src="${img}" alt="${item.title||''}" onerror="this.src='https://via.placeholder.com/800x400/667eea/ffffff?text=News'">
+                    <div class="news-content">
+                        <h3><a href="${item.link||'#'}" target="_blank" rel="noopener">${item.title||'Без наслов'}</a></h3>
+                        <div class="meta">
+                            ${category?`<span class="badge">${category}</span>`:''}
+                            ${region?`<span class="badge region-badge">${region}</span>`:''}
+                            <span>📢 ${item.source||'Непознат'}</span><span>🕐 ${date}</span>
                         </div>
-                    </article>
-                `;
+                        ${item.contentSnippet?`<p style="color:var(--text-secondary);font-size:0.93em">${item.contentSnippet.substring(0,140)}${item.contentSnippet.length>140?'...':''}</p>`:''}
+                    </div>
+                </article>`;
             }).join('');
         }
         
-        // ===== ЕКСТРАКЦИЈА НА СЛИКА ОД RSS =====
-        function extractImageFromItem(item) {
-            // Метод 1: enclosure.url (стандарден RSS)
+        function extractImage(item) {
             if (item.enclosure?.url) return item.enclosure.url;
-            
-            // Метод 2: media:content (Media RSS)
             if (item['media:content']?.['$']?.url) return item['media:content']['$'].url;
-            
-            // Метод 3: media:thumbnail
             if (item['media:thumbnail']?.['$']?.url) return item['media:thumbnail']['$'].url;
-            
-            // Метод 4: Парсирање на <img> од content полето
-            const imgRegex = /<img[^>]+src="([^">]+)"/i;
-            if (item.content?.match(imgRegex)) {
-                return item.content.match(imgRegex)[1];
-            }
-            
-            // Метод 5: Парсирање на <img> од description полето
-            if (item.description?.match(imgRegex)) {
-                return item.description.match(imgRegex)[1];
-            }
-            
-            // fallback: placeholder слика
+            const r = /<img[^>]+src="([^">]+)"/i;
+            if (item.content?.match(r)) return item.content.match(r)[1];
+            if (item.description?.match(r)) return item.description.match(r)[1];
             return 'https://via.placeholder.com/800x400/667eea/ffffff?text=News';
         }
         
-        // ===== АВТОМАТСКА ДЕТЕКЦИЈА НА РЕГИОН =====
         function detectRegion(item) {
-            const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''} ${item.category || ''}`.toLowerCase();
-            
-            // Македонија
-            if (/македони[јаи]|скопје|битола|прилеп|тетово|куманово|охрид|ве[лс]|а1он|мит|сител|телма|канал/i.test(text)) {
-                return 'Македонија';
-            }
-            
-            // Балкан
-            if (/срби[јаи]|белград|хрватска|загреб|биҳ|босна|сараево|црна гора|подгорица|албани[јаи]|тирана|косово|приштина|бугари[јаи]|софи[јаи]|грци[јаи]|атина|романи[јаи]|букурешт/i.test(text)) {
-                return 'Балкан';
-            }
-            
-            // Европа
-            if (/германи[јаи]|берлин|франци[јаи]|париз|итали[јаи]|рим|шпани[јаи]|мадрид|велика британи[јаи]|лондон|холанди[јаи]|амстердам|белги[јаи]|брисел|швајцари[јаи]|берн|австри[јаи]|виена|полска|варшава|чешка|прага|унгари[јаи]|скандинави[јаи]/i.test(text)) {
-                return 'Европа';
-            }
-            
-            // Азија
-            if (/кина|пекинг|јапони[јаи]|токио|јужна коре[јаи]|сеул|тајван|виетнам|тајланд|сингапур|малези[јаи]|индонези[јаи]|филипини/i.test(text)) {
-                return 'Азија';
-            }
-            
-            // Индија
-            if (/инди[јаи]|делхи|мумбаи|пакистан|бангладеш|непал|шри ланка/i.test(text)) {
-                return 'Индија';
-            }
-            
-            // Африка
-            if (/египет|нигери[јаи]|јужна африка|кени[јаи]|етиопи[јаи]|гана|мароко|алжир|тунис/i.test(text)) {
-                return 'Африка';
-            }
-            
-            // Америка
-            if (/америка|соединети држави|вашингтон|канада|мексико|бразил|аргентина|чиле|колумби[јаи]|перу/i.test(text)) {
-                return 'Америка';
-            }
-            
-            // Океанија
-            if (/австрали[јаи]|нов зеланд|фиџи|папуа/i.test(text)) {
-                return 'Океанија';
-            }
-            
+            const t = `${item.title} ${item.contentSnippet||''} ${item.source||''} ${item.category||''}`.toLowerCase();
+            if (/македони[јаи]|скопје/i.test(t)) return 'Македонија';
+            if (/срби[јаи]|хрватска|босна|албани[јаи]|косово|бугари[јаи]|грци[јаи]/i.test(t)) return 'Балкан';
+            if (/германи[јаи]|франци[јаи]|итали[јаи]|шпани[јаи]|велика британи[јаи]/i.test(t)) return 'Европа';
+            if (/кина|јапони[јаи]|коре[јаи]|виетнам|тајланд|сингапур/i.test(t)) return 'Азија';
+            if (/инди[јаи]|делхи|пакистан|бангладеш/i.test(t)) return 'Индија';
+            if (/египет|нигери[јаи]|јужна африка|кени[јаи]/i.test(t)) return 'Африка';
+            if (/америка|канада|мексико|бразил|аргентина/i.test(t)) return 'Америка';
+            if (/австрали[јаи]|нов зеланд|фиџи/i.test(t)) return 'Океанија';
             return null;
         }
         
-        // ===== АВТОМАТСКА ДЕТЕКЦИЈА НА КАТЕГОРИЈА =====
         function detectCategory(item) {
-            const text = `${item.title} ${item.contentSnippet || ''} ${item.source || ''} ${item.category || ''}`.toLowerCase();
-            
-            if (/протокол|церемони[јаи]|официјална посета/i.test(text)) return 'ПРОТОКОЛ';
-            if (/дипломати[јаи]|амбасада|меѓународни односи/i.test(text)) return 'ДИПЛОМАТИЈА';
-            if (/односи со јавност|медиуми|пресс/i.test(text)) return 'ОДНОСИ СО ЈАВНОСТ';
-            if (/безбедност|војска|полици[јаи]|одбрана/i.test(text)) return 'БЕЗБЕДНОСТ';
-            if (/политик[аи]|влада|парламент|парти[јаи]|избори/i.test(text)) return 'ПОЛИТИКА';
-            if (/бизнис|компани[јаи]|корпораци[јаи]|менаџмент/i.test(text)) return 'БИЗНИС';
-            if (/економи[јаи]|финансии|банки|берза|тргови[јаи]/i.test(text)) return 'ЕКОНОМИЈА';
-            if (/здрав[јаии]|болница|доктор|медицина|вакцина/i.test(text)) return 'ЗДРАВЈЕ';
-            if (/забава|филм|музика|телевизи[јаи]|сери[јаи]/i.test(text)) return 'ЗАБАВА';
-            if (/култур[аи]|уметност|музеј|изложба|театар/i.test(text)) return 'КУЛТУРА';
-            if (/патува[њаи]|туризам|хотел|авион|дестинаци[јаи]/i.test(text)) return 'ПАТУВАЊЕ';
-            if (/наук[аи]|технологи[јаи]|истражува[њаи]|иноваци[јаи]/i.test(text)) return 'НАУКА';
-            if (/време|временска прогноза|температур[аи]|врнежи/i.test(text)) return 'ВРЕМЕ';
-            if (/спорт|фудбал|кошарка|теннис|атлетик[аи]|шампионат/i.test(text)) return 'СПОРТ';
-            if (/најнови|најново|breaking|urgent/i.test(text)) return 'НАЈНОВИ';
-            if (/во живо|live|streaming/i.test(text)) return 'ВО ЖИВО';
-            
+            const t = `${item.title} ${item.contentSnippet||''} ${item.source||''} ${item.category||''}`.toLowerCase();
+            if (/политик[аи]|влада|парламент/i.test(t)) return 'ПОЛИТИКА';
+            if (/бизнис|компани[јаи]|корпораци[јаи]/i.test(t)) return 'БИЗНИС';
+            if (/економи[јаи]|финансии|банки|берза/i.test(t)) return 'ЕКОНОМИЈА';
+            if (/здрав[јаии]|болница|доктор|медицина/i.test(t)) return 'ЗДРАВЈЕ';
+            if (/забава|филм|музика|телевизи[јаи]/i.test(t)) return 'ЗАБАВА';
+            if (/спорт|фудбал|кошарка|теннис/i.test(t)) return 'СПОРТ';
+            if (/наук[аи]|технологи[јаи]|истражува/i.test(t)) return 'ТЕХНОЛОГИЈА';
             return item.category || null;
         }
         
-        // ===== МОДАЛ ФУНКЦИИ =====
         function openModal(item) {
-            const modal = document.getElementById('news-modal');
-            const modalImage = document.getElementById('modal-image');
-            const modalTitle = document.getElementById('modal-title');
-            const modalMeta = document.getElementById('modal-meta');
-            const modalText = document.getElementById('modal-text');
-            const modalLink = document.getElementById('modal-link');
-            
-            // Слика
-            modalImage.src = extractImageFromItem(item);
-            modalImage.alt = item.title || 'Вест';
-            
-            // Наслов
-            modalTitle.textContent = item.title || 'Без наслов';
-            
-            // Мета податоци
-            const date = new Date(item.pubDate).toLocaleString('mk-MK', {
-                year: 'numeric', month: 'long', day: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            });
-            
-            const region = detectRegion(item);
-            const category = detectCategory(item);
-            
-            modalMeta.innerHTML = `
-                <div><strong>📢 Медиум:</strong> ${item.source || 'Непознат'}</div>
-                <div><strong>🕐 Датум:</strong> ${date}</div>
-                <div><strong>📂 Рубрика:</strong> ${category || 'Општо'}</div>
-                ${region ? `<div><strong>🐉 Регион:</strong> ${region}</div>` : ''}
-            `;
-            
-            // Текст
-            modalText.textContent = item.contentSnippet || 'Нема дополнителни информации за оваа вест.';
-            
-            // Линк
-            modalLink.href = item.link || '#';
-            
-            // Прикажи модал
-            modal.style.display = 'block';
+            document.getElementById('modal-image').src = extractImage(item);
+            document.getElementById('modal-title').textContent = item.title || 'Без наслов';
+            document.getElementById('modal-meta').innerHTML = `<div><strong>📢</strong> ${item.source||'Непознат'}</div><div><strong>🕐</strong> ${new Date(item.pubDate).toLocaleString('mk-MK')}</div><div><strong>📂</strong> ${detectCategory(item)||'Општо'}</div>${detectRegion(item)?`<div><strong>🐉</strong> ${detectRegion(item)}</div>`:''}`;
+            document.getElementById('modal-text').textContent = item.contentSnippet || 'Нема информации.';
+            document.getElementById('modal-link').href = item.link || '#';
+            document.getElementById('news-modal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
         
-        function closeModal(event) {
-            if (!event || event.target.id === 'news-modal' || event.target.className === 'modal-close') {
-                document.getElementById('news-modal').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
+        function closeModal(e) { if (!e || e.target.id === 'news-modal' || e.target.className === 'modal-close') { document.getElementById('news-modal').style.display = 'none'; document.body.style.overflow = 'auto'; } }
         
-        // ===== PAYMENT FUNCTIONS =====
-        function openPayment(method) {
-            const email = 'makedonworldnews@gmail.com';
-            const urls = {
-                'stripe': `https://buy.stripe.com/test?prefilled_email=${encodeURIComponent(email)}`,
-                'paypal': `https://www.paypal.com/paypalme/makedonworldnews`,
-                'visa': 'https://checkout.stripe.com/pay',
-                'mastercard': 'https://checkout.stripe.com/pay'
-            };
-            
-            if (urls[method]) {
-                window.open(urls[method], '_blank', 'noopener,noreferrer');
-            }
-        }
+        function openPayment(m) { const u = {stripe:'https://buy.stripe.com/test',paypal:'https://www.paypal.com/paypalme/makedonworldnews',visa:'https://checkout.stripe.com',mastercard:'https://checkout.stripe.com'}; if (u[m]) window.open(u[m], '_blank'); }
         
-        // ===== UPDATE LAST UPDATED =====
-        function updateLastUpdated() {
-            if (allNews[0]?.pubDate) {
-                const date = new Date(allNews[0].pubDate).toLocaleString('mk-MK');
-                document.getElementById('last-updated').textContent = date;
-            }
-        }
-        
-        // ===== KEYBOARD SHORTCUTS =====
-        document.addEventListener('keydown', (e) => {
-            // ESC за затворање на модал
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-            
-            // / за фокус на пребарување
-            if (e.key === '/' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                e.preventDefault();
-                document.getElementById('searchInput').focus();
-            }
-            
-            // Ctrl+D за toggle на тема
-            if (e.key === 'd' && e.ctrlKey) {
-                e.preventDefault();
-                toggleTheme();
-            }
-        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
 </html>
