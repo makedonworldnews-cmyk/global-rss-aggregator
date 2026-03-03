@@ -15,11 +15,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- 🌐 Google Translate -->
-    <meta name="google" content="notranslate">
     
     <title>🌍 Глобални Вести - Санде | ~2950 RSS Извори</title>
     
@@ -75,7 +71,7 @@
         h1 {
             color: var(--text-primary);
             font-size: 2em;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             transition: var(--transition);
         }
         
@@ -91,7 +87,7 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 15px;
+            margin-bottom: 20px;
         }
         
         .stat {
@@ -104,28 +100,55 @@
             transition: var(--transition);
         }
         
-        /* Google Translate Bar */
+        /* Google Translate - Централно и видливо */
         #google_translate_element {
-            background: var(--bg-card);
-            padding: 10px 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: var(--transition);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 3px solid #667eea;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        [data-theme="dark"] #google_translate_element {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            border-color: #4a4a6a;
         }
         
         .goog-te-gadget {
             font-family: inherit !important;
             color: var(--text-primary) !important;
+            font-size: 16px !important;
         }
         
         .goog-te-gadget select {
             border: 2px solid #667eea !important;
-            border-radius: 8px !important;
-            padding: 8px !important;
-            background: var(--bg-card) !important;
-            color: var(--text-primary) !important;
+            border-radius: 10px !important;
+            padding: 12px 20px !important;
+            font-size: 15px !important;
+            background: white !important;
+            color: #2c3e50 !important;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        [data-theme="dark"] .goog-te-gadget select {
+            background: #2d3748 !important;
+            color: #ecf0f1 !important;
+            border-color: #4a4a6a !important;
+        }
+        
+        .goog-te-gadget select:hover {
+            border-color: #764ba2 !important;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3) !important;
+        }
+        
+        .goog-te-gadget span {
+            display: none !important;
         }
         
         /* Controls */
@@ -179,84 +202,6 @@
         
         .checkbox-group input { width: auto; }
         
-        /* Digital World Section */
-        .digital-world {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .digital-world h2 {
-            color: var(--text-primary);
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 3px solid var(--badge-bg);
-            padding-bottom: 10px;
-        }
-        
-        .platforms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .platform-category {
-            background: rgba(102, 126, 234, 0.08);
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 4px solid var(--badge-bg);
-        }
-        
-        .platform-category h3 {
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            font-size: 1.1em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .platform-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            font-size: 0.85em;
-        }
-        
-        .platform-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: var(--transition);
-        }
-        
-        .platform-item:hover {
-            background: rgba(102, 126, 234, 0.15);
-            color: var(--text-primary);
-        }
-        
-        .platform-icon { font-size: 1.2em; }
-        .platform-name { font-weight: 500; }
-        .platform-count { 
-            font-size: 0.8em; 
-            color: var(--badge-text);
-            background: var(--badge-bg);
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-left: auto;
-        }
-        
-        @media (max-width: 600px) {
-            .platform-list { grid-template-columns: 1fr; }
-        }
-        
         /* News */
         .news-container { display: grid; gap: 15px; }
         
@@ -266,7 +211,9 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            cursor: pointer;
             position: relative;
+            overflow: hidden;
         }
         
         .news-item:hover {
@@ -350,6 +297,211 @@
         .share-btn.copy { background: #6c757d; }
         
         .share-btn:hover { opacity: 0.9; transform: scale(1.05); }
+        
+        /* Modal/Popup за вест */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        
+        .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+        }
+        
+        .modal-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+            color: var(--text-secondary);
+        }
+        
+        .modal-meta-item strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .modal-content-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: #f44336;
+            color: white;
+        }
+        
+        .modal-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--badge-bg);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 15px;
+        }
+        
+        .modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Digital World Section - СЕГА ПОД ВЕСТИТЕ */
+        .digital-world {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .digital-world h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            border-bottom: 3px solid var(--badge-bg);
+            padding-bottom: 15px;
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .platform-category {
+            background: rgba(102, 126, 234, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--badge-bg);
+        }
+        
+        .platform-category h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 0.85em;
+        }
+        
+        .platform-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .platform-item:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: var(--text-primary);
+        }
+        
+        .platform-icon { font-size: 1.3em; }
+        .platform-name { font-weight: 500; }
+        .platform-count { 
+            font-size: 0.75em; 
+            color: var(--badge-text);
+            background: var(--badge-bg);
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+        
+        @media (max-width: 600px) {
+            .platform-list { grid-template-columns: 1fr; }
+            .modal-image { height: 250px; }
+            .modal-title { font-size: 1.4em; }
+        }
         
         /* Loading/Error states */
         .loading, .error, .empty {
@@ -478,7 +630,7 @@
         
         /* Print */
         @media print {
-            #theme-toggle, #install-btn, .share-buttons { display: none !important; }
+            #theme-toggle, #install-btn, .share-buttons, .modal-overlay { display: none !important; }
             body { background: white; color: black; }
             .news-item { break-inside: avoid; }
         }
@@ -502,11 +654,33 @@
                 <div class="stat">💯 Бесплатно</div>
             </div>
             
-            <!-- 🌐 Google Translate -->
+            <!-- 🌐 Google Translate - Централно и видливо -->
             <div id="google_translate_element"></div>
         </header>
         
-        <!-- 🌐 Дигитален Свет Секција -->
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-row">
+                <select id="categoryFilter" onchange="renderNews()">
+                    <option value="all">📢 Сите Категории</option>
+                </select>
+                <input type="search" id="searchInput" placeholder="🔎 Пребарај вести..." oninput="renderNews()" aria-label="Пребарување">
+            </div>
+            <div class="checkbox-group" onclick="toggleMacedonianOnly()">
+                <input type="checkbox" id="macedonianOnly" aria-label="Само македонски вести">
+                <label for="macedonianOnly" style="cursor: pointer; margin: 0;">🇲🇰 Само македонски вести</label>
+            </div>
+        </div>
+        
+        <!-- Results counter -->
+        <div class="results-counter" id="resultsCounter"></div>
+        
+        <!-- News container -->
+        <div id="news-container" class="news-container">
+            <div class="loading">⏳ Вчитување вести... Молиме почекајте.</div>
+        </div>
+        
+        <!-- Digital World Section - СЕГА ПОД ВЕСТИТЕ -->
         <section class="digital-world">
             <h2>🌐 ДИГИТАЛЕН СВЕТ</h2>
             <div class="platforms-grid">
@@ -595,28 +769,6 @@
             </div>
         </section>
         
-        <!-- Controls -->
-        <div class="controls">
-            <div class="control-row">
-                <select id="categoryFilter" onchange="renderNews()">
-                    <option value="all">📢 Сите Категории</option>
-                </select>
-                <input type="search" id="searchInput" placeholder="🔎 Пребарај вести..." oninput="renderNews()" aria-label="Пребарување">
-            </div>
-            <div class="checkbox-group" onclick="toggleMacedonianOnly()">
-                <input type="checkbox" id="macedonianOnly" aria-label="Само македонски вести">
-                <label for="macedonianOnly" style="cursor: pointer; margin: 0;">🇲🇰 Само македонски вести</label>
-            </div>
-        </div>
-        
-        <!-- Results counter -->
-        <div class="results-counter" id="resultsCounter"></div>
-        
-        <!-- News container -->
-        <div id="news-container" class="news-container">
-            <div class="loading">⏳ Вчитување вести... Молиме почекајте.</div>
-        </div>
-        
         <!-- Footer -->
         <footer>
             <p>🕐 Последно ажурирано: <span id="last-updated">...</span></p>
@@ -626,6 +778,20 @@
                 🔒 Безбедносно заштитено | 📱 PWA поддржано | 🌓 Dark Mode | 🌐 Google Translate
             </p>
         </footer>
+    </div>
+    
+    <!-- Modal за вест -->
+    <div id="news-modal" class="modal-overlay" onclick="closeModal(event)">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modal-image" class="modal-image" src="" alt="News Image">
+            <div class="modal-body">
+                <h2 id="modal-title" class="modal-title"></h2>
+                <div id="modal-meta" class="modal-meta"></div>
+                <div id="modal-text" class="modal-content-text"></div>
+                <a id="modal-link" class="modal-link" href="#" target="_blank" rel="noopener">🔗 Отвори цела вест</a>
+            </div>
+        </div>
     </div>
     
     <!-- Theme Toggle -->
@@ -746,10 +912,6 @@
                             <li>2. Оди во <strong>Actions</strong> и пушти го workflow-от</li>
                             <li>3. Почекај 5 минути и освежи (Ctrl+F5)</li>
                         </ul>
-                        <p style="margin-top:15px">
-                            🔗 <a href="https://github.com/makedonworldnews-cmyk/global-rss-aggregator/actions" 
-                               target="_blank" rel="noopener" style="color:#c62828">GitHub Actions</a>
-                        </p>
                     </div>
                 `;
             }
@@ -781,7 +943,6 @@
                     <div class="empty">
                         <h2>📭 Нема пронајдени вести</h2>
                         <p>Обиди се да промениш филтрите или пребарувањето.</p>
-                        ${mkOnly ? '<p style="margin-top:10px;color:#d32f2f">💡 Совет: Исклучи го "Само македонски вести" за повеќе резултати</p>' : ''}
                     </div>
                 `;
                 return;
@@ -798,10 +959,13 @@
                 const isMk = isMacedonian(item);
                 const highlightedTitle = search ? highlightText(item.title || 'Без наслов', search) : (item.title || 'Без наслов');
                 
+                // Генерирај слика од насловот (placeholder)
+                const imageUrl = generatePlaceholderImage(item.title);
+                
                 return `
-                    <article class="news-item ${isMk ? 'macedonian' : ''}">
+                    <article class="news-item ${isMk ? 'macedonian' : ''}" onclick="openModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
                         <h3>
-                            <a href="${item.link || '#'}" target="_blank" rel="noopener noreferrer">
+                            <a href="#" onclick="event.preventDefault()">
                                 ${highlightedTitle}
                             </a>
                         </h3>
@@ -811,18 +975,82 @@
                             <span class="source">📢 ${item.source || 'Непознат'}</span>
                             <span>🕐 ${date}</span>
                         </div>
-                        ${item.contentSnippet ? `<p style="margin-top:10px;color:var(--text-secondary);font-size:0.95em;line-height:1.5">${item.contentSnippet.substring(0, 200)}${item.contentSnippet.length > 200 ? '...' : ''}</p>` : ''}
+                        ${item.contentSnippet ? `<p style="margin-top:10px;color:var(--text-secondary);font-size:0.95em;line-height:1.5">${item.contentSnippet.substring(0, 150)}${item.contentSnippet.length > 150 ? '...' : ''}</p>` : ''}
                         
-                        <div class="share-buttons">
-                            <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(item.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📘 FB</a>
-                            <a class="share-btn twitter" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(item.link)}&text=${encodeURIComponent(item.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🐦 X</a>
-                            <a class="share-btn whatsapp" href="https://wa.me/?text=${encodeURIComponent(item.title + ' ' + item.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">💬 WA</a>
-                            <a class="share-btn telegram" href="https://t.me/share/url?url=${encodeURIComponent(item.link)}&text=${encodeURIComponent(item.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">✈️ TG</a>
-                            <button class="share-btn copy" onclick="copyLink('${item.link}', event); event.stopPropagation()">🔗 Копирај</button>
+                        <div class="share-buttons" onclick="event.stopPropagation()">
+                            <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(item.link)}" target="_blank" rel="noopener">📘 FB</a>
+                            <a class="share-btn twitter" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(item.link)}&text=${encodeURIComponent(item.title)}" target="_blank" rel="noopener">🐦 X</a>
+                            <a class="share-btn whatsapp" href="https://wa.me/?text=${encodeURIComponent(item.title + ' ' + item.link)}" target="_blank" rel="noopener">💬 WA</a>
+                            <button class="share-btn copy" onclick="copyLink('${item.link}')">🔗 Копирај</button>
                         </div>
                     </article>
                 `;
             }).join('');
+        }
+        
+        // ===== МОДАЛ ФУНКЦИИ =====
+        function openModal(item) {
+            const modal = document.getElementById('news-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMeta = document.getElementById('modal-meta');
+            const modalText = document.getElementById('modal-text');
+            const modalLink = document.getElementById('modal-link');
+            
+            const date = new Date(item.pubDate).toLocaleString('mk-MK', {
+                year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            
+            // Слика (placeholder или од RSS ако има)
+            modalImage.src = item.enclosure?.url || generatePlaceholderImage(item.title);
+            modalImage.alt = item.title;
+            
+            // Наслов
+            modalTitle.textContent = item.title;
+            
+            // Мета податоци
+            modalMeta.innerHTML = `
+                <div class="modal-meta-item">
+                    <span>📢</span>
+                    <strong>Медиум:</strong> ${item.source || 'Непознат'}
+                </div>
+                <div class="modal-meta-item">
+                    <span>🕐</span>
+                    <strong>Датум:</strong> ${date}
+                </div>
+                <div class="modal-meta-item">
+                    <span>📂</span>
+                    <strong>Категорија:</strong> ${item.category || 'Општо'}
+                </div>
+                ${isMacedonian(item) ? '<div class="modal-meta-item"><span>🇲🇰</span><strong>Јазик:</strong> Македонски</div>' : ''}
+            `;
+            
+            // Текст
+            modalText.textContent = item.contentSnippet || 'Нема дополнителни информации.';
+            
+            // Линк
+            modalLink.href = item.link || '#';
+            
+            // Прикажи модал
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(event) {
+            if (!event || event.target.id === 'news-modal' || event.target.className === 'modal-close') {
+                document.getElementById('news-modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        function generatePlaceholderImage(title) {
+            // Генерирај placeholder слика со боја базирана на насловот
+            const colors = ['667eea', '764ba2', 'f093fb', '4facfe', '43e97b', 'fa709a', 'fee140'];
+            const hash = title.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
+            const color = colors[Math.abs(hash) % colors.length];
+            const encodedTitle = encodeURIComponent(title.substring(0, 50));
+            return `https://ui-avatars.com/api/?name=${encodedTitle}&background=${color}&color=fff&size=800&length=100`;
         }
         
         // ===== ПОМОШНИ ФУНКЦИИ =====
@@ -844,18 +1072,12 @@
             return text.replace(regex, '<mark>$1</mark>');
         }
         
-        function copyLink(url, event) {
-            event?.stopPropagation();
+        function copyLink(url) {
             navigator.clipboard.writeText(url).then(() => {
-                const btn = event?.target;
-                if (btn) {
-                    const original = btn.textContent;
-                    btn.textContent = '✅ Копирано!';
-                    setTimeout(() => btn.textContent = original, 2000);
-                }
+                alert('✅ Линкот е копиран!');
             }).catch(err => {
                 console.error('❌ Failed to copy:', err);
-                alert('Копирај го линкот рачно: ' + url);
+                prompt('Копирај го линкот:', url);
             });
         }
         
@@ -879,6 +1101,7 @@
                     document.getElementById('searchInput').focus();
                 }
                 if (e.key === 'Escape') {
+                    closeModal();
                     document.getElementById('searchInput').blur();
                     document.getElementById('searchInput').value = '';
                     renderNews();
@@ -889,6 +1112,13 @@
                 }
             });
         }
+        
+        // Затвори модал со ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
