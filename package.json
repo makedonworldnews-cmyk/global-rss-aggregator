@@ -1,7 +1,8 @@
 {
-  "name": "global-rss-aggregator",
-  "version": "1.0.0",
+  "name": "makedon-world-news",
+  "version": "9.0.0",
   "type": "module",
-  "scripts": { "fetch": "node scripts/fetch-rss.js" },
-  "dependencies": { "rss-parser": "^3.13.0", "glob": "^10.3.0" }
+  "scripts": {
+    "fetch": "node scripts/fetch-rss.js"
+  }
 }
