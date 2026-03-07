@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐉 Makedon World News — 443 RSS Извори</title>
+
+<!-- Google Translate — правилна имплементација -->
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'mk',
+    includedLanguages: 'mk,en,de,fr,es,it,ru,zh-CN,ja,ar,tr,sr,hr,bs,sq,bg,el,ro,pl,uk,nl,pt,hi,ko',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+
+<style>
+/* Скриј Google Translate лента */
+.goog-te-banner-frame{display:none!important}
+.goog-te-balloon-frame{display:none!important}
+#goog-gt-tt{display:none!important}
+.goog-tooltip{display:none!important}
+body{top:0!important;position:static!important}
+
+/* Google Translate dropdown стил */
+.goog-te-gadget-simple{
+  background:#1a2235!important;border:1px solid #d4af37!important;
+  border-radius:6px!important;padding:4px 10px!important;
+  color:#d4af37!important;font-size:0.78rem!important;cursor:pointer!important;
+  font-family:inherit!important;
+}
+.goog-te-gadget{font-size:0!important;color:transparent!important}
+.goog-te-gadget>span>a{display:none!important}
+#translateBar .goog-te-gadget-simple img{display:none!important}
+
+
+:root{
+  --bg:#0a0e1a;--bg2:#111827;--bg3:#1a2235;--border:#1e3a5f;
+  --gold:#d4af37;--gold2:#f0c040;--text:#e8eaf0;--text2:#9aa3b2;
+  --green:#10b981;--radius:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* HIDE GOOGLE TRANSLATE BAR */
+.goog-te-banner-frame{display:none!important}
+.goog-te-balloon-frame{display:none!important}
+body{top:0!important;position:static!important}
+#goog-gt-tt{display:none!important}
+.goog-tooltip{display:none!important}
+
+/* HEADER */
+#header{background:linear-gradient(135deg,#0a0e1a,#0d1b2a,#0a1628);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(212,175,55,0.3)}
+.header-inner{max-width:1600px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-size:1.5rem;font-weight:800;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.tagline{font-size:0.68rem;color:var(--text2);border-left:2px solid var(--gold);padding-left:8px}
+.tagline strong{color:var(--gold);display:block}
+.hspacer{flex:1}
+#searchBox{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:20px;width:180px;font-size:0.82rem;outline:none}
+#searchBox:focus{border-color:var(--gold)}
+#themeBtn{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:0.78rem}
+#refreshBtn{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#000;padding:6px 14px;border-radius:6px;cursor:pointer;font-weight:700;font-size:0.8rem}
+
+/* TRANSLATE BAR */
+#translateBar{background:#0d1520;border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#translateBar label{color:var(--gold);font-size:0.78rem;font-weight:700;white-space:nowrap}
+/* Style the Google Translate dropdown that gets injected */
+.goog-te-gadget-simple{
+  background:var(--bg3)!important;border:1px solid var(--gold)!important;
+  border-radius:6px!important;padding:4px 10px!important;
+  color:var(--gold)!important;font-size:0.78rem!important;cursor:pointer!important;
+  font-family:inherit!important;
+}
+.goog-te-gadget-simple span{color:var(--gold)!important}
+.goog-te-gadget-simple .goog-te-menu-value span{color:var(--text)!important}
+.goog-te-gadget{font-size:0!important;color:transparent!important}
+.goog-te-gadget > span > a{display:none!important}
+#translateBar .goog-te-gadget-simple img{display:none!important}
+.shield-badge{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--green);font-size:0.65rem;padding:2px 8px;border-radius:10px;font-weight:600}
+.gt-hint{color:var(--text2);font-size:0.7rem}
+
+/* STATS BAR */
+#statsBar{background:var(--bg2);border-bottom:1px solid var(--border);padding:5px 16px;display:flex;align-items:center;gap:12px;font-size:0.73rem;color:var(--text2);flex-wrap:wrap}
+.stat-val{color:var(--gold);font-weight:700}
+#progressBar{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;width:150px}
+#progressFill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0%;transition:width 0.3s}
+#loadStatus{color:var(--green);font-size:0.7rem}
+
+/* ============================================
+   CATEGORY TABS — WRAP INTO MULTIPLE ROWS
+   ============================================ */
+#catTabs{
+  background:var(--bg2);
+  border-bottom:2px solid var(--border);
+  padding:8px 16px;
+  display:flex;
+  flex-wrap:wrap;        /* MULTI-ROW! */
+  gap:5px 5px;
+  max-height:none;       /* no height restriction */
+}
+.cat-tab{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  color:var(--text2);
+  padding:4px 10px;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:0.72rem;
+  white-space:nowrap;
+  transition:all 0.18s;
+  flex-shrink:0;
+  user-select:none;
+}
+.cat-tab:hover{border-color:var(--gold);color:var(--gold)}
+.cat-tab.active{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-color:var(--gold2);color:#000;font-weight:700;
+}
+.cat-count{
+  background:rgba(0,0,0,0.25);
+  border-radius:8px;padding:1px 4px;
+  font-size:0.6rem;margin-left:2px;
+}
+
+/* MAIN LAYOUT */
+#main{max-width:1600px;margin:0 auto;padding:10px 16px;display:grid;grid-template-columns:185px 1fr 168px;gap:10px}
+
+/* SIDEBARS */
+.sidebar{display:flex;flex-direction:column;gap:8px}
+.sidebar-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px}
+.sidebar-title{font-size:0.67rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.sidebar-link{display:flex;align-items:center;gap:6px;color:var(--text2);text-decoration:none;font-size:0.72rem;padding:3px 0;transition:color 0.2s;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sidebar-link:hover{color:var(--gold)}
+.sidebar-link:last-child{border-bottom:none}
+.si{font-size:0.9rem;flex-shrink:0;width:18px;text-align:center}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px}
+.pay-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:5px 3px;border-radius:5px;text-decoration:none;font-size:0.62rem;text-align:center;transition:all 0.2s;display:block}
+.pay-btn:hover{border-color:var(--gold);color:var(--gold)}
+.pay-icon{font-size:0.9rem;display:block;margin-bottom:2px}
+
+/* FEED */
+#feedArea{min-width:0}
+.sort-bar{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.sort-bar label{font-size:0.72rem;color:var(--text2)}
+.sort-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:3px 9px;border-radius:5px;cursor:pointer;font-size:0.7rem;transition:all 0.2s}
+.sort-btn.active,.sort-btn:hover{border-color:var(--gold);color:var(--gold)}
+#cardCount{margin-left:auto;font-size:0.7rem;color:var(--text2)}
+#newsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:9px}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform 0.15s,border-color 0.15s,box-shadow 0.15s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 4px 20px rgba(212,175,55,0.15)}
+.card-img{width:100%;height:130px;object-fit:cover;background:var(--bg3);display:block}
+.card-img-ph{width:100%;height:130px;background:linear-gradient(135deg,var(--bg3),var(--bg));display:flex;align-items:center;justify-content:center;font-size:2rem}
+.card-body{padding:9px;flex:1;display:flex;flex-direction:column}
+.card-meta{display:flex;align-items:center;gap:4px;margin-bottom:5px;flex-wrap:wrap}
+.card-src{font-size:0.62rem;color:var(--gold);font-weight:600;background:rgba(212,175,55,0.1);padding:1px 5px;border-radius:3px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-cat{font-size:0.59rem;color:var(--text2);background:var(--bg3);padding:1px 4px;border-radius:3px}
+.card-time{font-size:0.59rem;color:var(--text2);margin-left:auto}
+.card-title{font-size:0.8rem;font-weight:600;line-height:1.35;flex:1;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;align-items:center;gap:5px;font-size:0.6rem;color:var(--text2)}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,var(--bg3) 25%,#1f2d44 50%,var(--bg3) 75%);background-size:200% 100%;animation:sh 1.5s infinite}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skel-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.skel-img{height:130px}
+.skel-body{padding:9px}
+.skel-l{height:9px;border-radius:4px;margin-bottom:7px}
+
+/* LOAD MORE */
+#loadMoreBtn{display:block;margin:14px auto;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#000;padding:9px 30px;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.85rem}
+
+/* MODAL */
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;overflow:auto;padding:16px}
+#modalBox{max-width:660px;margin:20px auto;background:var(--bg2);border:1px solid var(--gold);border-radius:10px;overflow:hidden;position:relative}
+#modalHeader{padding:14px 18px;background:linear-gradient(135deg,var(--bg3),var(--bg));border-bottom:1px solid var(--border);display:flex;gap:10px}
+#modalImg{width:90px;height:64px;object-fit:cover;border-radius:5px;flex-shrink:0}
+#modalInfo{flex:1}
+#modalTitle{font-size:0.93rem;font-weight:700;margin-bottom:8px;line-height:1.4}
+.mm{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:0.7rem}
+.mml{color:var(--text2)}
+.mmv{color:var(--gold);font-weight:600}
+#modalContent{padding:14px 18px}
+#modalDesc{font-size:0.82rem;color:var(--text2);line-height:1.6;margin-bottom:12px}
+#modalLink{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:7px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.82rem;display:inline-block}
+#modalClose{position:absolute;top:10px;right:10px;background:var(--bg3);border:1px solid var(--border);color:var(--text);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+
+/* LIGHT */
+body.light{--bg:#f0f4f8;--bg2:#fff;--bg3:#e8edf4;--border:#d1d9e6;--text:#1a2235;--text2:#5a6478}
+
+@media(max-width:1100px){#main{grid-template-columns:155px 1fr}}
+@media(max-width:800px){#main{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:500px){#newsGrid{grid-template-columns:1fr 1fr}}
+
+/* API KEY: inline input во хедер */
+
+
+
+/* === FIX: РУБРИКИ ВО ПОВЕЌЕ РЕДОВИ === */
+#catTabs{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  max-height:none !important;
+  overflow:visible !important;
+  padding:8px 16px !important;
+  gap:5px !important;
+}
+.cat-tab{
+  flex-shrink:0 !important;
+  white-space:nowrap !important;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <div class="header-inner">
+    <div class="logo notranslate">🐉 Makedon World News</div>
+    <div class="tagline notranslate">
+      <strong>ШТИТНИК v3.0 — Заштитено</strong>
+      <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f8f4fef0f1fafbe2fae7f9f1fbf0e2e6d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</a>
+    </div>
+    <div class="hspacer"></div>
+    <input id="searchBox" type="text" placeholder="🔍 Пребарај... (/)"/>
+    <button id="themeBtn" onclick="toggleTheme()">🌓</button>
+    <button id="refreshBtn" onclick="reloadFeeds()">⟳ Освежи</button>
+    <span style="color:#00ff88;font-size:0.75rem">🔑 API: Активен</span>
+  </div>
+</div>
+
+<!-- TRANSLATE BAR -->
+<div id="translateBar">
+  <label>🌐 Преведи:</label>
+  
+  <span class="gt-hint">| 1660 Извори • 🤖 AI Powered</span>
+  <div class="shield-badge notranslate">🛡️ ŠTITNIK v3.0</div>
+</div>
+
+<!-- STATS BAR -->
+<div id="statsBar">
+  <span>📡 <span class="stat-val">1660</span> извори</span>
+  <span>📰 <span class="stat-val" id="statArt">0</span> вести</span>
+  <span>⏳ <span class="stat-val" id="statLoaded">0</span>/443</span>
+  <div id="progressBar"><div id="progressFill"></div></div>
+  <span id="loadStatus">🤖 Claude AI подготвен...</span>
+  <span style="margin-left:auto;font-size:0.68rem;color:var(--text2)" id="lastUpdate"></span>
+</div>
+
+<!-- CATEGORY TABS (flex-wrap = 2+ rows) -->
+<div id="catTabs">
+  <div class="cat-tab active" onclick="filterCat('ALL')" id="tab-ALL">
+    🌍 Сите <span class="cat-count" id="cnt-ALL">0</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="sidebar">
+    <div class="sidebar-panel">
+      <div class="sidebar-title">📱 Социјални Мрежи</div>
+      <a href="https://facebook.com" target="_blank" class="sidebar-link"><span class="si">👤</span>Facebook</a>
+      <a href="https://instagram.com" target="_blank" class="sidebar-link"><span class="si">📸</span>Instagram</a>
+      <a href="https://x.com" target="_blank" class="sidebar-link"><span class="si">𝕏</span>X / Twitter</a>
+      <a href="https://tiktok.com" target="_blank" class="sidebar-link"><span class="si">🎵</span>TikTok</a>
+      <a href="https://youtube.com" target="_blank" class="sidebar-link"><span class="si">▶️</span>YouTube</a>
+      <a href="https://linkedin.com" target="_blank" class="sidebar-link"><span class="si">💼</span>LinkedIn</a>
+      <a href="https://t.me" target="_blank" class="sidebar-link"><span class="si">✈️</span>Telegram</a>
+      <a href="https://web.whatsapp.com" target="_blank" class="sidebar-link"><span class="si">💬</span>WhatsApp</a>
+      <a href="https://discord.com" target="_blank" class="sidebar-link"><span class="si">🎮</span>Discord</a>
+      <a href="https://signal.org" target="_blank" class="sidebar-link"><span class="si">🔒</span>Signal</a>
+    </div>
+    <div class="sidebar-panel">
+      <div class="sidebar-title">💳 Поддржи</div>
+      <div class="pay-grid">
+        <a href="https://www.paypal.com/paypalme/makedonworldnews" target="_blank" class="pay-btn"><span class="pay-icon">💙</span>PayPal</a>
+        <a href="https://buy.stripe.com/test?prefilled_email=makedonworldnews%40gmail.com" target="_blank" class="pay-btn"><span class="pay-icon">💳</span>Stripe</a>
+        <a href="https://buy.stripe.com/test?prefilled_email=makedonworldnews%40gmail.com" target="_blank" class="pay-btn"><span class="pay-icon">💳</span>Visa</a>
+        <a href="https://buy.stripe.com/test?prefilled_email=makedonworldnews%40gmail.com" target="_blank" class="pay-btn"><span class="pay-icon">🔴</span>Master</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="feedArea">
+    <div class="sort-bar">
+      <label>Сортирај:</label>
+      <button class="sort-btn active" id="btn-date" onclick="setSort('date')">📅 Датум</button>
+      <button class="sort-btn" id="btn-source" onclick="setSort('source')">📢 Извор</button>
+      <span id="cardCount"></span>
+    </div>
+    <div id="newsGrid"></div>
+    <button id="loadMoreBtn" onclick="loadMore()" style="display:none">Повеќе вести ↓</button>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-panel">
+      <div class="sidebar-title">🤖 AI Алатки</div>
+      <a href="https://chat.openai.com" target="_blank" class="sidebar-link"><span class="si">🤖</span>ChatGPT</a>
+      <a href="https://claude.ai" target="_blank" class="sidebar-link"><span class="si">🌟</span>Claude AI</a>
+      <a href="https://gemini.google.com" target="_blank" class="sidebar-link"><span class="si">💎</span>Gemini</a>
+      <a href="https://www.deepseek.com" target="_blank" class="sidebar-link"><span class="si">🔮</span>DeepSeek</a>
+      <a href="https://grok.x.ai" target="_blank" class="sidebar-link"><span class="si">⚡</span>Grok</a>
+      <a href="https://www.perplexity.ai" target="_blank" class="sidebar-link"><span class="si">🔍</span>Perplexity</a>
+    </div>
+    <div class="sidebar-panel">
+      <div class="sidebar-title">🤝 Дипломатија</div>
+      <a href="https://www.un.org" target="_blank" class="sidebar-link"><span class="si">🏛️</span>ОН / UN</a>
+      <a href="https://www.nato.int" target="_blank" class="sidebar-link"><span class="si">🛡️</span>НАТО</a>
+      <a href="https://www.europa.eu" target="_blank" class="sidebar-link"><span class="si">🇪🇺</span>Европска Унија</a>
+      <a href="https://www.osce.org" target="_blank" class="sidebar-link"><span class="si">🕊️</span>ОБСЕ</a>
+      <a href="https://worldprotocolacademy.com" target="_blank" class="sidebar-link"><span class="si">🎓</span>WPA Академија</a>
+    </div>
+    <div class="sidebar-panel">
+      <div class="sidebar-title">📊 Live Статус</div>
+      <div style="font-size:0.67rem;color:var(--text2);line-height:2">
+        <div>📡 <b style="color:var(--gold)">1660</b> RSS извори</div>
+        <div>🌍 <b style="color:var(--gold)">86</b> категории</div>
+        <div>🔄 Освежување 20мин</div>
+        <div style="color:var(--green)">✅ 100% Бесплатно</div>
+        <div style="color:var(--green)">✅ Без GitHub</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div id="modalBox">
+    <button id="modalClose" onclick="closeModal()">✕</button>
+    <div id="modalHeader">
+      <img id="modalImg" src="" alt="" onerror="this.style.display='none'">
+      <div id="modalInfo">
+        <div id="modalTitle"></div>
+        <div class="mm" id="modalMeta"></div>
+      </div>
+    </div>
+    <div id="modalContent">
+      <div id="modalDesc"></div>
+      <a id="modalLink" href="#" target="_blank" rel="noopener">📰 Прочитај целосно →</a>
+    </div>
+  </div>
+</div>
+
+<!-- GOOGLE TRANSLATE — правилна имплементација -->
+
+<script>
+'use strict';
+
+// ============================================================
+// 443 RSS ИЗВОРИ — ДИРЕКТНО ВГРАДЕНИ
+// ============================================================
+const ALL_FEEDS = [{"name":"МРТ","url":"https://www.mrt.com.mk/rss","category":"Македонија"},{"name":"МИА","url":"https://www.mia.mk/rss","category":"Македонија"},{"name":"Сител ТВ","url":"https://www.sitel.com.mk/feed","category":"Македонија"},{"name":"Телма","url":"https://telma.com.mk/feed","category":"Македонија"},{"name":"Канал 5","url":"https://kanal5.com.mk/feed","category":"Македонија"},{"name":"Алсат-М","url":"https://alsat-m.tv/feed","category":"Македонија"},{"name":"Алфа ТВ","url":"https://alfa.mk/feed","category":"Македонија"},{"name":"Слободен Печат","url":"https://www.slobodenpecat.mk/feed","category":"Македонија"},{"name":"Вечер","url":"https://vecer.mk/feed","category":"Македонија"},{"name":"МКД.мк","url":"https://www.mkd.mk/feed","category":"Македонија"},{"name":"А1он","url":"https://a1on.mk/feed","category":"Македонија"},{"name":"Плусинфо","url":"https://plusinfo.mk/feed","category":"Македонија"},{"name":"Time.mk","url":"https://time.mk/rss","category":"Македонија"},{"name":"Grid.mk","url":"https://grid.mk/rss","category":"Македонија"},{"name":"Makfax","url":"https://makfax.com.mk/rss","category":"Македонија"},{"name":"Netpress","url":"https://netpress.com.mk/rss","category":"Македонија"},{"name":"Радио МОФ","url":"https://radiomof.mk/feed","category":"Македонија"},{"name":"Антена 5","url":"https://antena5.mk/feed","category":"Македонија"},{"name":"Канал 77","url":"https://kanal77.com.mk/feed","category":"Македонија"},{"name":"Фактор","url":"https://faktor.mk/feed/","category":"Македонија"},{"name":"Република","url":"https://republika.mk/feed/","category":"Македонија"},{"name":"SDK","url":"https://sdk.mk/feed","category":"Македонија"},{"name":"Fokus","url":"https://fokus.mk/feed","category":"Македонија"},{"name":"Den","url":"https://den.mk/feed","category":"Македонија"},{"name":"Kurir MK","url":"http://kurir.mk/feed","category":"Македонија"},{"name":"Točka","url":"https://tocka.com.mk/feed","category":"Македонија"},{"name":"Kajgana","url":"https://kajgana.com/feed","category":"Македонија"},{"name":"Libertas","url":"https://libertas.mk/feed","category":"Македонија"},{"name":"Nezavisen","url":"https://nezavisen.mk/feed","category":"Македонија"},{"name":"OFF.net.mk","url":"https://off.net.mk/feed","category":"Македонија"},{"name":"Expres.mk","url":"https://www.expres.mk/feed","category":"Македонија"},{"name":"Daily Makedonia","url":"https://daily.mk/feed","category":"Македонија"},{"name":"Press 24","url":"https://press24.mk/feed","category":"Македонија"},{"name":"Lokalno.mk","url":"https://lokalno.mk/feed","category":"Македонија"},{"name":"Meta.mk","url":"https://www.meta.mk/feed","category":"Македонија"},{"name":"Балкан Инсајт","url":"https://balkaninsight.com/feed","category":"Балкан"},{"name":"N1 Info","url":"https://n1info.com/feed","category":"Балкан"},{"name":"РТС","url":"https://www.rts.rs/page/stories/ci/rss.html","category":"Балкан"},{"name":"Политика","url":"https://www.politika.rs/rss","category":"Балкан"},{"name":"Данас","url":"https://www.danas.rs/feed","category":"Балкан"},{"name":"ХРТ","url":"https://www.hrt.hr/rss","category":"Балкан"},{"name":"Јутарњи Лист","url":"https://www.jutarnji.hr/rss","category":"Балкан"},{"name":"Индекс","url":"https://www.index.hr/rss","category":"Балкан"},{"name":"БХРТ","url":"https://bhrt.ba/rss","category":"Балкан"},{"name":"Кликс","url":"https://www.klix.ba/rss","category":"Балкан"},{"name":"РТЦГ","url":"https://www.rtcg.me/rss","category":"Балкан"},{"name":"Вијести","url":"https://www.vijesti.me/rss","category":"Балкан"},{"name":"РТВ СЛО","url":"https://www.rtvslo.si/feeds/rss/novice","category":"Балкан"},{"name":"СТА","url":"https://www.sta.si/rss","category":"Балкан"},{"name":"РТШ","url":"https://www.rtsh.al/rss","category":"Балкан"},{"name":"Топ Чанел","url":"https://top-channel.tv/feed","category":"Балкан"},{"name":"БНТ","url":"https://bntnews.bg/rss","category":"Балкан"},{"name":"БТА","url":"https://www.bta.bg/en/rss","category":"Балкан"},{"name":"ЕРТ","url":"https://www.ert.gr/feed","category":"Балкан"},{"name":"АНА-МПА","url":"https://www.amna.gr/rss","category":"Балкан"},{"name":"ТВР","url":"https://www.tvr.ro/rss","category":"Балкан"},{"name":"B92","url":"https://www.b92.net/rss","category":"Балкан"},{"name":"N1 Srbija","url":"https://rs.n1info.com/feed","category":"Балкан"},{"name":"Dnevnik SLO","url":"https://www.dnevnik.si/rss","category":"Балкан"},{"name":"24ur","url":"https://www.24ur.com/rss","category":"Балкан"},{"name":"Oslobodjenje","url":"https://www.oslobodjenje.ba/rss","category":"Балкан"},{"name":"Dan CG","url":"https://www.dan.co.me/rss","category":"Балкан"},{"name":"Blic","url":"https://www.blic.rs/rss","category":"Балкан"},{"name":"Kurir RS","url":"https://www.kurir.rs/rss","category":"Балкан"},{"name":"Novosti","url":"https://www.novosti.rs/rss","category":"Балкан"},{"name":"Dnevnik BG","url":"https://www.dnevnik.bg/rss","category":"Балкан"},{"name":"24 Chasa","url":"https://www.24chasa.bg/rss","category":"Балкан"},{"name":"Kathimerini","url":"https://www.ekathimerini.com/rss","category":"Балкан"},{"name":"Digi24","url":"https://www.digi24.ro/rss","category":"Балкан"},{"name":"HotNews RO","url":"https://www.hotnews.ro/rss","category":"Балкан"},{"name":"TRT World","url":"https://www.trtworld.com/rss","category":"Балкан"},{"name":"Anadolu","url":"https://www.aa.com.tr/en/rss","category":"Балкан"},{"name":"Daily Sabah","url":"https://www.dailysabah.com/rss","category":"Балкан"},{"name":"Exit.al","url":"https://exit.al/en/feed","category":"Балкан"},{"name":"ATA Albania","url":"https://ata.gov.al/rss","category":"Балкан"},{"name":"KosovaPress","url":"https://kosovapress.com/feed","category":"Балкан"},{"name":"Telegrafi","url":"https://telegrafi.com/feed","category":"Балкан"},{"name":"Koha Ditore","url":"https://www.koha.net/rss","category":"Балкан"},{"name":"MINA CG","url":"https://mina.news/rss","category":"Балкан"},{"name":"UN News","url":"https://news.un.org/feed/subscribe/en/news/all/rss.xml","category":"ОН"},{"name":"UNESCO","url":"https://en.unesco.org/news/rss.xml","category":"ОН"},{"name":"UNICEF","url":"https://www.unicef.org/rss/","category":"ОН"},{"name":"WHO","url":"https://www.who.int/rss-feeds/news-english.xml","category":"ОН"},{"name":"UNHCR","url":"https://www.unhcr.org/rss","category":"ОН"},{"name":"UNDP","url":"https://www.undp.org/rss.xml","category":"ОН"},{"name":"UNEP","url":"https://www.unep.org/rss.xml","category":"ОН"},{"name":"ICJ","url":"https://www.icj-cij.org/en/rss","category":"ОН"},{"name":"ICC","url":"https://www.icc-cpi.int/rss","category":"ОН"},{"name":"ILO","url":"https://www.ilo.org/rss","category":"ОН"},{"name":"FAO","url":"https://www.fao.org/news/rss","category":"ОН"},{"name":"IAEA","url":"https://www.iaea.org/newscenter/rss","category":"ОН"},{"name":"UN Women","url":"https://www.unwomen.org/en/rss","category":"ОН"},{"name":"UNODC","url":"https://www.unodc.org/rss","category":"ОН"},{"name":"IOM","url":"https://www.iom.int/rss","category":"ОН"},{"name":"WFP","url":"https://www.wfp.org/rss","category":"ОН"},{"name":"NATO","url":"https://www.nato.int/rss/rss-news.xml","category":"НАТО"},{"name":"NATO SHAPE","url":"https://shape.nato.int/rss","category":"НАТО"},{"name":"NATO PA","url":"https://www.nato-pa.int/rss","category":"НАТО"},{"name":"EU External","url":"https://www.eeas.europa.eu/eeas/rss_en","category":"ЕУ"},{"name":"EU Commission","url":"https://ec.europa.eu/commission/presscorner/rss","category":"ЕУ"},{"name":"EU Parliament","url":"https://www.europarl.europa.eu/rss/","category":"ЕУ"},{"name":"EU Council","url":"https://www.consilium.europa.eu/en/rss/","category":"ЕУ"},{"name":"EurActiv","url":"https://www.euractiv.com/feed","category":"ЕУ Политика"},{"name":"EUobserver","url":"https://euobserver.com/rss.xml","category":"ЕУ Политика"},{"name":"Politico Europe","url":"https://www.politico.eu/rss","category":"ЕУ Политика"},{"name":"BBC World","url":"https://feeds.bbci.co.uk/news/world/rss.xml","category":"Свет"},{"name":"CNN Int","url":"http://rss.cnn.com/rss/edition_world.rss","category":"Свет"},{"name":"Reuters","url":"https://feeds.reuters.com/reuters/topNews","category":"Свет"},{"name":"AP","url":"https://apnews.com/rss","category":"Свет"},{"name":"Al Jazeera","url":"https://www.aljazeera.com/xml/rss/all.xml","category":"Свет"},{"name":"DW","url":"https://rss.dw.com/rdf/rss-en-all","category":"Свет"},{"name":"Euronews","url":"https://www.euronews.com/rss","category":"Свет"},{"name":"France 24","url":"https://www.france24.com/en/rss","category":"Свет"},{"name":"Le Monde","url":"https://www.lemonde.fr/rss/une.xml","category":"Европа"},{"name":"El País","url":"https://elpais.com/rss/elpais/portada.xml","category":"Европа"},{"name":"ANSA","url":"https://www.ansa.it/sito/ansait_rss.xml","category":"Европа"},{"name":"Corriere della Sera","url":"https://www.corriere.it/rss/homepage.xml","category":"Европа"},{"name":"NOS","url":"https://nos.nl/rss","category":"Европа"},{"name":"VRT NWS","url":"https://www.vrt.be/vrtnws/rss","category":"Европа"},{"name":"ORF","url":"https://orf.at/rss","category":"Европа"},{"name":"SRF","url":"https://www.srf.ch/news/bnf/rss/1646","category":"Европа"},{"name":"RTÉ","url":"https://www.rte.ie/news/rss","category":"Европа"},{"name":"LUSA","url":"https://www.lusa.pt/rss","category":"Европа"},{"name":"TASS","url":"https://tass.com/rss/v2.xml","category":"Источна Европа"},{"name":"RT News","url":"https://www.rt.com/rss","category":"Источна Европа"},{"name":"Ukrinform","url":"https://www.ukrinform.net/rss","category":"Источна Европа"},{"name":"Kyiv Independent","url":"https://kyivindependent.com/feed","category":"Источна Европа"},{"name":"PAP Poland","url":"https://www.pap.pl/rss","category":"Источна Европа"},{"name":"ČTK","url":"https://www.ctk.cz/rss","category":"Источна Европа"},{"name":"MTI","url":"https://mti.hu/rss","category":"Источна Европа"},{"name":"SVT","url":"https://www.svt.se/nyheter/rss.xml","category":"Северна Европа"},{"name":"NRK","url":"https://www.nrk.no/rss","category":"Северна Европа"},{"name":"DR","url":"https://www.dr.dk/rss","category":"Северна Европа"},{"name":"YLE","url":"https://feeds.yle.fi/uutiset/v1/recent.rss","category":"Северна Европа"},{"name":"RÚV","url":"https://www.ruv.is/rss","category":"Северна Европа"},{"name":"ERR","url":"https://news.err.ee/rss","category":"Балтик"},{"name":"LSM","url":"https://eng.lsm.lv/rss","category":"Балтик"},{"name":"LRT","url":"https://www.lrt.lt/en/rss","category":"Балтик"},{"name":"Cyprus Mail","url":"https://cyprus-mail.com/feed","category":"Европа"},{"name":"Times of Malta","url":"https://timesofmalta.com/feed","category":"Европа"},{"name":"Sky News","url":"https://news.sky.com/rss","category":"Европа"},{"name":"The Guardian","url":"https://www.theguardian.com/world/rss","category":"Европа"},{"name":"Financial Times","url":"https://www.ft.com/?format=rss","category":"Европа"},{"name":"Der Spiegel","url":"https://www.spiegel.de/schlagzeilen/index.rss","category":"Европа"},{"name":"Bild","url":"https://www.bild.de/rssfeeds/vw-home/vw-home-16725562.bild.xml","category":"Европа"},{"name":"Le Figaro","url":"https://www.lefigaro.fr/rss/figaro_actualites.xml","category":"Европа"},{"name":"ABC España","url":"https://www.abc.es/rss/feeds/abc_EspanaEspana.xml","category":"Европа"},{"name":"El Mundo","url":"https://www.elmundo.es/rss/portada.xml","category":"Европа"},{"name":"La Repubblica","url":"https://www.repubblica.it/rss/homepage/rss2.0.xml","category":"Европа"},{"name":"AD Netherlands","url":"https://www.ad.nl/rss.xml","category":"Европа"},{"name":"Aftonbladet","url":"https://www.aftonbladet.se/rss.xml","category":"Европа"},{"name":"VG Norway","url":"https://www.vg.no/rss/feed","category":"Европа"},{"name":"Iltalehti","url":"https://www.iltalehti.fi/rss/uutiset.xml","category":"Европа"},{"name":"RBC Russia","url":"https://rssexport.rbc.ru/rbcnews/news/30/full.rss","category":"Источна Европа"},{"name":"NHK World","url":"https://www3.nhk.or.jp/nhkworld/en/rss/","category":"Азија"},{"name":"CGTN","url":"https://www.cgtn.com/rss/news.xml","category":"Азија"},{"name":"Xinhua","url":"https://www.xinhuanet.com/english/rss.xml","category":"Азија"},{"name":"China Daily","url":"https://www.chinadaily.com.cn/rss/world_rss.xml","category":"Азија"},{"name":"Global Times","url":"https://www.globaltimes.cn/rss","category":"Азија"},{"name":"Caixin","url":"https://www.caixinglobal.com/feed/","category":"Азија"},{"name":"Kyodo","url":"https://english.kyodonews.net/rss/news.xml","category":"Азија"},{"name":"Japan Times","url":"https://www.japantimes.co.jp/feed/","category":"Азија"},{"name":"Asahi","url":"https://www.asahi.com/rss/asahi/newsheadlines.rdf","category":"Азија"},{"name":"Yomiuri","url":"https://www.yomiuri.co.jp/rss","category":"Азија"},{"name":"Mainichi","url":"https://mainichi.jp/rss","category":"Азија"},{"name":"Nikkei Asia","url":"https://asia.nikkei.com/rss","category":"Азија"},{"name":"Yonhap","url":"https://en.yna.co.kr/RSS/news.xml","category":"Азија"},{"name":"Korea Herald","url":"https://www.koreaherald.com/rss","category":"Азија"},{"name":"Korea Times","url":"https://www.koreatimes.co.kr/rss","category":"Азија"},{"name":"JoongAng Daily","url":"https://koreajoongangdaily.joins.com/rss","category":"Азија"},{"name":"Chosun","url":"https://english.chosun.com/rss","category":"Азија"},{"name":"Times India","url":"https://timesofindia.indiatimes.com/rssfeedstopstories.cms","category":"Азија"},{"name":"The Hindu","url":"https://www.thehindu.com/news/national/feeder/default.rss","category":"Азија"},{"name":"Hindustan Times","url":"https://www.hindustantimes.com/rss/topnews/rssfeed.xml","category":"Азија"},{"name":"Indian Express","url":"https://indianexpress.com/feed","category":"Азија"},{"name":"NDTV","url":"https://feeds.feedburner.com/ndtvnews-top-stories","category":"Азија"},{"name":"Economic Times","url":"https://economictimes.indiatimes.com/rssfeedsdefault.cms","category":"Азија"},{"name":"Dawn Pakistan","url":"https://www.dawn.com/feeds/home","category":"Азија"},{"name":"Express Tribune","url":"https://tribune.com.pk/rss/","category":"Азија"},{"name":"Daily Star BD","url":"https://www.thedailystar.net/rss.xml","category":"Азија"},{"name":"Jakarta Post","url":"https://www.thejakartapost.com/rss","category":"Азија"},{"name":"Bangkok Post","url":"https://www.bangkokpost.com/rss","category":"Азија"},{"name":"Straits Times","url":"https://www.straitstimes.com/news/rss.xml","category":"Азија"},{"name":"Channel NewsAsia","url":"https://www.channelnewsasia.com/rss","category":"Азија"},{"name":"Bernama","url":"https://www.bernama.com/en/rss","category":"Азија"},{"name":"Philippine Star","url":"https://www.philstar.com/rss","category":"Азија"},{"name":"VnExpress","url":"https://e.vnexpress.net/rss","category":"Азија"},{"name":"Vietnam News","url":"https://vietnamnews.vn/rss/home.rss","category":"Азија"},{"name":"SCMP","url":"https://www.scmp.com/rss/","category":"Азија"},{"name":"Taipei Times","url":"https://www.taipeitimes.com/xml/index.rss","category":"Азија"},{"name":"Focus Taiwan","url":"https://focustaiwan.tw/rss/news.xml","category":"Азија"},{"name":"RFA","url":"https://www.rfa.org/english/rss","category":"Азија"},{"name":"Asia Times","url":"https://asiatimes.com/feed","category":"Азија"},{"name":"Civil.ge","url":"https://civil.ge/feed","category":"Азија"},{"name":"Armenpress","url":"https://armenpress.am/en/rss","category":"Азија"},{"name":"Azertag","url":"https://azertag.az/en/rss","category":"Азија"},{"name":"Kazinform","url":"https://www.inform.kz/en/rss","category":"Азија"},{"name":"Al Jazeera Arabic","url":"https://www.aljazeera.net/rss","category":"Блиски Исток"},{"name":"Al Arabiya","url":"https://www.alarabiya.net/rss","category":"Блиски Исток"},{"name":"The National UAE","url":"https://www.thenationalnews.com/rss","category":"Блиски Исток"},{"name":"Gulf News","url":"https://gulfnews.com/rss","category":"Блиски Исток"},{"name":"Arab News","url":"https://www.arabnews.com/rss","category":"Блиски Исток"},{"name":"SPA Saudi","url":"https://www.spa.gov.sa/en/rss","category":"Блиски Исток"},{"name":"WAM UAE","url":"https://www.wam.ae/en/rss","category":"Блиски Исток"},{"name":"Jerusalem Post","url":"https://www.jpost.com/rss","category":"Блиски Исток"},{"name":"Haaretz","url":"https://www.haaretz.com/rss","category":"Блиски Исток"},{"name":"Times of Israel","url":"https://www.timesofisrael.com/feed","category":"Блиски Исток"},{"name":"WAFA Palestine","url":"https://english.wafa.ps/rss","category":"Блиски Исток"},{"name":"IRNA Iran","url":"https://en.irna.ir/rss","category":"Блиски Исток"},{"name":"Middle East Eye","url":"https://www.middleeasteye.net/rss","category":"Блиски Исток"},{"name":"Al-Monitor","url":"https://www.al-monitor.com/rss","category":"Блиски Исток"},{"name":"Jordan Times","url":"https://jordantimes.com/rss","category":"Блиски Исток"},{"name":"SANA Syria","url":"https://sana.sy/en/feed","category":"Блиски Исток"},{"name":"Palestine Chronicle","url":"https://www.palestinechronicle.com/feed","category":"Блиски Исток"},{"name":"Hurriyet","url":"https://www.hurriyet.com.tr/rss/anasayfa","category":"Блиски Исток"},{"name":"Tehran Times","url":"https://www.tehrantimes.com/rss","category":"Блиски Исток"},{"name":"Ahram Online","url":"https://english.ahram.org.eg/rss","category":"Африка"},{"name":"Morocco World News","url":"https://www.moroccoworldnews.com/feed","category":"Африка"},{"name":"Daily Nation Kenya","url":"https://nation.africa/kenya/rss","category":"Африка"},{"name":"News24 SA","url":"https://feeds.24.com/articles/news24/TopStories/rss","category":"Африка"},{"name":"Mail Guardian","url":"https://mg.co.za/rss","category":"Африка"},{"name":"Vanguard Nigeria","url":"https://www.vanguardngr.com/feed","category":"Африка"},{"name":"Premium Times","url":"https://www.premiumtimesng.com/feed","category":"Африка"},{"name":"Punch Nigeria","url":"https://punchng.com/feed/","category":"Африка"},{"name":"AllAfrica","url":"https://allafrica.com/tools/headlines/rdf/latest/headlines.rdf","category":"Африка"},{"name":"Africanews","url":"https://www.africanews.com/feed","category":"Африка"},{"name":"The Africa Report","url":"https://www.theafricareport.com/feed/","category":"Африка"},{"name":"New Vision Uganda","url":"https://www.newvision.co.ug/rss","category":"Африка"},{"name":"New Times Rwanda","url":"https://www.newtimes.co.rw/rss","category":"Африка"},{"name":"Addis Standard","url":"https://addisstandard.com/feed/","category":"Африка"},{"name":"SABC News","url":"https://www.sabcnews.com/sabcnews/feed/","category":"Африка"},{"name":"TimesLIVE SA","url":"https://www.timeslive.co.za/rss/","category":"Африка"},{"name":"Graphic Ghana","url":"https://www.graphic.com.gh/rss","category":"Африка"},{"name":"ABC Australia","url":"https://www.abc.net.au/news/feed/51120/rss.xml","category":"Океанија"},{"name":"SBS Australia","url":"https://www.sbs.com.au/news/feed","category":"Океанија"},{"name":"Sydney Morning Herald","url":"https://www.smh.com.au/rss/feed.xml","category":"Океанија"},{"name":"RNZ NZ","url":"https://www.rnz.co.nz/rss","category":"Океанија"},{"name":"NZ Herald","url":"https://www.nzherald.co.nz/arc/outboundfeeds/rss","category":"Океанија"},{"name":"Fiji Times","url":"https://www.fijitimes.com/feed","category":"Океанија"},{"name":"Post-Courier PNG","url":"https://postcourier.com.pg/feed","category":"Океанија"},{"name":"RNZ Pacific","url":"https://www.rnz.co.nz/international/feed","category":"Океанија"},{"name":"NYT","url":"https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml","category":"Северна Америка"},{"name":"Washington Post","url":"https://feeds.washingtonpost.com/rss/world","category":"Северна Америка"},{"name":"WSJ","url":"https://feeds.a.dj.com/rss/RSSWorldNews.xml","category":"Северна Америка"},{"name":"CNN","url":"http://rss.cnn.com/rss/edition.rss","category":"Северна Америка"},{"name":"NBC News","url":"https://www.nbcnews.com/feed","category":"Северна Америка"},{"name":"ABC News US","url":"https://abcnews.go.com/abcnews/topstories","category":"Северна Америка"},{"name":"CBS News","url":"https://www.cbsnews.com/latest/rss/main","category":"Северна Америка"},{"name":"Fox News","url":"https://moxie.foxnews.com/google-publisher/latest.xml","category":"Северна Америка"},{"name":"NPR","url":"https://feeds.npr.org/1001/rss.xml","category":"Северна Америка"},{"name":"PBS NewsHour","url":"https://www.pbs.org/newshour/feeds/rss/headlines","category":"Северна Америка"},{"name":"VOA","url":"https://www.voanews.com/api/zr$oveqyt","category":"Северна Америка"},{"name":"Politico","url":"https://www.politico.com/rss/politics08.xml","category":"Северна Америка"},{"name":"The Hill","url":"https://thehill.com/feed","category":"Северна Америка"},{"name":"TIME","url":"https://time.com/feed","category":"Северна Америка"},{"name":"Newsweek","url":"https://www.newsweek.com/rss","category":"Северна Америка"},{"name":"The Atlantic","url":"https://www.theatlantic.com/feed/all","category":"Северна Америка"},{"name":"Forbes","url":"https://www.forbes.com/real-time/feed2","category":"Северна Америка"},{"name":"CNBC","url":"https://www.cnbc.com/id/100003114/device/rss/rss.html","category":"Северна Америка"},{"name":"CBC","url":"https://www.cbc.ca/cmlink/rss-topstories","category":"Северна Америка"},{"name":"Globe Mail","url":"https://www.theglobeandmail.com/arc/outboundfeeds/rss","category":"Северна Америка"},{"name":"CTV News","url":"https://www.ctvnews.ca/rss/world","category":"Северна Америка"},{"name":"Globo Brazil","url":"https://g1.globo.com/rss/g1","category":"Јужна Америка"},{"name":"Folha SP","url":"https://feeds.folha.uol.com.br/folha/cotidiano/rss091.xml","category":"Јужна Америка"},{"name":"Clarín","url":"https://www.clarin.com/rss","category":"Јужна Америка"},{"name":"La Nación ARG","url":"https://www.lanacion.com.ar/arcio/rss","category":"Јужна Америка"},{"name":"Infobae","url":"https://www.infobae.com/feeds/rss/","category":"Јужна Америка"},{"name":"El Tiempo COL","url":"https://www.eltiempo.com/rss","category":"Јужна Америка"},{"name":"La Tercera Chile","url":"https://www.latercera.com/feed/","category":"Јужна Америка"},{"name":"El Universal MX","url":"https://www.eluniversal.com.mx/rss","category":"Централна Америка"},{"name":"La Nación CR","url":"https://www.nacion.com/rss","category":"Централна Америка"},{"name":"Prensa Libre GU","url":"https://www.prensalibre.com/feed","category":"Централна Америка"},{"name":"Foreign Affairs","url":"https://www.foreignaffairs.com/feed","category":"Дипломатија"},{"name":"The Diplomat","url":"https://thediplomat.com/feed","category":"Дипломатија"},{"name":"Foreign Policy","url":"https://foreignpolicy.com/feed","category":"Дипломатија"},{"name":"Carnegie","url":"https://carnegieendowment.org/feed.xml","category":"Think Tank"},{"name":"Brookings","url":"https://www.brookings.edu/feed/","category":"Think Tank"},{"name":"RAND","url":"https://www.rand.org/rss.xml","category":"Think Tank"},{"name":"CFR","url":"https://www.cfr.org/feeds/rss/experts","category":"Think Tank"},{"name":"CSIS","url":"https://www.csis.org/feed","category":"Think Tank"},{"name":"Atlantic Council","url":"https://www.atlanticcouncil.org/feed/","category":"Think Tank"},{"name":"Chatham House","url":"https://www.chathamhouse.org/feed","category":"Think Tank"},{"name":"IISS","url":"https://www.iiss.org/rss/","category":"Think Tank"},{"name":"SIPRI","url":"https://www.sipri.org/rss.xml","category":"Think Tank"},{"name":"Crisis Group","url":"https://www.crisisgroup.org/rss.xml","category":"Think Tank"},{"name":"Wilson Center","url":"https://www.wilsoncenter.org/rss.xml","category":"Think Tank"},{"name":"Heritage","url":"https://www.heritage.org/rss.xml","category":"Think Tank"},{"name":"Cato","url":"https://www.cato.org/rss","category":"Think Tank"},{"name":"ECFR","url":"https://ecfr.eu/rss/","category":"Think Tank"},{"name":"German Marshall Fund","url":"https://www.gmfus.org/rss.xml","category":"Think Tank"},{"name":"France MFA","url":"https://www.diplomatie.gouv.fr/en/backend-fd.php3","category":"Министерства"},{"name":"Germany MFA","url":"https://www.auswaertiges-amt.de/en/newsroom/newsletter/rss","category":"Министерства"},{"name":"UK FCDO","url":"https://blogs.fcdo.gov.uk/feed","category":"Министерства"},{"name":"Italy MFA","url":"https://www.esteri.it/en/rss/","category":"Министерства"},{"name":"USA State Dept","url":"https://www.state.gov/rss-feed/","category":"Министерства"},{"name":"China MFA","url":"https://www.fmprc.gov.cn/mfa_eng/rss","category":"Министерства"},{"name":"Japan MOFA","url":"https://www.mofa.go.jp/rss","category":"Министерства"},{"name":"Russia MFA","url":"https://www.mid.ru/en/rss/","category":"Министерства"},{"name":"Ukraine MFA","url":"https://mfa.gov.ua/en/rss","category":"Министерства"},{"name":"India MEA","url":"https://www.mea.gov.in/rss-feeds.htm","category":"Министерства"},{"name":"Canada Global Affairs","url":"https://www.international.gc.ca/global-affairs-affaires-mondiales/rss/rss-en.xml","category":"Министерства"},{"name":"Brazil Itamaraty","url":"https://www.gov.br/mre/rss","category":"Министерства"},{"name":"Australia DFAT","url":"https://www.dfat.gov.au/rss/news-and-media.xml","category":"Министерства"},{"name":"South Korea MOFA","url":"https://www.mofa.go.kr/eng/rss/index.do","category":"Министерства"},{"name":"Netherlands MFA","url":"https://www.government.nl/ministries/ministry-of-foreign-affairs/rss","category":"Министерства"},{"name":"Sweden MFA","url":"https://www.government.se/rss/","category":"Министерства"},{"name":"Poland MFA","url":"https://www.gov.pl/web/diplomacy/rss","category":"Министерства"},{"name":"Turkey MFA","url":"https://www.mfa.gov.tr/rss/en-US/rss.xml","category":"Министерства"},{"name":"Saudi MFA","url":"https://www.mofa.gov.sa/rss/","category":"Министерства"},{"name":"Egypt MFA","url":"https://www.mfa.gov.eg/English/Pages/rss.aspx","category":"Министерства"},{"name":"South Africa DIRCO","url":"https://www.dirco.gov.za/rss/","category":"Министерства"},{"name":"TechCrunch","url":"https://techcrunch.com/feed","category":"Технологија"},{"name":"The Verge","url":"https://www.theverge.com/rss/index.xml","category":"Технологија"},{"name":"Wired","url":"https://www.wired.com/feed/rss","category":"Технологија"},{"name":"Ars Technica","url":"https://arstechnica.com/feed","category":"Технологија"},{"name":"VentureBeat","url":"https://venturebeat.com/feed","category":"Технологија"},{"name":"MIT Tech Review","url":"https://www.technologyreview.com/feed","category":"Технологија"},{"name":"IEEE Spectrum","url":"https://spectrum.ieee.org/rss/feed.xml","category":"Технологија"},{"name":"Gizmodo","url":"https://gizmodo.com/rss","category":"Технологија"},{"name":"Engadget","url":"https://www.engadget.com/rss.xml","category":"Технологија"},{"name":"CNET","url":"https://www.cnet.com/rss/all","category":"Технологија"},{"name":"ZDNet","url":"https://www.zdnet.com/news/rss.xml","category":"Технологија"},{"name":"Hacker News","url":"https://hnrss.org/frontpage","category":"Технологија"},{"name":"The Register","url":"https://www.theregister.com/headlines.atom","category":"Технологија"},{"name":"9to5Mac","url":"https://9to5mac.com/feed","category":"Технологија"},{"name":"9to5Google","url":"https://9to5google.com/feed","category":"Технологија"},{"name":"Android Police","url":"https://www.androidpolice.com/feed","category":"Технологија"},{"name":"GitHub Blog","url":"https://github.blog/feed","category":"Технологија"},{"name":"Slashdot","url":"https://rss.slashdot.org/Slashdot/slashdot","category":"Технологија"},{"name":"OpenAI","url":"https://openai.com/rss","category":"AI"},{"name":"Anthropic","url":"https://www.anthropic.com/rss","category":"AI"},{"name":"Google DeepMind","url":"https://deepmind.google/rss","category":"AI"},{"name":"Meta AI","url":"https://ai.meta.com/rss","category":"AI"},{"name":"Hugging Face","url":"https://huggingface.co/rss","category":"AI"},{"name":"Mistral AI","url":"https://mistral.ai/rss","category":"AI"},{"name":"NASA","url":"https://www.nasa.gov/rss/dyn/breaking_news.rss","category":"Наука"},{"name":"ESA","url":"https://www.esa.int/rssfeed/Our_Activities/Space_Science","category":"Наука"},{"name":"Nature","url":"https://www.nature.com/nature.rss","category":"Наука"},{"name":"Science Mag","url":"https://www.science.org/rss/news_current.xml","category":"Наука"},{"name":"Scientific American","url":"https://www.scientificamerican.com/feed/rss","category":"Наука"},{"name":"New Scientist","url":"https://www.newscientist.com/feed/home","category":"Наука"},{"name":"ScienceDaily","url":"https://www.sciencedaily.com/rss/all.xml","category":"Наука"},{"name":"CERN","url":"https://home.cern/rss.xml","category":"Наука"},{"name":"National Geographic","url":"https://www.nationalgeographic.com/rss","category":"Наука"},{"name":"Live Science","url":"https://www.livescience.com/rss","category":"Наука"},{"name":"Bloomberg","url":"https://www.bloomberg.com/feed/podcast/bloomberg-news-now","category":"Економија"},{"name":"Economist","url":"https://www.economist.com/rss","category":"Економија"},{"name":"IMF","url":"https://www.imf.org/en/News/rss","category":"Економија"},{"name":"World Bank","url":"https://www.worldbank.org/en/news/rss","category":"Економија"},{"name":"WEF","url":"https://www.weforum.org/rss","category":"Економија"},{"name":"OECD","url":"https://www.oecd.org/rss","category":"Економија"},{"name":"ECB","url":"https://www.ecb.europa.eu/rss","category":"Економија"},{"name":"Federal Reserve","url":"https://www.federalreserve.gov/feeds/press_all.xml","category":"Економија"},{"name":"HRW","url":"https://www.hrw.org/rss","category":"НВО"},{"name":"Amnesty","url":"https://www.amnesty.org/en/rss/","category":"НВО"},{"name":"RSF","url":"https://rsf.org/en/rss","category":"НВО"},{"name":"Transparency","url":"https://www.transparency.org/en/rss","category":"НВО"},{"name":"ICRC","url":"https://www.icrc.org/en/rss","category":"НВО"},{"name":"MSF","url":"https://www.msf.org/rss","category":"НВО"},{"name":"Oxfam","url":"https://www.oxfam.org/en/rss","category":"НВО"},{"name":"Greenpeace","url":"https://www.greenpeace.org/international/feed/","category":"Екологија"},{"name":"WWF","url":"https://www.worldwildlife.org/rss","category":"Екологија"},{"name":"UNFCCC","url":"https://unfccc.int/rss","category":"Екологија"},{"name":"Carbon Brief","url":"https://www.carbonbrief.org/feed","category":"Екологија"},{"name":"Electrek","url":"https://electrek.co/feed","category":"Екологија"},{"name":"CleanTechnica","url":"https://cleantechnica.com/feed","category":"Екологија"},{"name":"Grist","url":"https://grist.org/feed","category":"Екологија"},{"name":"Yale Environment 360","url":"https://e360.yale.edu/rss","category":"Екологија"},{"name":"IRENA","url":"https://www.irena.org/rss","category":"Енергија"},{"name":"IEA","url":"https://www.iea.org/rss","category":"Енергија"},{"name":"OPEC","url":"https://www.opec.org/rss","category":"Енергија"},{"name":"EIA","url":"https://www.eia.gov/rss","category":"Енергија"},{"name":"Harvard","url":"https://www.harvard.edu/feeds/rss","category":"Универзитети"},{"name":"MIT Uni","url":"https://www.mit.edu/rss","category":"Универзитети"},{"name":"Stanford","url":"https://www.stanford.edu/feed","category":"Универзитети"},{"name":"Oxford","url":"https://www.ox.ac.uk/news/rss","category":"Универзитети"},{"name":"Cambridge","url":"https://www.cam.ac.uk/news/feed","category":"Универзитети"},{"name":"ETH Zurich","url":"https://ethz.ch/en/news-and-events/rss.xml","category":"Универзитети"},{"name":"ProPublica","url":"https://www.propublica.org/feeds/propublica/main","category":"Истражувачко"},{"name":"OCCRP","url":"https://www.occrp.org/en/feed","category":"Истражувачко"},{"name":"ICIJ","url":"https://www.icij.org/rss","category":"Истражувачко"},{"name":"The Intercept","url":"https://theintercept.com/feed","category":"Истражувачко"},{"name":"Defense One","url":"https://www.defenseone.com/rss","category":"Специјализирани"},{"name":"CoinDesk","url":"https://www.coindesk.com/arc/outboundfeeds/rss","category":"Криптовалути"},{"name":"Cointelegraph","url":"https://cointelegraph.com/feed","category":"Криптовалути"},{"name":"The Block","url":"https://www.theblock.co/rss","category":"Криптовалути"},{"name":"Decrypt","url":"https://decrypt.co/feed","category":"Криптовалути"},{"name":"Krebs on Security","url":"https://krebsonsecurity.com/feed","category":"Сајбер Безбедност"},{"name":"The Hacker News","url":"https://thehackernews.com/feeds/posts/default","category":"Сајбер Безбедност"},{"name":"BleepingComputer","url":"https://www.bleepingcomputer.com/feed","category":"Сајбер Безбедност"},{"name":"Dark Reading","url":"https://www.darkreading.com/rss.xml","category":"Сајбер Безбедност"},{"name":"OSCE","url":"https://www.osce.org/rss","category":"Безбедност"},{"name":"Interpol","url":"https://www.interpol.int/News-and-Events/RSS","category":"Безбедност"},{"name":"Europol","url":"https://www.europol.europa.eu/rss","category":"Безбедност"},{"name":"ESPN","url":"https://www.espn.com/espn/rss/news","category":"Спорт"},{"name":"BBC Sport","url":"https://feeds.bbci.co.uk/sport/rss.xml","category":"Спорт"},{"name":"Sky Sports","url":"https://www.skysports.com/rss/12040","category":"Спорт"},{"name":"FIFA","url":"https://www.fifa.com/en/rss","category":"Спорт"},{"name":"UEFA","url":"https://www.uefa.com/rss","category":"Спорт"},{"name":"IOC","url":"https://olympics.com/en/rss","category":"Спорт"},{"name":"Formula 1","url":"https://www.formula1.com/en/latest.rss","category":"Спорт"},{"name":"Variety","url":"https://variety.com/feed","category":"Забава"},{"name":"Deadline","url":"https://deadline.com/feed","category":"Забава"},{"name":"Hollywood Reporter","url":"https://www.hollywoodreporter.com/feed","category":"Забава"},{"name":"Rolling Stone","url":"https://www.rollingstone.com/feed","category":"Музика"},{"name":"Billboard","url":"https://www.billboard.com/feed","category":"Музика"},{"name":"Pitchfork","url":"https://pitchfork.com/rss","category":"Музика"},{"name":"Vatican News","url":"https://www.vaticannews.va/en.rss.xml","category":"Религија"},{"name":"African Union","url":"https://au.int/en/rss","category":"Регионални Орг."},{"name":"ASEAN","url":"https://asean.org/feed/","category":"Регионални Орг."},{"name":"Council of Europe","url":"https://www.coe.int/en/web/portal/rss","category":"Регионални Орг."},{"name":"Commonwealth","url":"https://thecommonwealth.org/feed","category":"Глобални Орг."},{"name":"Nordic Council","url":"https://www.norden.org/en/rss","category":"Глобални Орг."},{"name":"US Embassy Skopje","url":"https://mk.usembassy.gov/feed/","category":"Амбасади"},{"name":"UK Embassy Skopje","url":"https://www.gov.uk/government/world/north-macedonia/rss","category":"Амбасади"},{"name":"French Embassy Skopje","url":"https://mk.ambafrance.org/rss/","category":"Амбасади"},{"name":"German Embassy Skopje","url":"https://skopje.diplo.de/mk-de/rss/","category":"Амбасади"},{"name":"EU Delegation Skopje","url":"https://www.eeas.europa.eu/delegations/north-macedonia/rss_en","category":"Амбасади"},{"name":"EU Delegation Belgrade","url":"https://www.eeas.europa.eu/delegations/serbia/rss_en","category":"Амбасади"},{"name":"US Embassy Belgrade","url":"https://rs.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Zagreb","url":"https://hr.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Athens","url":"https://gr.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy London","url":"https://uk.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Paris","url":"https://fr.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Berlin","url":"https://de.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Moscow","url":"https://ru.usembassy.gov/feed/","category":"Амбасади"},{"name":"US Embassy Beijing","url":"https://china.usembassy-china.org.cn/feed/","category":"Амбасади"},{"name":"US Embassy Tokyo","url":"https://jp.usembassy.gov/feed/","category":"Амбасади"},{"name":"Pfizer","url":"https://www.pfizer.com/news/rss","category":"Фармација"},{"name":"Moderna","url":"https://investors.modernatx.com/rss","category":"Фармација"},{"name":"AstraZeneca","url":"https://www.astrazeneca.com/rss","category":"Фармација"},{"name":"The Conversation","url":"https://theconversation.com/articles.atom","category":"Специјализирани"},{"name":"WTO","url":"https://www.wto.org/english/news_e/rss_f.htm","category":"Трговија"},{"name":"InsideEVs","url":"https://insideevs.com/rss","category":"Екологија"},{"name":"IGN","url":"https://www.ign.com/articles/feed","category":"Гејминг"},{"name":"GameSpot","url":"https://www.gamespot.com/feeds/rss","category":"Гејминг"},{"name":"Polygon","url":"https://www.polygon.com/rss/index.xml","category":"Гејминг"},{"name":"PlayStation Blog","url":"https://blog.playstation.com/feed","category":"Гејминг"},{"name":"Xbox Wire","url":"https://news.xbox.com/feed","category":"Гејминг"},{"name":"Spotify Newsroom","url":"https://newsroom.spotify.com/feed","category":"Музика"},{"name":"Lonely Planet","url":"https://www.lonelyplanet.com/rss","category":"Патување"},{"name":"WebMD","url":"https://www.webmd.com/rss/rss.aspx?RSSSource=RSS_PUBLIC","category":"Здравје"},{"name":"Healthline","url":"https://www.healthline.com/rss","category":"Здравје"}];
+
+// ============================================================
+// 5-СЛОЕН PROXY СИСТЕМ
+// ============================================================
+const PROXY = [
+  u => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(u) + '&count=15',
+  u => 'https://api.allorigins.win/get?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?' + encodeURIComponent(u),
+  u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+  u => 'https://thingproxy.freeboard.io/fetch/' + u,
+];
+
+// ============================================================
+// СОСТОЈБА
+// ============================================================
+let allArt=[], filtered=[], shown=0;
+const PG=30;
+let curCat='ALL', curSort='date', q='';
+let loadedN=0;
+const TOTAL=ALL_FEEDS.length;
+let catCnt={};
+
+// ============================================================
+// ПОМОШНИ ФУНКЦИИ
+// ============================================================
+function ago(ds){
+  if(!ds)return'';
+  const d=new Date(ds);if(isNaN(d))return'';
+  const s=(Date.now()-d)/1000;
+  if(s<60)return'Само сега';
+  if(s<3600)return'пред '+Math.floor(s/60)+' мин';
+  if(s<86400)return'пред '+Math.floor(s/3600)+' ч';
+  if(s<172800)return'Вчера';
+  return d.toLocaleDateString('mk-MK',{day:'2-digit',month:'2-digit',year:'2-digit'});
+}
+
+function strip(h){
+  if(!h)return'';
+  const d=document.createElement('div');d.innerHTML=h;return d.textContent||'';
+}
+
+function getImg(item){
+  if(item.thumbnail&&/^https?/.test(item.thumbnail))return item.thumbnail;
+  if(item.enclosure){
+    const u=item.enclosure.link||item.enclosure.url||'';
+    if(/\.(jpg|jpeg|png|gif|webp)/i.test(u))return u;
+  }
+  const c=item.content||item.description||'';
+  const m=c.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if(m&&/^https?/.test(m[1]))return m[1];
+  return null;
+}
+
+function flag(cat){
+  const m={
+    'Македонија':'🇲🇰','Балкан':'🗺️','Европа':'🇪🇺','Источна Европа':'🌍',
+    'Северна Европа':'🇸🇪','Балтик':'🇪🇪','Свет':'🌍','Азија':'🌏',
+    'Блиски Исток':'🌙','Африка':'🌍','Океанија':'🌊','Северна Америка':'🇺🇸',
+    'Централна Америка':'🌎','Јужна Америка':'🌎','ОН':'🏛️','НАТО':'🛡️',
+    'ЕУ':'🇪🇺','ЕУ Политика':'🏛️','Министерства':'🏛️','Амбасади':'🤝',
+    'Think Tank':'🧠','Дипломатија':'🤝','Безбедност':'🔒','Сајбер Безбедност':'💻',
+    'Технологија':'💻','AI':'🤖','Наука':'🔬','Екологија':'🌿','Енергија':'⚡',
+    'Економија':'💰','НВО':'✊','Истражувачко':'🔍','Универзитети':'🎓',
+    'Спорт':'⚽','Забава':'🎬','Музика':'🎵','Гејминг':'🎮','Религија':'✝️',
+    'Криптовалути':'🪙','Здравје':'❤️','Фармација':'💊','Специјализирани':'📰',
+    'Трговија':'📦','Регионални Орг.':'🌐','Глобални Орг.':'🌐','Патување':'✈️',
+    'Аналитика':'🔍','Култура':'🎭',
+  };
+  return m[cat]||'📰';
+}
+
+// ============================================================
+// FETCH FEED — 5 PROXY СЛОЕВИ
+// ============================================================
+async function fetchFeed(feed){
+  const tm=ms=>new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms));
+
+  // Слој 1: rss2json
+  try{
+    const r=await Promise.race([fetch(PROXY[0](feed.url)),tm(9000)]);
+    if(r.ok){const d=await r.json();if(d.status==='ok'&&d.items?.length)return parseJ(d,feed);}
+  }catch(e){}
+
+  // Слој 2: allorigins
+  try{
+    const r=await Promise.race([fetch(PROXY[1](feed.url)),tm(8000)]);
+    if(r.ok){const d=await r.json();if(d.contents)return parseX(d.contents,feed);}
+  }catch(e){}
+
+  // Слој 3: corsproxy.io
+  try{
+    const r=await Promise.race([fetch(PROXY[2](feed.url)),tm(7000)]);
+    if(r.ok)return parseX(await r.text(),feed);
+  }catch(e){}
+
+  // Слој 4: codetabs
+  try{
+    const r=await Promise.race([fetch(PROXY[3](feed.url)),tm(7000)]);
+    if(r.ok)return parseX(await r.text(),feed);
+  }catch(e){}
+
+  // Слој 5: thingproxy
+  try{
+    const r=await Promise.race([fetch(PROXY[4](feed.url)),tm(7000)]);
+    if(r.ok)return parseX(await r.text(),feed);
+  }catch(e){}
+
+  return[];
+}
+
+function parseJ(data,feed){
+  return(data.items||[]).slice(0,12).map(item=>({
+    title:strip(item.title||'').trim(),
+    url:item.link||item.guid||'',
+    description:strip(item.description||item.content||'').slice(0,350),
+    date:item.pubDate||item.published||'',
+    image:getImg(item),
+    source:feed.name,
+    category:feed.category,
+    flag:flag(feed.category)
+  })).filter(a=>a.title);
+}
+
+function parseX(xml,feed){
+  try{
+    const doc=new DOMParser().parseFromString(xml,'text/xml');
+    const items=[...doc.querySelectorAll('item,entry')].slice(0,12);
+    return items.map(el=>{
+      const title=strip(el.querySelector('title')?.textContent||'').trim();
+      if(!title)return null;
+      const link=el.querySelector('link')?.textContent?.trim()||
+                 el.querySelector('link')?.getAttribute('href')||'';
+      const rawDesc=el.querySelector('description,summary,content')?.innerHTML||
+                    el.querySelector('description,summary,content')?.textContent||'';
+      const desc=strip(rawDesc).slice(0,350);
+      const date=el.querySelector('pubDate,published,updated')?.textContent?.trim()||'';
+      const encUrl=el.querySelector('enclosure')?.getAttribute('url')||'';
+      const mediaUrl=el.querySelector('[url]')?.getAttribute('url')||'';
+      let image=encUrl&&/\.(jpg|jpeg|png|gif|webp)/i.test(encUrl)?encUrl:
+                mediaUrl&&/\.(jpg|jpeg|png|gif|webp)/i.test(mediaUrl)?mediaUrl:null;
+      if(!image){const m=rawDesc.match(/<img[^>]+src=["']([^"']+)["']/i);if(m&&/^https?/.test(m[1]))image=m[1];}
+      return{title,url:link,description:desc,date,image,source:feed.name,category:feed.category,flag:flag(feed.category)};
+    }).filter(Boolean);
+  }catch(e){return[];}
+}
+
+// ============================================================
+// ИЗГРАДИ КАТЕГОРИСКИ ТАБОВИ
+// ============================================================
+function buildTabs(){
+  const priority=['Македонија','Балкан','Европа','Свет','Азија','Блиски Исток','Африка','Океанија','Северна Америка','Јужна Америка','Централна Америка','ОН','НАТО','ЕУ','Министерства','Амбасади','Think Tank','Дипломатија'];
+  const allCats=[...new Set(ALL_FEEDS.map(f=>f.category))];
+  const sorted=[...priority.filter(c=>allCats.includes(c)),...allCats.filter(c=>!priority.includes(c)).sort((a,b)=>a.localeCompare(b,'mk'))];
+  const tabs=document.getElementById('catTabs');
+  sorted.forEach(cat=>{
+    const sid=cat.replace(/[^\w]/g,'_');
+    const t=document.createElement('div');
+    t.className='cat-tab';t.id='tab-'+sid;
+    t.innerHTML=flag(cat)+' '+cat+' <span class="cat-count" id="cnt-'+sid+'">0</span>';
+    t.onclick=()=>filterCat(cat);
+    tabs.appendChild(t);
+  });
+}
+
+// ============================================================
+// СКЕЛЕТОНИ
+// ============================================================
+function showSkel(n){
+  document.getElementById('newsGrid').innerHTML=Array(n).fill(
+    '<div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-body">'+
+    '<div class="skel-l skeleton" style="width:55%"></div>'+
+    '<div class="skel-l skeleton" style="width:80%"></div>'+
+    '<div class="skel-l skeleton" style="width:45%"></div></div></div>'
+  ).join('');
+}
+
+// ============================================================
+// РЕНДЕР
+// ============================================================
+function render(){
+  let arts=[...allArt];
+  if(curCat!=='ALL')arts=arts.filter(a=>a.category===curCat);
+  if(q){const lq=q.toLowerCase();arts=arts.filter(a=>a.title.toLowerCase().includes(lq)||a.source.toLowerCase().includes(lq));}
+  if(curSort==='date'){arts.sort((a,b)=>{const da=a.date?new Date(a.date):new Date(0),db=b.date?new Date(b.date):new Date(0);return db-da;});}
+  else{arts.sort((a,b)=>a.source.localeCompare(b.source));}
+  filtered=arts;shown=0;
+  document.getElementById('newsGrid').innerHTML='';
+  document.getElementById('cardCount').textContent=arts.length+' вести';
+  appendCards(PG);
+}
+
+function appendCards(n){
+  const grid=document.getElementById('newsGrid');
+  const frag=document.createDocumentFragment();
+  filtered.slice(shown,shown+n).forEach(art=>{
+    const c=document.createElement('div');
+    c.className='card';
+    c.onclick=()=>openModal(art);
+    const imgHtml=art.image
+      ?'<img class="card-img" src="'+art.image+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
+      :'<div class="card-img-ph">'+art.flag+'</div>';
+    const dt=art.date?new Date(art.date).toLocaleDateString('mk-MK',{day:'2-digit',month:'2-digit'}):'';
+    c.innerHTML=imgHtml+'<div class="card-body">'+
+      '<div class="card-meta">'+
+        '<span class="card-src" title="'+art.source+'">'+art.source+'</span>'+
+        '<span class="card-cat">'+art.category+'</span>'+
+        '<span class="card-time">'+ago(art.date)+'</span>'+
+      '</div>'+
+      '<div class="card-title">'+art.title+'</div>'+
+      '<div class="card-footer"><span>'+art.flag+'</span><span>'+dt+'</span></div>'+
+    '</div>';
+    frag.appendChild(c);
+  });
+  grid.appendChild(frag);shown+=n;
+  document.getElementById('loadMoreBtn').style.display=shown<filtered.length?'block':'none';
+}
+
+// ============================================================
+// ВЧИТАЈ СИ ФИДОВИ — ВИСТИНСКИ RSS, БЕЗ AI/API КЛУЧ
+// ============================================================
+async function reloadFeeds(){
+  allArt=[];loadedN=0;catCnt={};
+  document.getElementById('statArt').textContent='0';
+  document.getElementById('statLoaded').textContent='0';
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('loadStatus').textContent='🔄 Вчитувам '+TOTAL+' RSS извори...';
+  showSkel(24);
+
+  const BATCH=10;
+  for(let i=0;i<ALL_FEEDS.length;i+=BATCH){
+    const batch=ALL_FEEDS.slice(i,i+BATCH);
+    const res=await Promise.allSettled(batch.map(f=>fetchFeed(f)));
+    res.forEach(r=>{
+      if(r.status==='fulfilled'&&r.value.length){
+        allArt.push(...r.value);
+        r.value.forEach(a=>{catCnt[a.category]=(catCnt[a.category]||0)+1;});
+      }
+    });
+    loadedN+=batch.length;
+    const pct=Math.round(loadedN/TOTAL*100);
+    document.getElementById('progressFill').style.width=pct+'%';
+    document.getElementById('statLoaded').textContent=loadedN;
+    document.getElementById('loadStatus').textContent='🔄 '+loadedN+'/'+TOTAL+' ('+pct+'%)';
+    document.getElementById('statArt').textContent=allArt.length;
+    // Прогресивен приказ на секои 3 batch-а
+    if(i>0&&(i%(BATCH*3)===0)){render();updateBadges();}
+  }
+  render();updateBadges();
+  document.getElementById('loadStatus').textContent='✅ Готово — '+allArt.length+' вести';
+  document.getElementById('lastUpdate').textContent='Ажур: '+new Date().toLocaleTimeString('mk-MK');
+}
+
+function updateBadges(){
+  document.getElementById('cnt-ALL').textContent=allArt.length;
+  Object.entries(catCnt).forEach(([cat,n])=>{
+    const el=document.getElementById('cnt-'+cat.replace(/[^\w]/g,'_'));
+    if(el)el.textContent=n;
+  });
+}
+
+// ============================================================
+// КОНТРОЛИ
+// ============================================================
+window.filterCat=function(cat){
+  curCat=cat;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  (document.getElementById(cat==='ALL'?'tab-ALL':'tab-'+cat.replace(/[^\w]/g,'_')))?.classList.add('active');
+  render();
+};
+window.setSort=function(s){
+  curSort=s;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+s)?.classList.add('active');
+  render();
+};
+window.loadMore=function(){appendCards(PG);};
+window.openModal=function(art){
+  document.getElementById('modalImg').src=art.image||'';
+  document.getElementById('modalTitle').textContent=art.title;
+  document.getElementById('modalDesc').textContent=art.description||'Нема опис.';
+  document.getElementById('modalLink').href=art.url;
+  document.getElementById('modalMeta').innerHTML=
+    '<div><span class="mml">📢 Извор:</span> <span class="mmv">'+art.source+'</span></div>'+
+    '<div><span class="mml">📂 Тип:</span> <span class="mmv">'+art.category+'</span></div>'+
+    '<div><span class="mml">🌍 Регион:</span> <span class="mmv">'+art.flag+'</span></div>'+
+    '<div><span class="mml">📅 Датум:</span> <span class="mmv">'+(art.date?new Date(art.date).toLocaleDateString('mk-MK',{day:'2-digit',month:'long',year:'numeric'}):'-')+'</span></div>';
+  document.getElementById('modal').style.display='block';
+};
+window.closeModal=function(){document.getElementById('modal').style.display='none';};
+window.toggleTheme=function(){
+  document.body.classList.toggle('light');
+  localStorage.setItem('mwn-t',document.body.classList.contains('light')?'light':'dark');
+};
+window.reloadFeeds=reloadFeeds;
+
+document.getElementById('searchBox').addEventListener('input',function(){q=this.value.trim();render();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='/'&&document.activeElement.id!=='searchBox'){e.preventDefault();document.getElementById('searchBox').focus();}
+  if(e.key==='Escape')closeModal();
+});
+
+// ŠTITNIK v3.0
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(e.key==='F12'||(e.ctrlKey&&['u','s'].includes(e.key.toLowerCase())))e.preventDefault();
+});
+console.log('%c🐉 Makedon World News | ŠTITNIK v3.0 | makedonworldnews@gmail.com','color:#d4af37;font-weight:bold;font-size:13px;background:#0a0e1a;padding:6px 12px');
+
+// ИНИЦИЈАЛИЗАЦИЈА
+if(localStorage.getItem('mwn-t')==='light')document.body.classList.add('light');
+buildTabs();
+document.getElementById('tab-ALL')?.classList.add('active');
+reloadFeeds();
+setInterval(reloadFeeds,20*60*1000);
+</script>
+</body>
+</html>
