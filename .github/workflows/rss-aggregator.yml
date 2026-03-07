@@ -2,50 +2,103 @@ name: RSS Aggregator
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Секои 6 часа
-  workflow_dispatch:       # Рачно пуштање
-
-permissions:
-  contents: write
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
-  build:
+  fetch:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout код
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Важно за git pull --rebase
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Инсталирај зависимости
-        run: npm install
-
-      - name: Изврши ја скриптата за RSS
-        run: npm run fetch
-
-      - name: Конфигурирај Git
+      - name: Run RSS fetcher
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const https = require('https');
+          const http = require('http');
 
-      - name: Commit и Push промени
+          const ALL_FEEDS = JSON.parse(fs.readFileSync('feeds.json','utf8'));
+          const SKIP = new Set(['NFT','Е-трговија','Мода','Подкасти','Патување','Храна','Книги','Дизајн','Уметност','Магазин','Забава','Гејминг','Музика','Карипи']);
+          const feeds = ALL_FEEDS.filter(f=>!SKIP.has(f.category));
+          console.log('Feeds to fetch:', feeds.length);
+
+          function fetchUrl(url) {
+            return new Promise((resolve) => {
+              const mod = url.startsWith('https') ? https : http;
+              const req = mod.get(url, {
+                timeout: 10000,
+                headers: {'User-Agent':'Mozilla/5.0 RSS Reader'}
+              }, (res) => {
+                if (res.statusCode !== 200) { resolve(''); return; }
+                let data = '';
+                res.on('data', d => data += d);
+                res.on('end', () => resolve(data));
+              });
+              req.on('error', () => resolve(''));
+              req.on('timeout', () => { req.destroy(); resolve(''); });
+            });
+          }
+
+          function parseXML(xml, feed) {
+            const res = [];
+            const re = /<item[\s>]([\s\S]*?)<\/item>|<entry[\s>]([\s\S]*?)<\/entry>/gi;
+            let m, n = 0;
+            while ((m = re.exec(xml)) && n < 8) {
+              const b = m[1] || m[2];
+              const title = (b.match(/<title[^>]*>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/i)||[])[1]?.trim();
+              if (!title) continue;
+              const link = (b.match(/<link[^>]*>([^<]+)<\/link>/i)||b.match(/<link[^>]+href=[\"']([^\"']+)[\"']/i)||[])[1]?.trim();
+              const desc = ((b.match(/<description[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i)||b.match(/<summary[^>]*>([\s\S]*?)<\/summary>/i)||[])[1]||'').replace(/<[^>]+>/g,'').trim().slice(0,300);
+              const pubDate = (b.match(/<pubDate[^>]*>(.*?)<\/pubDate>/i)||b.match(/<published[^>]*>(.*?)<\/published>/i)||b.match(/<updated[^>]*>(.*?)<\/updated>/i)||[])[1]?.trim();
+              const imgM = b.match(/url=[\"']([^\"']+\.(?:jpg|jpeg|png|gif|webp))/i)||b.match(/<img[^>]+src=[\"']([^\"']+)[\"']/i);
+              res.push({
+                title: title.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'\"').replace(/&#39;/g,\"'\"),
+                link: link||'', contentSnippet: desc, pubDate: pubDate||'',
+                image: imgM?imgM[1]:null, source: feed.name, category: feed.category
+              });
+              n++;
+            }
+            return res;
+          }
+
+          async function main() {
+            const all = [];
+            let ok = 0, fail = 0;
+            for (let i = 0; i < feeds.length; i++) {
+              const feed = feeds[i];
+              try {
+                const xml = await fetchUrl(feed.url);
+                const items = parseXML(xml, feed);
+                if (items.length) { all.push(...items); ok++; }
+                else fail++;
+              } catch(e) { fail++; }
+              if (i % 50 === 0) process.stdout.write('\r' + i + '/' + feeds.length + ' — ' + all.length + ' articles');
+            }
+            console.log('\nDone: ' + ok + ' OK, ' + fail + ' fail, ' + all.length + ' total');
+            all.sort((a,b) => { const da=a.pubDate?new Date(a.pubDate):new Date(0),db=b.pubDate?new Date(b.pubDate):new Date(0); return db-da; });
+            if (!fs.existsSync('data')) fs.mkdirSync('data');
+            fs.writeFileSync('data/feeds.json', JSON.stringify(all));
+            fs.writeFileSync('data/meta.json', JSON.stringify({updated:new Date().toISOString(),total:all.length},null,2));
+            console.log('Saved', all.length, 'articles');
+          }
+          main();
+          "
+
+      - name: Commit results
         run: |
-          git add data/feeds.json
-          
-          # Провери дали има промени за commit
-          if ! git diff --staged --quiet; then
-            # Повлечи ги најновите промени од remote
-            git pull --rebase origin main || true
-            
-            # Обиди се да commit-неш и push-неш
-            git commit -m "auto: ажурирање на вести [skip ci]" || echo "Веќе комитирано"
-            git push origin main || echo "Push неуспешен, но нема критична грешка"
-          else
-            echo "✅ Нема нови промени за зачувување."
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/feeds.json data/meta.json
+          git diff --staged --quiet || git commit -m "update feeds $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
